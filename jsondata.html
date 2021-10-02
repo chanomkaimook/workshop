@@ -7,6 +7,54 @@
     <title>JSON dataasd</title>
 </head>
 <body>
-    test
+    <div id="tutorial"></div>
 </body>
+<script>
+    let myJson = {
+        "class":"tutorial Json",
+        "articles":[
+            {
+                "name":"john",
+                "lastname":"html",
+                "age":31,
+            },
+            {
+                "name":"ronaldo",
+                "lastname":"java",
+                "age":30,
+            },
+            {
+                "name":"mactominey",
+                "lastname":"java",
+                "age":28,
+            }
+        ],         
+        
+    }
+    
+    function createNode(element) {
+        return document.createElement(element);
+    }
+    function append(parent, el) {
+        return parent.append(el);
+    }
+
+    const divElement = document.getElementById('tutorial');
+
+    fetch('data.json')
+    .then((res) => res.json())
+    .then((data) => {
+        let articles = data.articles;
+        return articles.map((articles) => {
+            let div = createNode('div');
+            let text = `${articles.name}     ${articles.lastname} age :: ${articles.age}`;
+
+            append(div,text);
+            append(divElement,div);
+        }) 
+
+        console.log(articles)
+    }) 
+
+</script>
 </html>

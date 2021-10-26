@@ -225,7 +225,7 @@ memory_limit = 256M
 max_execution_time = 60
 เมื่อแก้ไขครบให้กด save และ restart  XAMPP ใหม่ โดยการกดปุ่ม STOP / START ของ Apache อีกครั้ง
 
-$cfg['LoginCookieValidity'] = 1800; //เพิ่มเวลาอยู่ใน localhost xampp->phpmyadmin->config.inc
+$cfg['LoginCookieValidity'] = 1800; //เพิ่มเวลาอยู่ใน localhost xampp->phpmyadmin->config.inc		
 
 **********************************************************************
 htaccess
@@ -266,6 +266,11 @@ hostname' => 'localhost',
 
 config/route.php ตั้งค่า ดีฟอลเวบ
 $route['default_controller'] = 'site';
+
+**********************************************************************
+วัน เวลา ไม่ตรงกับระบบ timezone 
+-ไปที่ autoload.php
+$autoload['time_zone'] = date_default_timezone_set('Asia/Bangkok');
 
 **********************************************************************
 ปัญหาเรื่องการทำงานที่ไม่สามารถหาสาเหตุได้จริงๆ

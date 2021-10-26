@@ -1,0 +1,39 @@
+setup composer npm
+# install pre-bundled package with all features
+$ npm install --save interactjs
+
+// es6 import
+import interact from 'interactjs'
+// or if using commonjs or AMD
+const interact = require('interactjs')
+
+=============================================
+# install just the type definitions
+$ npm install --save-dev @interactjs/types
+
+=============================================
+# install only the features you need
+$ npm install --save @interactjs/interact \
+  @interactjs/auto-start \
+  @interactjs/actions \
+  @interactjs/modifiers \
+  @interactjs/dev-tools
+
+import '@interactjs/auto-start'
+import '@interactjs/actions/drag'
+import '@interactjs/actions/resize'
+import '@interactjs/modifiers'
+import '@interactjs/dev-tools'
+import interact from '@interactjs/interact'
+
+interact('.item').draggable({
+  listeners: {
+    move (event) {
+      console.log(event.pageX, event.pageY)
+    }
+  }
+})
+
+============================================
+jsDelivr CDN: <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+unpkg CDN: <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>

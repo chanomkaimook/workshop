@@ -1,0 +1,80 @@
+ตั้งค่า port กับ ip ให้ตรงกันก่อน ทั้งในไฟล์ connect กับตัว server 
+
+*** ip ที่จะใช้งานบน server ต้องเป็น ip จริงไม่ใช่ localhost ***
+
+(ถ้าจาก version ที่ใช้จะอยู่ในพาธ public\websocket กับ หน้าที่มีการเรียกใช้งาน)
+
+cmd -> รัน path ที่มีไฟล์ server พิมพ์ php server.php
+cd พาธที่อยู่websocket ->enter
+php ชื่อไฟล์.php
+
+**** หากยังไม่ได้
+- ตรวจสอบ ip บนโค้ด ที่ server.php กับ ที่หน้าใช้งาน (script_ws) เป็นเลข ip ของ server หรือยัง
+- ตรวจสอบ firewall ว่า inbound outbound ตั้ง port TCP หรือยัง
+- ตรวจสอบ server ดูว่า ติดตั้ง service websocket หรือยัง
++ - เข้า IIS -> manage -> add roles and features
++ - เลือก role-based or feature-base installation 
++ - เลือก select a server from the server pool แล้วเลือกชื่อ server (ip เครื่อง)
++ - จะมีหน้าต่าง role เข้าตามพาธนี้  Web Server (IIS) -> Web Server -> Application Development
++ - เลือก WebSocket Protocol คลิก next
++ - หน้า If no additional features are needed คลิก next
++ - คลิก install รอจนเสร็จ คลิก close
++ - เลือก restart server
++
+- ติดตั้ง Advanced Port Scanner เพื่อเช็ค port ว่าทำงาน
+- ทดสอบลง xampp ที่ server แล้วลองสลับ port apache ไป port ที่ต้องการใช้งาน socket ลองรัน เพื่อดูว่า port นั้นเปิดใช้ได้จริง
+
+วิธีทดสอบ เปิด dos ค้นหา port (ปกติใช้ 8089 )
+netstat -ano | find ":8089"
+
+ต้องแสดงผล result
+=> TCP    150.95.80.202:8089           0.0.0.0:0              LISTENING       4032
+ต้องเป็นเลข ip ขาออก เพื่อให้เครื่องภายนอกเข้า port ได้
+
+ล้างค่า port เพื่อจะลองรัน php server.php อีกครั้ง (ตัวเลขหลังสุดของ result)
+TASKKILL /F /PID 4032
+
+*** อธิบายเลข ip 
+0.0.0.0:xxxx เป็น ip ของระบบ
+127.0.0.1:xxxx เป็น ip ของเครื่องขาเข้า
+150.95.80.202:xxxx เป็น ip ของเครื่องขาออก
+
+
+=========================================================================
+### หากต้องการให้ข้อความให้ทุกคนเห็นยกเว้นคนส่ง หรือ เห็นทุกคน ปรับที่ไฟล์ server.php
+foreach ( $Server->wsClients as $id => $client ) {
+			# everyclient non sender
+			/* if ( $id != $clientID ) {
+				$Server->wsSend($id, $message);
+			} */
+
+			# everyclient
+			$Server->wsSend($id, $message);
+
+		}
+
+### เพิ่มตัวรับส่งตัวแปรได้ที่ fancywebsocket.js ตรง this.send
+
+ตั้งเวลาบน server ตามเวลาไทย
+date.timezone = Asia/Bangkok
+
+/**************************************************/
+socket ไม่ทำงาน
+เปิด enable=socket ไปที่ไฟล์ php.ini หาบรรทัด
+#extension=sockets
+และเอา # ออก
+
+=========================================================================
+หากรัน cmd php แล้วไม่ทำงาน PHP is not recognized
+Add C:\xampp\php to your PATH environment variable.
+(My Computer->properties -> Advanced system setting-> Environment Variables->edit path)
+
+edit path
+ตัวแปร PATH พิมพ์เพิ่มต่อเลยจาก \Mail Enable\BIN64
+;C:\xampp\php
+
+
+=========================================================================
+/**************************************************/
+หากต้องการตั้งค่า php บน server ให้เข้าไปที่เซิฟเวอร์ตาม path
+C:\Program Files (x86)\Parallels\Plesk\Additional

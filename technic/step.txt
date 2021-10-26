@@ -1,0 +1,1880 @@
+ทำ index ให้ฐานข้อมูลค้นหาเร็วขึ้น
+ALTER TABLE tbname ADD KEY (tb_column);
+ALTER TABLE `bill` ADD INDEX(`ID`);
+ALTER TABLE `bill` ADD INDEX(`CODE`);
+ALTER TABLE `bill` ADD INDEX(`USER_ID`);
+ALTER TABLE `bill` ADD INDEX(`USER_STARTS`);
+
+clear catch ล้างค่าแคช
+<script type="text/javascript" src="<?php echo base_url('asset/plugin/datatablebutton').'/datatables.min.js?token='.date('YmdH');?>"></script>
+
+แสดงรายละเอียด query การเรียกจำนวนข้อมูล
+explain ตามด้วย select *.....
+
+รายละเอียดเวลาการ query (ต่อท้ายชุดคำสั่ง query)
+SELECT
+YEAR(`create_date`) AS `year`,
+SUM(IF(MONTH(`create_date`)=1,`bids`,NULL)) AS `1`,
+.......
+FROM `bid_pramool_auction`
+WHERE YEAR(`create_date`)=1983;
+SHOW PROFILE;
+/********************************/
+	/*|      	   about    	   |*/
+	/********************************/
+ปัญหาเรื่องอัพโหลดโค้ดขึ้นโฮสแล้วเรียกพาธไมทำงาน
+
+set config.php ให้ถูกต้อง base_url= "www.xxxxx.xxx", session ต่างๆ , path_info
+rout.php พวก detault contorller
+เปลี่ยนชื่อ controller และ model อักษรตัวแรกให้เป็นตัวพิมพ์ใหญ่
+
+ ปัญหาเวลาโยนโค้ดไปเครื่องอื่นแล้ว MX/Router.php error 239
+เปิดไฟล์ MX/Rounter.php และเปลี่ยนโค้ดบรรทัดที่ 239
+if( $suffix && strpos($class, $suffix) === FALSE)
+
+ปัญหา MX/loader.php error 300 ไม่ทำงานกับ hmvc
+เปิดไฟล์ MX/loader.php และเปลี่ยนโค้ดบรรทัดที่ 300
+จาก
+return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+  
+เป็นแบบนี้
+if (method_exists($this, '_ci_object_to_array'))
+  {
+    return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
+  } else {
+    return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
+  }
+
+.htaccess สร้างโค้ด 
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css|css)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+Options +FollowSymLinks
+เปลี่ยน port xampp
+LocalDisk **>>** xampp **>>** apache **>>** conf **>>** httpd.conf
+Line 58: Listen **80**
+for this
+
+Line 58: Listen **8080**
+Modify this:
+
+Line 220: ServerName localhost: **80**
+for this
+
+Line 220: ServerName localhost: **8080**
+Modify this:
+
+LocalDisk **>>** xampp **>>** apache **>>** conf >> extra **>>** httpd-ssl.conf
+Line 36: Listen **443**
+for this
+
+Line 36: Listen **444**
+Modify this:
+
+Line 121: <VirtualHost _default_:**443**>
+Line 125: ServerName www.example.com:**443**
+For this
+
+Line 121: <VirtualHost _default_:**444**>
+Line 125: ServerName www.example.com:**444**
+
+/**************************************************/
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+#RewriteRule ^(.*)$ /folder1/folder2/index.php?/$1 [L]
+</IfModule>
+
+# Allow access from all domains for webfonts.
+<IfModule mod_headers.c> 
+	<FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css|css)$"> 
+		Header set Access-Control-Allow-Origin "*" 
+	</FilesMatch>
+</IfModule>
+
+/**************************************************/
+session ไม่ทำงาน
+อาจเกิดจากการอ่านการเข้ารหัสของตัว php7 กับ ci v.3.1
+เปลี่ยนที่ system/libraries/Session/Session.php arround line 133
+from :
+OR ! preg_match('/^[0-9a-f]{40}$/', $_COOKIE[$this->_config['cookie_name']])
+to:
+OR ! preg_match('/^[0-9a-f]/', $_COOKIE[$this->_config['cookie_name']])
+
+/**************************************************/
+การสร้าง subdomain
+ไปที่หลังบ้านของเว็บ  add submain ให้เรียบร้อย จากนั้นให้ชี้ nameserver บน domain นั้นๆด้วย
+
+/**************************************************/
+/**********	ทำ muti connect database	***********/
+- เปลี่ยนการตั้งค่าที่ database.php ดังนี้ (กรณีจะเชื่อม 2 data ก็ทำ 2 ตัว)
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'farmchok_mktss',
+	/*
+	'hostname' => 'localhost',
+	'username' => 'farmchok_data',
+	'password' => 'Farm2018@',
+	'database' => 'farmchok_mkt',
+	*/
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => TRUE,
+	'db_debug' => FALSE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+$db['mkt'] = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'farmchok_mkt',
+	/*
+	'hostname' => 'localhost',
+	'username' => 'farmchok_data',
+	'password' => 'Farm2018@',
+	'database' => 'farmchok_mkt',
+	*/
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => TRUE,
+	'db_debug' => FALSE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+** ที่ 'pconnect' => TRUE ต้องเป็น true ทั้งคู่
+
+-ไปที่ autoload.php ตั้งค่า (เอา database ออก)
+$autoload['libraries'] = array('session', 'pagination');
+
+-ทุกๆ controller ให้เพิ่มการโหลด database เข้าไปทุกครั้ง ดังนี้
+		$url_segment = $this->uri->segment(1);
+		switch($url_segment){
+			case "mkt" :
+				$point_database = "mkt";
+			break;
+			case "acc" :
+				$point_database = "default";
+			break;
+		}
+		$this->db = $this->load->database($point_database, TRUE);
+
+ตัวอย่าง
+$db['default']['dsn']	= '';
+	/*'hostname' => $host,
+	'username' => $username,
+	'password' => $password ,
+	'database' => 'farmchok_acc',*/
+	
+	$db['default']['hostname'] = 'localhost';
+	$db['default']['username'] = 'farmchok_data';
+	$db['default']['password'] = 'Farm2018@';
+	$db['default']['database'] = 'farmchok_acc';
+	
+	$db['default']['dbdriver'] = 'mysqli';
+	$db['default']['dbprefix'] = '';
+	$db['default']['pconnect'] = FALSE;
+	$db['default']['db_debug'] = FALSE;
+	$db['default']['cache_on'] = FALSE;
+	$db['default']['cachedir'] = '';
+	$db['default']['char_set'] = 'utf8';
+	$db['default']['dbcollat'] = 'utf8_general_ci';
+	$db['default']['swap_pre'] = '';
+	$db['default']['encrypt'] = FALSE;
+	$db['default']['compress'] = FALSE;
+	$db['default']['stricton'] = FALSE;
+	$db['default']['failover'] = array();
+	$db['default']['save_queries'] = TRUE;
+/********************************/
+/********************************/
+php.ini ใน xampp
+
+รายการนี้อยู่ในหัวข้อ upload
+upload_max_filesize = 1000M
+รายการนี้อยู่ในหัวข้อ Data Handler
+post_max_size = 1000M
+3 รายการนี้อยู่ในหัวข้อ Resource limits
+max_input_vars = 5000  (ลบ ; ด้านหน้าออกด้วย)
+memory_limit = 256M
+max_execution_time = 60
+เมื่อแก้ไขครบให้กด save และ restart  XAMPP ใหม่ โดยการกดปุ่ม STOP / START ของ Apache อีกครั้ง
+
+$cfg['LoginCookieValidity'] = 1800; //เพิ่มเวลาอยู่ใน localhost xampp->phpmyadmin->config.inc
+
+**********************************************************************
+htaccess
+
+Header set Access-Control-Allow-Origin *
+
+Options +FollowSymLinks
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+</IfModule>
+
+กรณีทำเป็น subfolder ให้เปลี่ยนบรรทัดสุดท้าย
+RewriteRule ^(.*)$ /folder1/folder2/index.php?/$1 [L]
+ตามจำนวน subfolder ลิงก์ที่จะทำ
+**********************************************************************
+ตั้งค่า สร้างเว็บ
+
+config/autoload.php ตั้งค่าฟังชั่นช่วย
+$autoload['libraries'] = array('database', 'session', 'pagination');
+$autoload['helper'] = array('url','form','html','function');
+
+config/config.php
+$config['base_url'] = $root."/";
+$config['index_page'] = '';
+$config['uri_protocol']	= 'REQUEST_URI';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-ก-ฮะาิีุูเะแำไใๆ่้๊๋ั็์ึื ()!,';
+
+config/database.php ตั้งค่าดาต้าเบส
+hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => '',
+
+config/route.php ตั้งค่า ดีฟอลเวบ
+$route['default_controller'] = 'site';
+
+**********************************************************************
+ปัญหาเรื่องการทำงานที่ไม่สามารถหาสาเหตุได้จริงๆ
+ - หากเคยนำไฟล์ backup ข้อมูลขึ้นมาใช้ ให้คิดก่อนว่า ไฟล์นั้นมีอักขระแบบ BOM รึเปล่า เพราะมันซ่อนให้เรามองไม่เห็น อาจทำให้บางฟังชั่นไม่ทำงาน แต่กลับไปทำงานบนโดเมนอื่น
+ ******* แก้ด้วยการสร้างหน้าใหม่แล้วเขียนโค้ดเข้าไปใหม่ หรือ ใช้ notepad เวอร์ชั่นเก่าๆ เปลี่ยนนามสกุลให้เป็น UTF-8 แบบไม่มี BOM 
+**********************************************************************
+การสร้างเมลล์ email เวลาส่งไปในเมลล์อาจจะมัช่องว่างระหว่างรูปหรือข้อความ เพราะ doctype แต่มีวิธีแก้คือ
+- หากมีรูป ให้กำหนด style="display:block" ไปในรูปด้วย ไม่สามารถสร้างเป้น <style> ได้ เพราะ gmail ไม่รับ
+และกำหนด align ด้วย เลือกอย่างใดอย่างหนึ่ง 
+absmiddle
+middle
+left
+right
+absbottom
+texttop
+top 
+ตัวอย่าง
+<img src="'.base_url().'asset/file/E-Newsletter/Images/AW-PR-Renovate-SHRS-Direct-Mail_10.png" align="absbottom" style="width:100%;display:block">
+
+- หรือ สร้าง div แล้วกำหนด line-height
+<div style="line-height:10px">
+ <img src="https://www.test.com/test.jpg">
+ </div>
+
+- หรือมีข้อความบนภาพ ให้ใส่
+<div style="font-size:2px">
+ <img src="https://www.test.com/test.jpg">
+ </div>
+
+-หรือใช้คุณสมบัติ float เพราะ gmail outlook รองรับ
+<img src="https://www.test.com/test.jpg" style="float:left">
+
+**เวลาส่งเข้า outlook ตัว background จะไม่ทำงาน เพราะ microsoft block ต้องใช้โค้ด bullet proof เพิ่มเข้าไป 
+โค้ดสำหรับ div
+<div style="background-color:#7bceeb;">
+  <!--[if gte mso 9]>
+  <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+    <v:fill type="tile" src="https://i.imgur.com/YJOX1PC.png" color="#7bceeb"/>
+  </v:background>
+  <![endif]-->
+  <table height="100%" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td valign="top" align="left" background="https://i.imgur.com/YJOX1PC.png"></td>
+	<tr>
+  </table>
+</div>
+
+โค้ดสำหรับ table background
+<td background="https://i.imgur.com/YJOX1PC.png" bgcolor="#7bceeb" width="120" height="92" valign="top">
+  <!--[if gte mso 9]>
+  <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:120px;height:92px;">
+    <v:fill type="tile" src="https://i.imgur.com/YJOX1PC.png" color="#7bceeb" />
+    <v:textbox inset="0,0,0,0">
+  <![endif]-->
+  <div>
+  </div>
+  <!--[if gte mso 9]>
+    </v:textbox>
+  </v:rect>
+  <![endif]-->
+</td>
+
+อ้างอิง
+https://backgrounds.cm/
+**********************************************************************
+การใช้ unlink ต้องใช้ path แบบ relative คือไม่ผ่านตัวเเปร site_url หรือ base_url
+unlink (path_to_file);
+**********************************************************************
+set email ให้แสดงรายละเอียดการทำงาน 
+config->email
+$config['smtp_debug']       = 0;     /*0=ปิด ,2 =ให้แสดง*/
+
+clear เคลียร์ค่าต่างๆในเมลล์
+$this->email->clear(TRUE);
+**********************************************************************
+load ข้อมูลดูแต่ไม่ต้องการให้แสดงผลบนบราวเซอร์ **เพิ่มตัวแปรที่สาม true จะส่งค่าเป็นสตริง
+$this->load->view('page_mail',$datamail,true)
+
+**********************************************************************
+***********************		SERVER		**********************
+**********************************************************************
+phpqrcode
+ติดตั้งผ่าน composer คือ ตัวกลางที่รวบรวมพวก libralies หรือ plugin ต่างๆของ php ติดตั้งผ่าน DOS
+
+หากต้องการตั้งค่า php บน server ให้เข้าไปที่เซิฟเวอร์ตาม path
+C:\Program Files (x86)\Parallels\Plesk\Additional
+
+phpmyadmin ไม่มี function export sql
+->เข้ารีโมทไปที่ server
+->ก็อบปี้พาธเเล้วไปวางบนโฟลเดอร์เพื่อเข้าถึง 
+%plesk_dir%admin\htdocs\domains\databases\phpMyAdmin\libraries\classes\Display\Export.php 
+->จะเจอไฟล์ export.php เปิดไฟล์ ดูบรรทัดที่ ประมาณ 662 /* Scan for plugins */
+->เปลี่ยนค่าตามนี้
+// Export a single table
+if (isset($_GET['single_table'])) { 
+$GLOBALS['single_table'] = $_GET['single_table']; 
+}
+
+**********************************************************************
+************************** plugin composer ***************************
+**********************************************************************
+JWT jwt
+composer require firebase/php-jwt
+
+**********************************************************************
+***********************	    Creat Cookie	**********************
+**********************************************************************
+//
+//	close modal
+$('#acceptcookie').on('click', function () {
+	var modalwidth = $(this).find('#popup-body');
+	//console.log(modalwidth.width());
+	$('#intropage').empty();
+	
+	var year = 1000*60*60*24*365;		///	1 year
+	// var year = 1000*60*60*24;			///	1 day
+	var expires = new Date((new Date()).valueOf() + year);
+	document.cookie = "accept_cookie=yes;expires=" + expires.toUTCString();
+	console.log('sss');
+});
+
+
+<?php
+	if(!isset($_COOKIE['accept_cookie']) || $_COOKIE['accept_cookie']=""){
+?>
+<!--   BEGIN MODAL	-->
+<style>
+	#intropage {
+		z-index:999;
+		position:fixed;
+		bottom:0px;
+		left: 50%;
+		transform: translate(-50%, 0);
+		background:rgba(1,1,1,0.8);
+	}
+	#intropage .modal-dialog {
+		margin:0px auto;
+		max-width:unset !important;
+		width:auto;
+	}
+	#intropage .modal-body {
+		margin-left:15px;
+		margin-right:15px;
+		background:unset;
+	}
+	#intropage .modal-body p {
+		margin-top:12px;
+		margin-bottom:12px;
+	}
+	#intropage .modal-body .btn-accept {
+		margin-top:12px;
+		margin-bottom:12px;
+		margin: 12px 0px 12px 22px;
+	}
+	#intropage .modal-body img {
+		width:auto;
+	}
+	#intropage .modal-content {
+		background-color:unset;
+	}
+</style>
+<div class="modal fade" id="intropage" role="dialog" data-backdrop="static">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	  <!--BEGIN MODAL CONTENT-->
+		<div class="modal-body">
+			<div class="">
+			<div class="text-left pull-left">
+			<p>
+				<span class="urlname">chokchaisteakhouse.com </span> เก็บคุกกี้เพื่อให้ท่านได้รับประสบการณ์การใช้งานที่ดียิ่งขึ้น
+				<br><a href=#>อ่านนโยบายคุ้มครองข้อมูลส่วนบุคคล และนโยบายคุกกี้  (Privacy Policy & Cookie Policy)</a>
+			</p>
+			</div>
+			
+			<div class="pull-right btn-accept">
+				<button type="button" id="acceptcookie" class="btn" data-dismiss="modal">ยอมรับ</button>
+			</div>
+			
+			</div>
+		</div>
+	  <!--END MODAL CONTENT-->	
+	  </div>
+	</div>
+</div>
+<!--	END MODAL	-->
+<?php
+	}
+?>
+
+**********************************************************************
+*********************		HTML	**********************
+form submit เปิดหน้าต่างใหม่
+<form id="frm" name="frm" action="test.php" target="window">
+**********************************************************************
+ดึงวัน date จากฐานข้อมูล
+date('Y-m-d',strtotime($row->TRANSFERED))
+
+**********************************************************************
+ดู query ใน active recode
+echo $this->db->last_query();
+
+**********************************************************************
+ดูจำนวนแถวที่ update ไป
+$this->db->affected_rows()
+
+**********************************************************************
+ดู query ค่าว่าง null
+select*from table where field is null;
+
+**********************************************************************
+query แบบนับ number และ case
+SELECT *,@n := @n + 1 AS 'NO' FROM `cart_sport` LEFT JOIN `cart_sport_detail` ON `cart_sport_detail`.`order_id` = `cart_sport`.`order_id` ,(SELECT @n := 0) as m
+where cart_sport.status = 1 and( CASE WHEN cart_sport.pay_type = 1 THEN date(cart_sport.transfered) = '2018-11-26' 
+WHEN cart_sport.pay_type = 2 THEN date(cart_sport.date_starts) = '2018-11-26' 
+ELSE date(cart_sport.pay_datetime) = '2018-11-26' 
+END) order by cart_sport.id asc
+
+แบบต้องการเรียงลำดับค่า โดยมีเงื่อนไข
+ORDER BY CASE WHEN stock.qty >= 0 THEN 2 ELSE 1 END,ABS(stock.qty) desc
+
+**********************************************************************
+*********************		คำสั่ง mysql	**********************
+query แบบ origonal
+$con= mysqli_connect("localhost","root","","data_chokchai") or die("Error: " . mysqli_error($con));
+$sql="SELECT * FROM option_order where status = 1 ORDER BY id";					$result=mysqli_query($con,$sql);								//$row=mysqli_fetch_array($result,MYSQLI_NUM);
+while($rowshirt = mysqli_fetch_array($result)) { 
+}
+
+query แบบธรรมดา
+$sql = "select*from user";
+$q = $this->db->query($sql);
+$rt = $q->row();
+
+แบบ active record
+$q = $this->db->get();
+$num = $q->num_rows();
+
+แบบ chaning
+$query = $this->db->from('tbl_order a')
+->join('tbl_product b','a.pro_id=b.pro_id','left')
+->join('tbl_customer c','a.cus_id=c.cus_id','left')
+->order_by('b.pro_price','desc')
+->limit(5,10)
+->get();
+===========================================
+sql OR
+$this->db->or_where('pro_price >=',300);
+
+sql in(100 200 300)
+$setData = array(100,200,300);
+$this->db->where_in('pro_price',$setData);
+
+sql like 
+$this->db->like('pro_name',22);
+$this->db->like('pro_name',22,'before');
+$this->db->or_like()  เมื่อต้องการตรวจสอบข้อมูลที่ตรง และใช้การเชื่อมด้วย OR
+$this->db->not_like()  เมื่อต้องการตรวจว่า ข้อมูลไม่ตรงตามเงื่อนไข
+$this->db->or_not_like() เมื่อต้องการใช้การเชื่อมด้วย OR กับข้อมูลไม่ตรงตามเงื่อนไข
+
+ฟังก์ชั่นนี้ใช้สำหรับเลือกข้อมูลที่ได้จากการ GROUP BY อีกที เช่นจากตัวอย่างการใช้ GROUP BY ของโค้ดด้านบน
+เพื่อหาว่าสินค้าที่ละรายการมีจำนวนที่สั่งมาเท่าไหร่ ที้นี้เราจะมาตรวจสอบว่า ต้องการเฉพาะจำนวนที่มากกว่า 3 รายการ
+หรือก็คือ num_pro       
+$this->db->select('COUNT(*) as num_pro');        
+$this->db->from('tbl_order');
+$this->db->group_by('pro_id');
+$this->db->having('num_pro >',3);
+echo $this->db->get_compiled_select(null,FALSE);// สำหรับโชว์คำสั่ง sql ลบออกถ้าไม่ใช้
+$query = $this->db->get();
+
+sql order by
+$this->db->order_by('pro_price DESC,pro_name ASC');
+
+$this->db->order_by('pro_price','DESC');
+$this->db->order_by('pro_name','ASC');
+
+$this->db->order_by('pro_nam', 'RANDOM');
+
+หาจำนวนแถวทั้งหมดของตาราง
+$total = $this->db->count_all('tbl_order');    
+
+count_all_results แบบมีเงื่อนไข
+เป็นฟังก์ชั่นสำหรับหาจำนวนของข้อมูลจากผลของการคิวรี่ตามเงื่อนไขต่างๆ ที่เรากล่าวไปแล้ว
+เหมาะสำหรับมาใช้ในการค้นหา และแบ่งหน้าข้อมูลจากผลการค้นหาอีกที
+$this->db->from('tbl_product');
+$this->db->where('pro_price >200');
+$total_result = $this->db->count_all_results(null,FALSE); 
+echo $total_result;
+$this->db->limit(3,2);
+echo $this->db->get_compiled_select(null,FALSE);// สำหรับโชว์คำสั่ง sql ลบออกถ้าไม่ใช้
+$query = $this->db->get();
+
+ตัวอย่างการเรียกและนับไปด้วย
+$sql = $this->db->select('*')
+	->from('pm_station')
+	->where('status',0);
+	$total_result = $sql->count_all_results(null,FALSE);
+	$query = $sql->get();
+	if($query){
+		foreach($query->result() as $row){
+			echo $row->NAME."<br>";
+		}
+	}
+
+===========================================
+เรียกเทเบิล tbl_customer พร้อม where พร้อมใส่ limit
+$this->db->get_where("tbl_customer",array('cus_id'=>3));
+
+เรียกเทเบิล tbl_customer พร้อม where พร้อมใส่ limit (จำนวน,เริ่มที่)
+$this->db->get_where("tbl_customer",array('cus_id'=>3),1,0);
+===========================================
+จากตาราง tbl_product เราต้องการดูราคารวมของสินค้าทั้งหมด
+$this->db->select_sum('pro_price');
+$query = $this->db->get("tbl_product");
+
+จากตาราง tbl_product เราต้องการดูราคารวมของสินค้าทั้งหมดแบบกำหนดชื่อ
+$this->db->select_sum('pro_price','total_price');
+$query = $this->db->get("tbl_product");
+===========================================
+เราจะแทรกไว้ก่อนฟังก์ชั่น  $this->db->get() และกำหนดค่า FALSE เพื่อให้คำสั่ง sql
+นั่นทำงานต่อมาจนถึงฟังก์ชั่น $this->db->get() เพื่อคิวรี่ข้อมูลมาแสดง
+จากคำสั่งนี้ จะมีการแสดงคำสั่ง sql จากการใช้งาน query builder 
+หากเราไม่ได้ใช้งานแล้วก็สามารถ comment ปิดไปได้ ในที่นี้ขอเก็บไว้
+$this->db->from('tbl_order');
+echo $this->db->get_compiled_select(null,FALSE); // สำหรับโชว์คำสั่ง sql ลบออกถ้าไม่ใช้
+$query = $this->db->get();
+===========================================
+เชื่อมมากกว่า สองตาราง เช่น เราต้องการเชื่อมตาราง tbl_order , tbl_product และ tbl_customer 
+แบบ left join ก็สามารถทำได้
+$this->db->from('tbl_order a');
+$this->db->join('tbl_product b','a.pro_id=b.pro_id','left');
+$this->db->join('tbl_customer c','a.cus_id=c.cus_id','left');
+echo $this->db->get_compiled_select(null,FALSE);// สำหรับโชว์คำสั่ง sql ลบออกถ้าไม่ใช้
+$query = $this->db->get();
+===========================================
+
+SHOW FULL TABLES - แสดงรายการ table ทั้งหมดใน database นั้น
+SHOW TABLES LIKE 'cart_sport%' - แสดงรายการ table ที่ทั้งหมดชื่อนำด้วย cart_sport ใน database นั้น
+
+////////////// หาอายุ
+select 
+
+timestampdiff(year,CONCAT(user.years, "-", user.months, "-", user.days),'1991-11-22') as cnt_year,
+
+timestampdiff(month,CONCAT(user.years, "-", user.months, "-", user.days),'1991-11-22')-(timestampdiff(year,CONCAT(user.years, "-", user.months, "-", user.days),'1991-11-22')*12) as cnt_month,
+
+timestampdiff(day,date_add(CONCAT(user.years, "-", user.months, "-", user.days),interval (timestampdiff(month,CONCAT(user.years, "-", user.months, "-", user.days),'1991-11-22')) month),'1991-11-22') as cnt_day
+
+from user  where id = 10
+
+**********************************************************************
+insert แบบหลายค่า
+$data = array();
+	$count_answer = count($answer[0]);		//// set num answer
+	for($i=0;$i<$count_answer;$i++){
+		$qry_choice = $this->sql_question->get_ChoiceResult($answer[0][$i]);
+		$r_choice = $qry_choice->row();
+				
+		$submain_id = $r_choice->SUBMAIN_ID;
+		$choice_id = $r_choice->ID;
+		$datenow = date('Y-m-d H:i:s');
+		array_push($data,
+		array(
+			'order' 	=> $post_order ,
+			'submain_id' 	=> $submain_id ,
+			'text'		=> $answer[1][$i] ,	
+			'choice_id' 	=> $choice_id,
+			'date_starts'   => $datenow
+		)
+	);
+}
+$this->db->insert_batch('questionnaire_user', $data);
+หรือ
+$data = array(
+   array(
+      'title' => 'My title' ,
+      'name' => 'My Name' ,
+      'date' => 'My date'
+   ),
+   array(
+      'title' => 'Another title' ,
+      'name' => 'Another Name' ,
+      'date' => 'Another date'
+   )
+);
+
+$this->db->insert_batch('mytable', $data); 
+
+เรียก id ที่เพิ่มเข้าไปใหม่
+insert_id
+
+**********************************************************************
+ทำ FULL TEXT SEARCH ค้นหาเร็วขึ้น
+CREATE TABLE contact (
+ id     INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+ firstname  VARCHAR(200),
+ note TEXT,
+ FULLTEXT (firstname,note)
+ );
+ตัวอย่างนี้คือการบอกให้ mysql ทำ FULLTEXT ที่ field firstname และ note โดยเวลาค้นหา เราก็จะเปลี่ยน SQL Select ให้ใช้เป็น match แบบนี้
+
+SELECT *
+ FROM contact
+ WHERE MATCH (firstname) AGAINST ('da');
+
+**********************************************************************
+ตรวจสอบไฟล์ว่ามีหรือไม่
+$file_pointer = $basepic."front/qrcode/5.png";
+	if(is_array(@file($file_pointer))){
+			$result = "correct";
+		}else{
+			$result = "no correct";
+		}
+
+
+ใส่ไว้บนสุดของหน้าเวปที่ต้องใช้งานหนัก (พวกโหลดดาต้า)
+	ini_set('max_execution_time',0);
+	ini_set('memory_limit',1);
+
+**
+ถ้าเจองาน  asp ให้ mod rewrite ผ่าน iis เท่านั้น ไป add rule เพิ่ม แล้วนำไฟล์ web.config บนโฮสมาไว้ข้างหน้าสุด main page
+(ต้องเข้ารีโมทเครื่อง 
+->ไปเข้าที่เมนูเครื่อง administrative tool
+->Internet Information Services (IIS) Manager
+->เเถวซ้ายเลือก domain แล้วทางขวาเลือก url rewrite
+->import rule แล้วเอาคำสั่งใน htacess มาใส่แล้วด้านล่างที่เเถว xml view ก็อบคำสั่งไปใส่ในไฟล์ web.config(เฉพาะเเท็ก rewrite) 
+
+บน server อย่าลืมลบไฟล์ index.html
+
+**********************************************************************
+php อัพโหลดเว็บแล้วเจอ access at font (ไอคอน ไม่ทำงาน)
+ให้ทำ url ให้มี www. เพิ่มเข้าไปด้วย
+
+**********************************************************************
+ฟังก์ชั่นรูป image รวมรูป (imagecopymerge = รวมรูปแต่ไฟล์ pngจะไม่โปร่งใส , imagecopymerge = รวมรูป ไฟล์ pngโปร่งใส่)
+$dest = imagecreatefromjpeg($basepic."front/wallpaper/cowboy2.jpg");
+	$src = imagecreatefrompng($basepic."front/wallpaper/wallpaper_cowboy_1.png");
+
+	// Copy and merge imagecopymerge($bg_im, $thumb, ขยับรูปด้านบน จาก x, ขยับรูปด้านบน จาก y, 0,0, $newwidth, $newheight, opacity ค่า 0-100);
+	//imagecopymerge($bg_im, $thumb, 0, 0, 0,0, $newwidth, $newheight, 100);
+	imagecopy($dest, $src, 0, 0, 0, 0, 1920, 1080);
+
+	// Output and free from memory
+	header('Content-Type: image/jpg');
+	imagegif($dest);
+
+	imagedestroy($dest);
+	imagedestroy($src);
+
+ตัดอักขระพิเศษ
+preg_replace('/[^a-z0-9ก-๙เแ\_\-\. ]/i', '',trim($renew_address)),
+
+เฉพาะตัวเลข / -
+preg_replace('/[^0-9\/\-\. ]/i','',trim($value));
+
+ตัดเคาะวรรคออกทั้งหมด
+preg_replace('/[[:space:]]+/', '', trim($str));
+
+ตัดเคาะวรรคให้เหลือ 1
+preg_replace('/[[:space:]]+/', ' ', trim($str))
+**********************************************************************
+
+
+**********************************************************************
+sql หาค่าซ้ำ
+SELECT * FROM cart_sport_detail WHERE order_id IN 
+(SELECT order_id FROM cart_sport_detail GROUP BY order_id HAVING count(order_id) > 1)
+
+**********************************************************************
+***********************		ศัพท์ Codeigniter  **********************
+**********************************************************************
+APPPATH			พาธเข้าถึงไฟล์ ผ่าน domain/application/
+FCPATH			พาธเข้าถึงไฟล์ ผ่าน domain/
+
+**********************************************************************
+================== datatable ==============================
+กรณี boostrap ไม่ทำงานเมื่อใช้ daะatable หรือ datatable button 
+ต้องโหลด extention ใหม่ ไปที่เว็บโหลด extention ของ datatable.net โดยในหน้าเลือก option ไม่ต้องเลือก packgage อะไรเลย เพื่อไม่ให้ไปทับกับของเดิมที่มีอยู่ 
+
+$sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+**********************************************************************
+แปลงตัวเลขเป็นอักษร
+function convertNumberToText($number){ 
+	$txtnum1 = array('ศูนย์','หนึ่ง','สอง','สาม','สี่','ห้า','หก','เจ็ด','แปด','เก้า','สิบ'); 
+	$txtnum2 = array('','สิบ','ร้อย','พัน','หมื่น','แสน','ล้าน','สิบ','ร้อย','พัน','หมื่น','แสน','ล้าน'); 
+	$number = str_replace(",","",$number); 
+	$number = str_replace(" ","",$number); 
+	$number = str_replace("บาท","",$number); 
+	$number = explode(".",$number); 
+	if(sizeof($number)>2){ 
+		return 'ทศนิยมหลายตัวนะจ๊ะ'; 
+		exit; 
+	} 
+	$strlen = strlen($number[0]); 
+	$convert = ''; 
+	for($i=0;$i<$strlen;$i++){ 
+		$n = substr($number[0], $i,1); 
+		if($n!=0){ 
+			if($i==($strlen-1) AND $n==1){ $convert .= 'เอ็ด'; } 
+			elseif($i==($strlen-2) AND $n==2){  $convert .= 'ยี่'; } 
+			elseif($i==($strlen-2) AND $n==1){ $convert .= ''; } 
+			else{ $convert .= $txtnum1[$n]; } 
+			$convert .= $txtnum2[$strlen-$i-1]; 
+		} 
+	} 
+
+	$convert .= 'บาท'; 
+	if($number[1]=='0' OR $number[1]=='00' OR 
+		$number[1]==''){ 
+		$convert .= 'ถ้วน'; 
+	}else{ 
+		$strlen = strlen($number[1]); 
+		for($i=0;$i<$strlen;$i++){ 
+		$n = substr($number[1], $i,1); 
+			if($n!=0){ 
+			if($i==($strlen-1) AND $n==1){$convert 
+			.= 'เอ็ด';} 
+			elseif($i==($strlen-2) AND 
+			$n==2){$convert .= 'ยี่';} 
+			elseif($i==($strlen-2) AND 
+			$n==1){$convert .= '';} 
+			else{ $convert .= $txtnum1[$n];} 
+			$convert .= $txtnum2[$strlen-$i-1]; 
+			} 
+		} 
+		$convert .= 'สตางค์'; 
+	} 
+	return $convert; 
+}
+**********************************************************************
+เพิ่ม ลบ วันเวลา
+date ("Y-m-d H:i:s", strtotime("+15 minute", strtotime(date('Y-m-d H:i:s'))));
+
+**********************************************************************
+if short คำสั่ง if แบบสั้น
+($first != '' ? $result = $first : $result = $second);
+
+หรือ
+<?php if($this->value): ?>
+Hello
+<?php elseif($this->asd): ?>
+Your name is: <?= $this->name ?>
+<?php else: ?>
+You don't have a name.
+<?php endif; ?>
+
+**********************************************************************
+ฟังก์ชั่น แสดงรุปทันที ajax
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
+
+<body>
+    <form id="form1" runat="server">
+        <input type='file' onchange="readURL(this);" />
+        <img id="blah" src="#" alt="your image" />
+    </form>
+</body>
+</html>
+**********************************************************************
+ตรวจสอบลำดับ array หัว ท้าย
+$people = array("Peter", "Joe", "Glenn", "Cleveland");
+
+echo current($people) . "<br>";
+echo end($people); 
+
+หาตำแหน่งของ array
+echo array_search("10",$array);
+
+การเพิ่ม array ภายหลัง
+$days = [];			//ประกาศตัวแปรอาร์เรย์
+array_push($days, "Tuesday");	//เพ่ิมเข้าไปในตัวแปร
+$data['staff_id'] = $staff;	// แบบ 2 มิติ เพิ่มได้ตรงๆ
+
+ตัดช่องว่างที่เคาะมากเกินไป (เหลือเคาะทีเดียว)
+$newStr = preg_replace('/[[:space:]]+/', ' ', trim($str));
+
+ตัดช่องว่างออกจากประโยคทั้งหมด
+$sta_qr = preg_replace('/[[:space:]]+/', '', trim($qr_name));
+
+ตัดช่องว่าง
+trim();
+
+คั่น ระหว่าง
+implode(',', $textpromotion_status_arr)
+
+$textpromotion_status_arr = array();
+$textpromotion_status = rtrim(implode(',', $textpromotion_status_arr), ',');
+
+แสดงค่าที่ค้นหาใน array 
+array_keys(array_column($a, 'first_name'), 'Joe')
+
+เรียง key index ใหม่
+array_values($array)
+
+ตัดข้อมูลที่ซ้ำกันออก ** ได้เฉพาะ array มิติเดียว
+array_unique($array)
+
+กรณีใช้ array_search ค่าที่คืนอาจจะเป็น 0 (return key) แก้โดย
+if($search !== false){
+}
+******************************************************************************
+*****************************	Phpspreadsheet	******************************
+******************************************************************************
+ใส่หลังจาก ใช้คำสั่งสร้าง เพื่อแก้ปัยหาเวลา export ไฟล์แล้วเกิดไฟล์ error
+//	for clear bug when export file error extension not valid
+		for ($i = 0; $i < ob_get_level(); $i++) {
+		   ob_end_flush();
+		}
+		ob_implicit_flush(1);
+		ob_clean();
+		//
+
+**********************************************************************
+*****************************	HTML	******************************
+**********************************************************************
+สร้าง polygon
+<svg viewBox="0 0 1920 476" preserveAspectRatio="none" style="
+"><polygon points="1920 476 1810 403 1158 259 578 391 420 303 219 442 0 476 0 0 1920 0 1920 476" class="c1"></polygon></svg>
+
+**********************************************************************
+*****************************	CSS	******************************
+**********************************************************************
+=========================
+boostrap4
+
+กึ่งกลางจอ
+<div class="container d-flex h-100">
+    <div class="row justify-content-center align-self-center">
+     I'm vertically centered
+    </div>
+</div>
+
+=========================
+alert กึ่งกลางจอ 
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+นับจำนวน counter
+#progressbar li:before {
+content: counter(step);
+
+counter-increment: step;
+}
+
+ปรับแต่ง scroll 
+<!--		edit scroll		-->
+<style>
+	/* width */
+	::-webkit-scrollbar {
+	  height: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1; 
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #888; 
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+</style>
+
+/////////////////////////////////////////////////////
+รูปซ้อนรูป
+background:linear-gradient(to bottom, rgba(1,1,1,0) 60%, rgba(1,1,1,1) 100%),url("images/front/background/BG01.jpg") top no-repeat;
+
+/////////////////////////////////////////////////////
+background แนวตั้ง เต็ม
+		#bg {
+			background-size: cover;
+			width:auto;
+			height:100vh;
+			top:0px;
+		}
+<ul id="fluid">
+<li class="col-lg-4 col-md-4 col-sm-12"><div id="bg" class="bg1"></div></li>
+<li class="col-lg-4 col-md-4 col-sm-12"><div id="bg" class="bg2"></div></li>
+<li class="col-lg-4 col-md-4 col-sm-12"><div id="bg" class="bg3"></div></li>
+</ul>
+
+**********************************************************************
+////////////////////////////
+////	   mobile	////
+@media (max-width: 426px) {}		////	col-xs
+@media (min-width: 427px) {}
+@media (max-width: 575px) {}		////	col-sm
+
+////////////////////////////
+////	   tablet	////
+@media (max-width: 768px) {}		////	col-md
+@media (max-width: 991px) {}
+
+////////////////////////////
+////	   com		////
+@media (min-width: 992px) {}		////	col-lg
+
+**********************************************************************
+*****************************Javascript ******************************
+**********************************************************************
+print ปริ้น
+แบบที่ 1 
+<a onClick="PrintDiv();">พิมพ์หน้านี้</a>
+function PrintDiv() {
+			// window.print();
+			var divToPrint = document.getElementById('container'); // เลือก div id ที่เราต้องการพิมพ์
+			var html =  '<html>'+ // 
+						'<head>'+
+							'<link href="<?php echo base_url("asset"); ?>/print.css" rel="stylesheet" type="text/css">'+
+						'</head>'+
+							'<body onload="window.print()">' + divToPrint.innerHTML + '</body>'+
+						'</html>';
+			
+			var popupWin = window.open();
+			popupWin.document.open();
+			popupWin.document.write(html); //โหลด print.css ให้ทำงานก่อนสั่งพิมพ์
+			popupWin.document.close();	
+		}
+
+แบบที่ 2
+<a onClick="PrintElem('#container');">พิมพ์หน้านี้</a>
+function PrintElem(elem)
+		{
+			  Popup($('<div/>').append($(elem).clone()).html());
+		}
+		function Popup(data) 
+		{
+			var mywindow = window.open('', 'my div', 'height=400,width=600');
+			mywindow.document.write('<html><head><title>my div</title>');
+			 mywindow.document.write('<link href="<?php echo base_url("asset"); ?>/print.css" media="print" rel="stylesheet" type="text/css">');
+			mywindow.document.write('</head><body >');
+			mywindow.document.write(data);
+			mywindow.document.write('</body></html>');
+
+			mywindow.print();
+		  //  mywindow.close();
+
+			return true;
+		}
+
+/////////////////////////////////////////////////////
+วันที่ date javascript date now
+let date_ob = new Date();
+                    let date = ("0" + date_ob.getDate()).slice(-2);
+                    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+                    let year = date_ob.getFullYear();
+                    let datenow = year+"-"+month+"-"+date;
+
+/////////////////////////////////////////////////////
+////		JS::Export Excel file
+/////////////////////////////////////////////////////
+<script type="text/javascript" src="//unpkg.com/xlsx/dist/shim.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+<script type="text/javascript" src="//unpkg.com/blob.js@1.0.1/Blob.js"></script>
+<script type="text/javascript" src="//unpkg.com/file-saver@1.3.3/FileSaver.js"></script>
+
+
+<div id="container2">
+  <title>SheetJS Table Export</title>
+  <table id="data-table">
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Johnny</td>
+    </tr>
+  </table>
+</div>
+<p id="xportxlsx" class="xport"><input type="submit" value="Export to XLSX!" onclick="doit('xlsx');"></p>
+
+
+<script type="text/javascript">
+
+function doit(type, fn, dl) {
+    var elt = document.getElementById('data-table');
+    var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
+    return dl ?
+        XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
+        XLSX.writeFile(wb, fn || ('test.' + (type || 'xlsx')));
+}
+
+/////////////////////////////////////////////////////
+
+javascript array
+var answer = {};
+answer['t1'] = 1; 
+answer['t2'] = 2; 
+
+หรือ
+var answer = {'t1':1,'t2':2};
+
+นับจำนวน array (แบบ key value)
+alert(Object.keys(myObject).length);
+
+วนลูปตามจำนวน array
+Object.keys(textshow).forEach(function (key) {
+	$('#ul-detail li p#ul-detail-'+textshow[key]).empty();
+});
+
+แสดงค่า array (แบบ key value)
+$.each(answer, function(key, value) {
+	alert(key+" ** "+value);
+});
+
+แยกคำหลายค่า splite multiple
+datepicker.split(/[\/\,\-]+/);			///แยกด้วยตัวอักษร / และ -
+
+match ค่าให้ตรงกัน หาค่าที่เหมือนกัน
+แบบคำนึงตัวใหญ่เล็ก
+eventname.match(/Tour/g)
+แบบไม่คำนึงตัวใหญ่เล็ก
+eventname.match(/Tour/gi)
+
+คลิก 1 time เท่านั้น
+function(event){
+	event.stopImmediatePropagation();
+}
+ปัดทศนิยม
+Math.round
+
+ใส่คอมม่าให้ตัวเลขและใส่ทศนิยม
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+เรียกค่า paramiter บน url
+const queryString = decodeURIComponent(window.location.search);
+    const params = new URLSearchParams(queryString);
+    document.getElementById("param").append(params.get("param"));
+
+เรียกดู Attribute ของ div นั้น
+  var animalType = animal.getAttribute("data-animal-type");
+  alert("The " + animal.innerHTML + " is a " + animalType + ".");
+<ul>
+  <li onclick="showDetails(this)" id="owl" data-animal-type="bird">Owl</li>
+  <li onclick="showDetails(this)" id="salmon" data-animal-type="fish">Salmon</li>  
+  <li onclick="showDetails(this)" id="tarantula" data-animal-type="spider">Tarantula</li>  
+</ul>
+
+call url (javascript) work on localhost
+"../../home/botham/change_password"
+**********************************************************************
+ส่งค่า ajax คืนให้ javascript ajax return javascript
+ - สร้างฟังก์ชั่น ajax
+function testAjax(handleData) {
+  $.ajax({
+    url:"getvalue.php",  
+    success:function(data) {
+      handleData(data); 
+    }
+  });
+}
+
+-แล้วสร้างตัวรับแบบ callback
+testAjax(function(output){
+  // here you use the output
+});
+
+กรณีคืนค่า ajax ผ่าน controller (ไม่ต้อง decode ใส่ที่หน้า controller ได้เลย)
+$datas = array(
+	
+		"error_code" 	=> $error ,
+									"txt" 	=> $txt
+	
+	);
+
+$datax = json_encode($datas);
+
+echo $datax;
+
+
+**********************************************************************
+//	คลิกใน นอก element
+window.addEventListener('mouseup', function(e){   
+				if (document.getElementById("store").contains(e.target)){
+					// Clicked in box
+					console.log('on');
+				}else{
+					// Clicked outside the box
+					console.log('out');
+				}
+			});
+
+**********************************************************************
+*****************************	Jquery	******************************
+**********************************************************************
+หากต้องการโหลด script ในหน้าที่เรียกมาด้วย ajax หรือ เกิด error [Deprecation] Synchronous XMLHttpRequest
+	var url = "<?php echo $base_bn;?>/global/js/plugins.js";
+	$.getScript(url);
+
+**********************************************************************
+จัดการ url
+http://www.refulz.com:8082/index.php#tab2?foo=789
+
+Property    Result
+------------------------------------------
+host        www.refulz.com:8082
+hostname    www.refulz.com
+port        8082
+protocol    http:
+pathname    index.php
+href        http://www.refulz.com:8082/index.php#tab2
+hash        #tab2
+search      ?foo=789
+
+var x = $(location).attr('<property>');
+
+กด auto
+$('#JUICES').trigger('click');
+
+$(document).ajaxStart(function(data) {
+
+	setTimeout(function() {
+	
+		$('.loader-overlay').removeClass('loaded');
+							$('body > section').animate({
+
+			opacity: 1,
+
+		}, 400);
+	}, 500);
+
+}),
+
+$(document).ajaxComplete(function(data) {
+
+	setTimeout(function() {
+	
+		$('.loader-overlay').removeClass('loaded');
+							$('body > section').animate({
+
+			opacity: 1,
+
+		}, 400);
+	}, 500);
+
+}),
+
+***	ใส่ animate และ ล้างค่า
+$(this).children('.menu-item').animate(
+	{
+		top: '0px',
+		opacity: '0.4'
+	}, "fast"
+	, function () { $(this).removeAttr('style'); }
+);
+
+**********************************************************************
+ฟังก์ชั่น jquery ใช้กับ หน้าที่เรียกแบบ ajax (แก้ปัญหาบาง element อาจถูกสร้างด้วย javascript jquery จับไม่ได้)
+$(document).on('click','.finish-btn', function () {
+			console.log('ss');
+		});
+
+**********************************************************************
+เรียกหน้าโดย Ajax แต่โค้ด Jquery ไม่ทำงาน ให้เปลี่ยนวิธีเรียกเป็นดังนี้
+$(document).ready(function(){
+
+	$("#btn1").click(function(){
+
+			$.post("webpage.php", { 
+			data1: $("#txt1").val(), 
+			data2: $("#txt2").val()}, 
+				function(result){
+					$("#div1").html(result);
+				}
+			);
+
+		});
+	});
+***ซึ่งในหน้าที่เรียก อาจจะ ต้องมีโค้ด jquery รวมอยู่ด้วย
+
+ตรวจหา element ที่มี attribute ที่ต้องการ
+var findreq = $(document).find('*[data-req]');
+**********************************************************************
+วิธีเรียกใช้ตัวแปรแบบกำหนดผ่าน array
+var dom = {
+            reset: $( "input.reset" ),
+            start: $( "input.start" ),
+            halt: $( "input.halt" ),
+            box1: $( "div.box1" ),
+            box2: $( "div.box2" )
+        };
+        // Reset the demo by quitting all animations and manually
+        // setting the widths.
+        dom.reset.click(
+            function( event ) {
+                dom.box1.add( dom.box2 )
+                    .stop( true, true )
+                    .width( 0 )
+                ;
+            }
+        );
+
+**********************************************************************
+** disable mousewheel
+$('body').bind('mousewheel DOMMouseScroll', function (e) { return false; });
+
+** enable mousewheel
+$('body').unbind('mousewheel DOMMouseScroll');
+
+**********************************************************************
+###close popup popover
+$('body').on('click', function (e) {
+				$('[data-toggle=popover]').each(function () {
+					// hide any open popovers when the anywhere else in the body is clicked
+					if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+						$(this).popover('hide');
+					}
+				});
+			});
+
+
+**********************************************************************
+รอการทำงานของ ฟังก์ชั่น
+async function insertData_layOut() {
+					let result1 =  new Promise((resolve,reject) => {
+						var t = ajaxInsertLayout_inStore(arrayresultStore);
+						resolve(t)
+					});	
+					let result2 = await result1;
+					  try {
+					  // console.log(result2.txt+"::async")
+						if(result2.error_code == 0){
+							Swal.fire(
+							  'ทำรายการสำเร็จ',
+							  result2.txt,
+							  'success'
+							)
+						} 
+					  } catch (err) {
+						console.error(err);
+					  }
+					  
+				}
+				insertData_layOut();
+
+**********************************************************************
+รีเซ็ตการทำงาน
+$('.duallistbox').bootstrapDualListbox('refresh');
+$('.duallistbox').bootstrapDualListbox();
+
+**********************************************************************
+*****************************	input	******************************
+**********************************************************************
+ยกเลิกค่า checkbox เวลาติ๊ก
+$('ul#checkstatus[data-id='+id+'] input[type=checkbox]:eq(1)').attr('checked',false);
+
+ส่งค่า checkbox
+javascript:systemFinishTime(this.checked,this.id,btnfinish)
+
+นับจำนวน checkbox ที่ check แล้ว
+$('div#quest'+id+' ul li input:checkbox:checked').length;
+
+$('#selectAllDomainList').click(function() {
+  var checkedStatus = this.checked;
+  $('#domainTable tbody tr').find('td:first :checkbox').each(function() {
+    $(this).prop('checked', checkedStatus);
+  });
+});
+
+นับจำนวน รวมเป็นกลุ่ม
+$('ul.required:has(li textarea)').length;
+
+ตรวจสอบค่า checkbox จริงไม่จริง
+$('#'+toggleid).prop('checked');
+
+ให้ค่า input เป็น disabled
+$('#'+toggleid).prop('disabled',true);
+
+=====================
+รับเฉพาะค่าตัวเลข
+$("input.input_citizen").keyup(function(){
+	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+});
+
+<input type="text" name="txtNumber" value="" OnKeyPress="return chkNumber(this)">
+function chkNumber(ele)
+        {
+        var vchar = String.fromCharCode(event.keyCode);
+        if ((vchar<'0' || vchar>'9') && (vchar != '.')) return false;
+        ele.onKeyPress=vchar;
+        }
+====================
+
+หาค่า checkbox ที่ไม่ได้ checked
+$('ul.required li inpu:not(:checked)')
+
+นับเฉพาะ textarea ที่มีค่า
+var textarea_li_required = $('ul.required:has(li textarea)');
+var textarea_required =0;
+var ta_checked_li_required;
+			for(var i=0;i<textarea_li_required.length;i++){
+				ta_checked_li_required = $('ul.required li textarea:eq('+i+')').val();
+				if(ta_checked_li_required.length > 0){
+					textarea_required++;
+				}
+			}
+
+การ toggle checkbox
+$(document).on('click','#txt_agree',function(){
+			var checkBoxes = $('#input_agree');
+			checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+        });
+
+ดึงค่า text จาก option ของ tag selected
+$(document).on('change','select#shirt', function () {
+		var tagevent = 'option span.shirt';
+		var dataVal = $(this).find(":selected").text();
+		showTextChoose(tagevent,dataVal);
+	});
+**********************************************************************
+select กลับไปลำดับแรก
+$('#selectcust').prop("selectedIndex", 0);
+
+**********************************************************************
+
+ตรวจสอบ HTML ด้วย jquery
+if($('#myTab li a').is(':contains('+race+')')){			///contains คือ เนื้อหาภายใน tag
+	alert('***');
+}
+**********************************************************************
+ตรวจว่ามี element นี้ใน tag ที่กำหนดไว้หรือไม่
+ alert($(".form-group").parent('fieldset[style="display:none"]').children().length);
+
+ดูข้างในของ element ที่ตรวจสอบ
+$('fieldset >').eq(0).children('div.form-group input').eq(0).attr('id')
+
+ข้างใน ของข้างในอีก ดูรายชื่อ input ที่อยู่ใน fieldset ในแต่ละ fieldset
+ alert($('.form-group input').parent('fieldset >').eq(0).children('div.form-group input').attr('id'));
+
+เลือกเฉพาะ style ตามกำหนด
+$('.form-group:eq(0) input[style!="display:none"]').attr('id')
+หรือใช้ visible
+$("#etc-list > div:visible input#amountperson")
+
+หา tagname ในแต่ละ element แบบ 3 ชั้น
+var x = $('.form-group:eq(2)').children().toArray(); 
+ for (i = 0; i< x.length; i++) {
+   // alert(x[i].nodeName);
+   if(x[i].nodeName == "DIV"){
+     var sub1node = x[i].children;
+     var sub1num = x[i].childElementCount;
+     for (s1 = 0; s1 < sub1num; s1++) {
+     	var sub1nodenum = sub1node[s1].childElementCount;
+     	if(sub1nodenum > 0){
+        	var sub2node = sub1node[s1].children;
+            var sub2node_value;
+            for (s2 = 0; s2 < sub1nodenum; s2++) {
+            	if(sub2node[s2].hasAttribute("value") == true){
+                	sub2node_value = sub2node[s2].value;
+                }else{
+                	sub2node_value = sub2node[s2].textContent;
+                }
+                alert("s2 /"+x[i].nodeName+" = "+sub1node[s1].tagName+" = "+sub2node[s2].tagName+" : "+sub2node_value);
+            }
+        }else{
+            var sub1node_value;
+        	if(sub1node[s1].hasAttribute("value") == true){
+              sub1node_value = sub1node[s1].getAttribute("value");
+            }else{
+              sub1node_value = sub1node[s1].textContent;
+            }
+        	alert("s1 /"+x[i].nodeName+" = "+sub1node[s1].tagName+" : "+sub1node_value);
+        }
+     }
+   }else{
+     alert(x[i].nodeName+" : "+x[i].textContent);
+   }
+ }
+
+หา value id ของ element ที่มีการกระทำนั้นๆ
+e = e || window.event;
+e = e.target || e.srcElement;
+alert(e.id);
+
+หารูท tr ของ element ที่มีการกระทำนั้นๆ
+$(e).parents('tr').prevUntil().attr('id')
+
+หาค่า href
+menucheck = $('#side-menu li.d-none a[href$="'+value+'"]');
+**********************************************************************
+แก้บัก scroll bar เวลาเปิด modal ซ้อน modal
+$('body').on('hidden.bs.modal', function () {
+	if($('.modal.in').length > 0)
+	{
+		$('body').addClass('modal-open');
+	}
+});
+ตรวจสอบหน้าต่าง modal 
+$('#modal-manageblock').on('shown.bs.modal', function () {
+		alert('s');
+	});
+$('#modal-manageblock').on('hide.bs.modal', function () {
+		alert('s');
+	});
+
+สั่งเปิด modal
+$(modal_register).modal({show:true});
+
+สั่งปิด modal
+$("#modalregister").modal('hide');
+
+ตรวจสอบว่า เปิดอยู่หรือไม่
+$('#modalAddress').is(':visible')
+
+******* สำหรับตรวจสอบการเปิดครั้งเดียว
+**** .one() 
+
+ป้องกันการคลิกโอเวอร์เกิน 1 ครั้ง
+function(event)
+event.stopImmediatePropagation();
+
+disable outside or pressing escape กันปิด modal
+$('#myModal').modal({
+    backdrop: 'static',
+    keyboard: false
+})
+หรือ
+<div class="modal fade" id="intropage" role="dialog" data-backdrop="static">
+
+เรียกหน้าแบบ ajax มี fade
+var div = modal_register+" .wizard";
+				$(div).fadeOut(function(){
+					$(div).load('modalregister', function(){
+						$(div).fadeIn('slow');
+					});
+				});
+////////////////////////////
+////	fix width
+
+			var finduldetail = $('.detailcontent').find('ul.detail ');
+			if(finduldetail.length > 0){
+			var width = finduldetail.outerWidth();
+			//callPic(findimg.attr('src'));
+			finduldetail.each(function(){
+				var children = $(this).children();
+				var numberlength = $(this).children().length;
+				////	calculate style
+				var cal = width / numberlength;
+				///////////////////////
+				children.each(function(){
+					console.log($(this).html()+" -- "+width);
+				});
+						  
+			});			
+			}
+
+////	หน่วงเวลา
+var delayID=null;
+delayID=setTimeout(function(){
+	delayID=null;
+	window.location.replace('page_transfer?invoicenumber='+obj.order_id);
+},3000);  
+
+**********************************************************************
+function listMonthAjax(id) {	//ส่งค่าแบบ GET jquery บางส่วนอาจไม่ทำงาน
+		var xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  document.getElementById("listboard").innerHTML = this.responseText;
+			}
+		  };
+		  xhttp.open("GET","page_listevent", true);
+		  xhttp.send();
+	}
+
+
+**********************************************************************
+เรียกไฟล์รูปจากบนเครื่อง client
+<img src='<?php echo 'data:image/jpg;base64,' . base64_encode(file_get_contents('C:/Users/TonDev/Desktop/cowboy2.jpg')); ?>' >
+
+
+**********************************************************************
+เเสดงชื่อ file upload
+<body>
+<input type="file" class="input"/>
+<input type="file" class="input"/>
+<input type="file" class="input"/>
+<input type="file" class="input"/>
+
+<script>
+var inputArray = document.getElementsByClassName('input');
+
+for(var i = 0; i < inputArray.length; i++){
+    inputArray[i].addEventListener('change',prepareUpload,false);
+};
+
+function prepareUpload(event)
+{
+    var files = event.target.files;
+    var fileName = files[0].name;
+    alert(fileName);
+}
+</script>
+</body>
+**********************************************************************
+***************** 	  code event enter   	     *****************
+if(characterCode == 13)
+{
+    return false; // returning false will prevent the event from bubbling up.
+}
+else
+{
+    return true;
+}
+Ok, so imagine you have the following textbox in a form:
+
+<input id="scriptBox" type="text" onkeypress="return runScript(event)" />
+
+// if delete value null
+                    if(event.key === "Backspace") {
+                        async_searhCustomer();
+                    }
+
+**********************************************************************
+
+var image = new Image();
+image.src = e.target.result;
+ image.onload = function () {
+                            var height = this.height;
+                            var width = this.width;
+                            if (height > 1080 || width > 1920) {
+                                alert("Height and Width must not exceed 1920:1080px.");
+				return false;
+                            }else{
+				 return true;
+			    }
+                        };
+			if(input.files[0].size > 600000){			///600 k
+				alert("size over (less then 600M)");
+				return false;
+			}else if(input.files[0].type == 'image/jpeg' || input.files[0].type == 'image/png'){
+				alert('1234567987');
+			}
+
+**********************************************************************
+datepicker ตั้งค่า
+ให้ใส่ libralry ลงให้ครบ boostrap-datepicker.css jquery boostrap-datepicker.js
+โหลดตัวอย่างไว้แล้ว farmchokchai.net/mkt/question ใส่ <link rel> ในแท๊ก head ใส่ <script> ที่ด้านล่าง 
+***เน้น ให้ตัวสคริป jquery อยู่บนเหนือกว่า
+**** ในหน้านั้นได้ติดตั้ง datepicker ไว้สองชุด ชุดนึงแสดงเฉพาะวันเดือนปี แต่มีการชี้วันปัจจุบันให้ กับอีกตัวนึง 
+มีวันเดือนปี และ เวลาด้วย 
+**** ถ้าต้องการเรียกปฏิทินได้หลายๆ ให้เรียกอิงจากชื่อ class หรือ name
+
+ลิงก์ตัว set
+https://uxsolutions.github.io/bootstrap-datepicker/?markup=input&format=&weekStart=&startDate=&endDate=&startView=1&minViewMode=1&maxViewMode=4&todayBtn=false&clearBtn=false&language=en&orientation=auto&multidate=&multidateSeparator=&autoclose=on&keyboardNavigation=on&forceParse=on#sandbox
+
+เรียกปฏิทินแบบชี้วันปัจจุบัน
+<div class='date'>
+	<input type='text' id=""  class="form-control datepicker" />
+</div>
+
+เรียกปฏิทินแบบชี้วันปัจจุบัน และมีไอคอนตามหลัง
+<div class='input-group date' id="">
+	<input type='text'  class="form-control datepicker" />
+	<span class="input-group-addon">
+		<span class="glyphicon glyphicon-time"></span>
+	</span>
+</div>
+
+เรียกปฏิทินปกติ และมีไอคอนตามหลัง (dateonly) 
+<div class='input-group' id="">
+	<input type='text'  class="form-control dateonly" />
+	<span class="input-group-addon">
+		<span class="glyphicon glyphicon-time"></span>
+	</span>
+</div>
+
+เรียกตารางเวลา และมีไอคอนตามหลัง (timeonly)
+<div class='input-group' id="">
+	<input type='text'  class="form-control timeonly" />
+	<span class="input-group-addon">
+		<span class="glyphicon glyphicon-time"></span>
+	</span>
+</div>
+
+ส่วนเนื้อหาสคริป
+<script>
+	$(document).ready(function(){
+		//datepicker type1 show datenow (date only)
+		var date_input=$('.datepicker'); //our date input has the name "date"
+	//	var container=$('div #datepicker').length>0 ? $('div #datepicker').parent() : "body";
+		//alert($('div #datepicker').length);
+		date_input.datepicker({
+			format: 'dd/mm/yyyy',
+			//format: 'HH:mm:ss',
+			//container: container,
+			todayHighlight: true,
+			autoclose: true,
+			pickDate:false
+		})
+		
+		//datepicker type2 date and time
+		$('.timeonly').timepicker({
+			'showDuration': true,
+			//'timeFormat': 'g:ia'
+			'timeFormat': 'H:i:s'
+		});
+		$('.dateonly').datepicker({
+			//'format': 'm/d/yyyy',
+			'format': 'dd/mm/yyyy',
+			'autoclose': true
+		});
+
+		//$('#datepair').datepair();
+	});
+	</script>
+**********************************************************************
+				sweet alert
+**********************************************************************	
+หากเกิด error icon ให้เปลี่ยน paramiter icon เป็น type
+	Swal.fire({
+				  icon: 'success',	//	switch type : 'success'
+				  title: 'Oops...',
+				  text: 'Something went wrong!',
+				})
+**********************************************************************
+				Plugin
+**********************************************************************
+ระบบ messenger ***จะต้องมีรหัสที่มีเพจ เเล้วไปตั้งค่าในรหัสบนเฟสบุ๊ค ส่วนของ plugin messenger นำโค้ดที่ได้จากเฟสบุ๊คไปใส่ไว้ในเเท๊ก footer บนเว็บไซต์ ตัวอย่างโค้ดด้านล่าง***
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+  attribution=setup_tool
+  page_id="311130335760787">
+</div>
+
+**********************************************************************
+			  Plugin chart
+**********************************************************************
+<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script>
+	Highcharts.chart('bar-chart', {
+	  chart: {
+		marginRight: 80
+	  },
+	  xAxis: {
+		categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	  },
+	  yAxis: [{
+		title: {
+		  text: 'Temperature'
+		}
+	  }, {
+		title: {
+		  text: 'Rainfall'
+		},
+		opposite: true
+	  }],
+
+	  series: [{
+		type: 'line',
+		data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+		name: 'Temperature'
+	  }, {
+		type: 'column',
+		data: [194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4],
+		name: 'Rainfall',
+		yAxis: 1
+	  }]
+	});
+	</script>
+
+**********************************************************************
+			  get css
+**********************************************************************
+หนี cache
+เปลี่ยนที่ url เช่น
+www.url.com?cache=1 ,หรือ cache=2 3 4 ไปเรื่อยๆ
+
+หาค่า transform
+4 = transx
+5 = transy
+parseInt($('#'+tableName_onMove).css('transform').split(',')[5]);
+
+**********************************************************************
+**********************************************************************
+*************************** 	CMD    *******************************
+cls = clear cmd
+cd path = add path
+**********************************************************************
+format day
+d - The day of the month (from 01 to 31)
+D - A textual representation of a day (three letters)
+j - The day of the month without leading zeros (1 to 31)
+l (lowercase 'L') - A full textual representation of a day
+N - The ISO-8601 numeric representation of a day (1 for Monday, 7 for Sunday)
+S - The English ordinal suffix for the day of the month (2 characters st, nd, rd or th. Works well with j)
+w - A numeric representation of the day (0 for Sunday, 6 for Saturday)
+z - The day of the year (from 0 through 365)
+W - The ISO-8601 week number of year (weeks starting on Monday)
+F - A full textual representation of a month (January through December)
+m - A numeric representation of a month (from 01 to 12)
+M - A short textual representation of a month (three letters)
+n - A numeric representation of a month, without leading zeros (1 to 12)
+t - The number of days in the given month
+L - Whether it's a leap year (1 if it is a leap year, 0 otherwise)
+o - The ISO-8601 year number
+Y - A four digit representation of a year
+y - A two digit representation of a year
+a - Lowercase am or pm
+A - Uppercase AM or PM
+B - Swatch Internet time (000 to 999)
+g - 12-hour format of an hour (1 to 12)
+G - 24-hour format of an hour (0 to 23)
+h - 12-hour format of an hour (01 to 12)
+H - 24-hour format of an hour (00 to 23)
+i - Minutes with leading zeros (00 to 59)
+s - Seconds, with leading zeros (00 to 59)
+u - Microseconds (added in PHP 5.2.2)
+e - The timezone identifier (Examples: UTC, GMT, Atlantic/Azores)
+I (capital i) - Whether the date is in daylights savings time (1 if Daylight Savings Time, 0 otherwise)
+O - Difference to Greenwich time (GMT) in hours (Example: +0100)
+P - Difference to Greenwich time (GMT) in hours:minutes (added in PHP 5.1.3)
+T - Timezone abbreviations (Examples: EST, MDT)
+Z - Timezone offset in seconds. The offset for timezones west of UTC is negative (-43200 to 50400)
+c - The ISO-8601 date (e.g. 2013-05-05T16:34:42+00:00)
+r - The RFC 2822 formatted date (e.g. Fri, 12 Apr 2013 12:01:05 +0200)
+U - The seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
+and the following predefined constants can also be used (available since PHP 5.1.0):
+
+DATE_ATOM - Atom (example: 2013-04-12T15:52:01+00:00)
+DATE_COOKIE - HTTP Cookies (example: Friday, 12-Apr-13 15:52:01 UTC)
+DATE_ISO8601 - ISO-8601 (example: 2013-04-12T15:52:01+0000)
+DATE_RFC822 - RFC 822 (example: Fri, 12 Apr 13 15:52:01 +0000)
+DATE_RFC850 - RFC 850 (example: Friday, 12-Apr-13 15:52:01 UTC)
+DATE_RFC1036 - RFC 1036 (example: Fri, 12 Apr 13 15:52:01 +0000)
+DATE_RFC1123 - RFC 1123 (example: Fri, 12 Apr 2013 15:52:01 +0000)
+DATE_RFC2822 - RFC 2822 (Fri, 12 Apr 2013 15:52:01 +0000)
+DATE_RFC3339 - Same as DATE_ATOM (since PHP 5.1.3)
+DATE_RSS - RSS (Fri, 12 Aug 2013 15:52:01 +0000)
+DATE_W3C - World Wide Web Consortium (example: 2013-04-12T15:52:01+00:00)
+
+**********************************************************************
+**********************************************************************
+************************ 3d builder *******************************
+เปิดไฟล์ 3D แล้วถ้างานเอียงไม่ได้ระนาบ ไปที่ Object->settle จะได้งานระนาบเดียว และปรับมุมมองโดยใช้เมาส์ เลือกที่
+เครื่องมือตรงกลางจอด้านล่างเลือก ตัว scale ที่เป็นรุปขยาย กด shift ค้าง ปรับมุมมองเอาให้ขอบสี่เหลื่ยมอ้างอิงที่ขาวที่แสดงขึ้นมา
+ได้ระนาบกับขอบแดงของตัวชิ้นงาน
+
+**********************************************************************
+************************ Excel *******************************
+เรียงเลขแม้จะ filter แล้ว
+เคล็ดลับอยู่ที่การใช้ Function SUBTOTAL ซึ่งมีพฤติกรรมเฉพาะตัวอย่างนึงที่เหมาะกับปัญหาของเรามาก นั่นคือ SUBTOTAL จะทำการคำนวณเฉพาะข้อมูลที่ยังคงมองเห็นอยู่หลังถูก Filter ไปแล้ว
+ด้วยเหตุนี้ เราจึงใช้ SUBTOTAL แล้วเลือก Function ย่อยเป็น COUNTA (รหัส 3) เพื่อให้นับจำนวนข้อมูลจากแถวแรกถึงแถวที่จะใส่เลขลำดับนั้นๆ เพื่อให้รู้ว่ามีข้อมูลกี่อันหลังถูก Filter ไปแล้วนั่นเอง
+เช่น สมมติเราจะใส่เลขลับดัยในคอลัมน์ A ในแถวที่ 20 ก็จะเขียนสูตรว่า =SUBTOTAL(3,B2:B20) นั่นเอง โดยคอลัมน์ B ต้องมีข้อมูลอยู่ ห้ามเป็นช่องว่าง
+ที่นี้เพื่อให้ copy สะดวก เราจึงทำการ Lock ช่องเริ่มต้นเอาไว้ เช่น =SUBTOTAL(3,B$2:B20)
+แต่เทคนิคสำคัญอีกอย่างคือ หากเราใช้ Subtotal ตรงๆ Excel มันจะเกิดอาการเอ๋อ ไม่ยอมเอาแถวสุดท้ายมา Filter ด้วย วิธีแก้คือให้เอาผลที่ได้จาก SUBTOTAL ไปคูณ 1 อีกที
+จะได้ว่า =SUBTOTAL(3,B$2:B20) *1 นั่นเอง ครับ
+================================================================
+การใช้งาน
+
+เเจ้งระบุข้อมูลใน input
+<input id="input" name="input" type="text" value="" data-req="" >
+
+////	check data-req
+checkDataRequired('modalediter');		////	ใส่ root element id ที่จะตรวจสอบ
+
+================================================================
+================================================================
+##
+##	ติดตั้ง VScode
+##
+
+1. โหลดตัวติดตั้งที่เว็บไซต์ vscode
+2. ติดตั้งเสร็จ โหลด extention 
+	bracket		- ทำให้ปีกกามีสี
+	rainbow csv	- ทำให้ text ในไฟล์ csv มีสี ดูง่ายขึ้น
+	live server	- ทำให้รันไฟล์ html ได้เรียลไทม์เวลาแก้ไข
+	css peak	- กด ctrl ที่ class จะแสดง css ของ class นั้นๆ
+	better commands	- เพิ่มสีให้คอมเม้นทำให้แยกแยะได้
+	relative path	- ช่วยให้ใส่ path ได้ถูกต้องมากขึ้น

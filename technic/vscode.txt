@@ -1,0 +1,32 @@
+##
+##	ติดตั้ง VScode
+##
+
+1. โหลดตัวติดตั้งที่เว็บไซต์ vscode
+2. ติดตั้งเสร็จ โหลด extention 
+	bracket		- ทำให้ปีกกามีสี
+	rainbow csv	- ทำให้ text ในไฟล์ csv มีสี ดูง่ายขึ้น
+	live server	- ทำให้รันไฟล์ html ได้เรียลไทม์เวลาแก้ไข
+	css peak	- กด ctrl ที่ class จะแสดง css ของ class นั้นๆ
+	better commands	- เพิ่มสีให้คอมเม้นทำให้แยกแยะได้
+	relative path	- ช่วยให้ใส่ path ได้ถูกต้องมากขึ้น
+	prettier	- จัดระเบียบ code
+	
+	theme
+	night owl, dracula
+
+==================================
+d:\>cd xampp
+
+d:\xampp>mkdir realtime-chat
+
+d:\xampp>cd realtime-chat
+
+d:\xampp\realtime-chat>code .
+
+d:\xampp\realtime-chat>
+
+===================================
+keyboard shortcut
+ctrl+/			= Toggle comment
+Shift+Alt+A		= block comment

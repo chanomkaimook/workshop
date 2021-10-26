@@ -1,0 +1,121 @@
+z.com
+private host P1 50GB OS
+
+ns-a1.cloud.z.com
+ns-a3.cloud.z.com
+ns-a4.cloud.z.com 
+Name server มี 3 ตัวครับ
+
+ftp farmchokchaisport.com
+** only secure
+163.44.197.33
+FarmCI
+Farm2018@tong
+
+myadmin
+ 'host' => 'localhost',
+            'user' => 'farmadmin',
+            'pass' => 'Farm2018@',
+            'dbname' => 'farmchokchai_regis'
+
+e-mail control panel
+https://163.44.197.33:8443/
+bkk.it.999@gmail.com
+Farm2018@
+
+=====================================================================================
+FARMCHOKCHAISPORTS.COM
+Username : FarmCI
+Passwork  : Farm2018@tong
+FTP : 163.44.197.33
+
+
+
+
+DirectAdmin:::::  https://122.155.177.125:2222/
+122.155.177.125:21
+farmchokch
+EV_u!5-3
+
+
+'host' => 'localhost',
+'user' => 'farmchokch_regis',
+'pass' => 'x6YvYSroBe93Rs',
+'dbname' => 'farmchokch_regis'
+
+
+
+
+
+Database:	farmchokch_regis
+Host:	localhost
+Username:	farmchokch_regis
+Password:	x6YvYSroBe93Rs
+News
+
+Username : zp10240
+Password :  uhrdf_x32d
+
+email : farmchokchaisport2016@gmail.com
+password : Farm2018@
+
+
+
+Database:	farmchokch_re
+Host:	localhost
+Username:	farmchokch_re
+Password:	qre9NLqyhE
+=====================================================================================
+
+runlah.com
+gmail
+123456789
+
+=====================================================================================
+
+***www.farmchokchaisport.com remote admin
+163.44.197.33
+administrator
+Farm2018@
+
+=====================================================================================
+chokchaisteakhouse
+https://150.95.80.202:8443/
+administrator
+Farm2018@
+
+ftp chokchaisteakhouse
+150.95.80.202
+chokchai
+Farm2018@
+=====================================================================================
+
+http://chokchaiinternational.com/
+https://150.95.89.44:8443/
+administrator
+Farm2018@
+
+ftp chokchaiinternational
+150.95.89.44
+farmci
+Farm2018@
+
+=====================================================================================
+User ID สำหรับใช้งานบบระบบ Merchant Admin Backoffice
+https://paygate.ktc.co.th/ktc/eng/merchant/index.jsp
+Acquiring รับชำระเต็มจำนวน
+MID  991301792
+UID   E0003999
+
+Forever แลกคะแนนสะสม
+MID  991301793
+UID   E4003999
+
+=====================================================================================
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+        `id` varchar(128) NOT NULL,
+        `ip_address` varchar(45) NOT NULL,
+        `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+        `data` blob NOT NULL,
+        KEY `ci_sessions_timestamp` (`timestamp`)
+);

@@ -1,0 +1,126 @@
+วิธีเปิด port บน server
+- setport  inbound outbound ตามลิงก์    https://support.netdesignhost.com/knowledgebase/allow-port-in-and-out-windows-server/
+
+- ไปตรวจที่ firewall ว่าบล็อค port รึเปล่า
+
+- ทดสอบด้วยเว็บ port ดูว่า open รึไม่ หากยังไม่ได้ ลอง restart server เเล้วลองอีกครั้ง
+
+=========================================================================
+ตั้งค่า port ให้โดเมน (หากต้องการ port เพิ่ม ปกติจะเป็น 80 กับ 443 อย่างละ 3 ตัว รวม 6 ตัว)
+- set iis ตามลิงก์     https://www.youtube.com/watch?v=IZ_w6ubNkFk&ab_channel=TecTrick
+- กด start ด้วย (ปิดทุกการเชื่อมต่อของ port นั้นก่อน)
+
+=========================================================================
+ปัญหาเมื่ออัพงานแล้วโดเมนไม่ทำงาน
+- ตรวจสอบ ระบบ server (phpinfo()) หากเป็น window ไม่คำนึง ตัวพิมพ์ใหญ่เล็ก แต่หากเป็น linux คำนึงตัวพิมพ์ใหญ่เล็ก
+ตรวจดู controller model ตัวแรกพิมพ์ใหญ่ และไฟล์อื่นๆ
+
+- ตรวจสอบ web.config
+	ให้ใส่รูปแบบตาม protocal ให้ถูกต้อง https หรือแค่ http ปกติ
+
+- ใช้ codeigniter ตรวจดู controller model ตัวแรกพิมพ์ใหญ่
+
+****ถ้ายังไม่ได้ ไล่ทำตาม step
+- ทดสอบเรียกไฟล์ phpinfo() ที่ root ของระบบ (ใช้ได้ต้องมา)
+- ทดสอบใส่ index.php ลงใน url หากไม่มา ลบ htaccess และ web.config ที่ root ก่อน แล้วไปที่ config
+ดูตัวแปรตามนี้
+$config[index_page] = 'index.php';
+$config[uri_protocol] = 'REQUEST_URI';
+
+ลองเรียกใหม่ หากไม่มา ต้องหาไฟล์ต้นฉบับ codeigniter 3 เอาตัว original มาอัพทับ
+
+เมื่อเรียก index ได้แล้ว ให้ลองเรียก url แบบ hmvc อย่าลืม config เพิ่ม (กรณีชื่อเรียกใช้ modules)
+$config['modules_locations'] = array(APPPATH.'modules/' => '../modules/',);
+
+*** ถ้ายังไม่มา ต้องหาตัว codeigniter hmvc มาทดสอบ หรือ เอาตัวธรรมดา mvc แล้วเอา application/core กับ third_party
+ทับ ลองเรียก ถ้าไม่มา 
+- ตรวจสอบ version php ต่ำไปหรือเปล่า
+- ตรวจดู ssl support ,CGI support, letencript, DNS setting
+ถ้ายังไม่ได้ ติดต่อเจ้าหน้าที่ sever 
+
+หากขั้นต้นได้แล้ว
+- ตั้งค่า config เอา index.php ออก
+$config[index_page] = '';
+$config[uri_protocol] = 'REQUEST_URI';	// ตรงนี้จะเปลี่ยนเป็น path_info ก็ได้
+
+- นำ htaccess มาใส่เพื่อเอา index.php ใน url ออก (เอาจากไฟล์ใน project อื่นได้ )
+- ลองเรียกแบบไม่มี index.php ถ้าได่ไปต่อ
+- นำ web.config มาใส่ เพื่อแก้ปัญหาเรียกcontroller ซ้ำเวลา ajax (เอาจากไฟล์ใน project อื่นได้ )
+
+ลองเรียกทั้งแบบมี www และไม่มี www ต้องเรียกได้ทั้งคู่ ตัว www.อาจจะ ssl ไม่ทำงาน ไม่เป็นไร ตามแก้ทีหลัง
+
+
+=========================================================================
+ติดตั้ง SSL
+
+สร้าง ssl บน server
+websites -> set certificate -> add SSL Certificate
+กรอกข้อมูลให้ครบอิงตาม whois แล้วกด request จะได้ชุดโค้ด CSR (สร้างชื่อ *.domain.com)
+
+Reissue ssl
+เข้าระบบหลังบ้านที่ซื้อ ssl กด certificate และโหลด intermidate(ICA) และ cert(PEM) 
+
+กลับไปที่ server และ upload 1.certificate (PEM) 2.CA-certificate (ICA)
+
+จะได้คีย์ครบ 4 ชุด แล้วไปเลือก server ssl ตัวที่เราเซ็ตไว้ได้เลย รอสัก5นาที โดเมน SSL จะทำงาน
+
+**เช็ค www.domain.com และ domain.com ว่า ssl ทำงานทั้งคู่รึเปล่า ถ้ายังให้
+websites -> host setting ติ๊ก CGI Support แล้วรอสักครู่
+
+=========================================================================
+ดู port ที่ใช้ทั้งหมด
+netstat -a -o
+
+ค้นหา port
+netstat -ano | find ":5000"
+
+result
+=> TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       4032
+   TCP    [::]:5000    
+
+ล้างค่า port
+TASKKILL /F /PID 4032
+
+result
+=> SUCCESS: The process with PID 4032 has been terminated.
+
+=========================================================================
+ต้องการ php v 7.2 ขึ้นไป
+
+- ต้อง upgrade plesk เป็น v 17.8 ก่อน
+- เลือก install php v 7.2
+
+>>>upgrad plesk
+- เข้า tool & settings -> update and upgrades
+- เลือก install or upgrade product
+- เลือกเวอร์ชั่น และ กด continue
+
+>>>upgrade php
+- เข้า tool & settings -> update and upgrades
+- เลือก Add/Remove Components
+- เลือกเวอร์ชั่น php 7.3 กด install หรือจะเลือกลงตัวอื่นอีกก็ได้
+- กด continue
+
+=========================================================================
+ตั้งเวลา session บน server plesk
+-> Tool & Setting
+-> แถบ security เลือก session idle time
+-> ตั้งเวลา
+
+=========================================================================
+กรณีเจอ error 522
+- ชี้โฮส nameserver ที่ cloudflare มาก่อน
+- ที่ plesk ให้เอา port ที่บล็อค ssl ออก (443 โดยไปที่ 
+Control Panel\All Control Panel Items\Administrative Tools->window firewall with Advance)
+ดูที่ inbound หาตัวที่ block port 
+
+-ไปที่ internet information services (IIS) manager
+- sites เลือก domain ที่ขวามือ เลือก bindings
+- เพิ่มตัวรับ https เช่น https---www.appcal.tpacal.or.th---443
+- ติ๊กถูกที่ช่อง Require Server Name Indication
+- ssl certificate : lets encrypt ******
+
+=========================================================================
+สมัคร subdomain ไม่ผ่านเจอ skelmng failed:
+เนื่องจาก ส่วนงานสร้างสมาชิกไม่สำเร็จ ต้องรีโมทเข้าไป run คำสั่งซ่อมแซม
+https://support.plesk.com/hc/en-us/articles/213945225-Unable-to-create-an-additional-domain-or-a-subdomain-inside-a-subscription-in-Plesk-for-Windows-Server-skelmng-failed-Access-is-denied-Error-code-5-

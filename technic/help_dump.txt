@@ -1,0 +1,20 @@
+ยกเลิกบิล
+status_complete = 3
+status = 0
+UPDATE `retail_bill` SET `STATUS_COMPLETE` = '3', `STATUS` = '0' WHERE `retail_bill`.`ID` >= 59137 and USER_STARTS = '00042' and date(DATE_STARTS)='2021-09-21' and status = 1;
+
+ค้นหา
+user_starts = '00041'	// page365
+user_starts = '00042'	// shopee
+SELECT * FROM `retail_bill` where USER_STARTS = '00042' and date(DATE_STARTS)='2021-09-21' and status = 1
+
+====
+บิลที่ลูกค้าสั่งเข้ามาในระบบ
+SELECT 
+date(retail_bill.DATE_STARTS),retail_bill.code,retail_bill.name,retail_bill.phone_number,retail_bill.zipcode,
+if(retail_bill.billstatus = 't',REPLACE(retail_bill.billstatus, 'T', 'ปลายทาง'),REPLACE(retail_bill.billstatus, 'C', 'ปกติ')) ,
+retail_productlist.NAME_TH,retail_billdetail.QUANTITY,retail_billdetail.TOTAL_PRICE
+FROM `retail_bill` 
+left join retail_billdetail on retail_bill.id = retail_billdetail.bill_id 
+left join retail_productlist on retail_billdetail.PROLIST_ID = retail_productlist.id
+where retail_bill.STATUS_COMPLETE in (2,4,5) and retail_bill.status = 1 and retail_billdetail.status = 1

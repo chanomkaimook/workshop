@@ -1,0 +1,19 @@
+
+SELECT id,code,date_starts,STATUS_COMPLETE,status FROM `retail_bill` where date(DATE_STARTS) = '2021-03-25' ORDER BY `retail_bill`.`CODE`,`retail_bill`.`status` ASC
+
+SELECT retail_bill.id,retail_bill.code,retail_bill.date_starts,retail_bill.STATUS_COMPLETE,retail_bill.status FROM `retail_bill` left join retail_billdetail on retail_bill.id = retail_billdetail.BILL_ID where date(retail_bill.DATE_STARTS) >= '2021-03-26' ORDER BY `retail_bill`.`CODE`,`retail_bill`.`status` ASC
+
+page start 26
+SELECT id,code,NAME,date_starts,STATUS_COMPLETE,remark,remark_order,status FROM `retail_bill` where remark_order != '' ORDER BY `retail_bill`.`id` ASC
+
+pro 1500-2000
+SELECT retail_bill.id,retail_bill.code,retail_bill.DELIVERY_FORMID,retail_bill.DELIVERY_FEE,retail_bill.NET_TOTAL,retail_bill.REMARK,retail_bill.REMARK_ORDER,retail_bill.date_starts,retail_bill.STATUS_COMPLETE,retail_bill.status 
+FROM `retail_bill` left join retail_billdetail on retail_bill.id = retail_billdetail.BILL_ID 
+where retail_bill.NET_TOTAL >= 2000
+and retail_bill.DELIVERY_FORMID = 5
+and retail_bill.DELIVERY_FEE = 0
+and retail_bill.STATUS = 1
+and retail_bill.STATUS_COMPLETE = 2
+ORDER BY `retail_bill`.`CODE`,`retail_bill`.`status` ASC
+
+https://zoom.us/j/99854153551?pwd=UHRFbGZmWkJJQkNIQy9QNEYzZDdndz09

@@ -268,7 +268,7 @@ config/route.php ตั้งค่า ดีฟอลเวบ
 $route['default_controller'] = 'site';
 
 **********************************************************************
-วัน เวลา ไม่ตรงกับระบบ timezone aaa
+วัน เวลา ไม่ตรงกับระบบ timezone bbbbbbbbb
 -ไปที่ autoload.php
 $autoload['time_zone'] = date_default_timezone_set('Asia/Bangkok');
 

@@ -98,6 +98,9 @@ table {
 	
 	//	join query build
 	$this->db->join('retail_productlist','if(retail_billdetail.list_id != "", retail_billdetail.list_id = retail_productlist.id ,retail_billdetail.prolist_id = retail_productlist.id)','left',false);
+	
+	//	condition query
+	$ci->db->where('if(retail_creditnotedetail.creditnote_id is not null ,retail_creditnotedetail.status = 1,true)',null,FALSE);
 	//
 	//	===========================================
 	//
@@ -224,6 +227,15 @@ table {
 	//	end field check
 	//
 	
+	//	preg regular
+	$s = preg_replace(
+	  array("/\^/", "/%/", "/\)/", "/\(/", "/{/"),
+	  "", $s);
+	echo $s;
+	
+	//	formatting number with leading zero (0001)
+	str_pad($numbernext, 4, '0', STR_PAD_LEFT);
+	
 	//	===========================================
 	//	Folder & File...
 	//	===========================================
@@ -304,10 +316,31 @@ table {
 	//	check null (no 0 or '')
 	if($search === false){
 		$search_array[] = $keygroup;
-	}   
+	}
+	
+	//	check null (no 0 or '')
+	if (strpos($val['code'],'FC') !== false) {
+		$typepay = "ใบลดหนี้";
+	}
 	
 	//	ตรวจสอบเทียบค่าใน array
 	if(in_array($_FILES["file"]["type"], $allowedFileType))
+		
+	//	ลบ array ,delete array
+	$array = [0 => "a", 1 => "b", 2 => "c"];
+	unset($array[1]);
+	
+	//	เรียงลำดับวันที่ sort array date
+	function compareByTimeStamp($time1, $time2)
+	{
+		if (strtotime($time1) < strtotime($time2))
+			return -1;
+		else if (strtotime($time1) > strtotime($time2))
+			return 1;
+		else
+			return 0;
+	}
+	uasort($a, "compareByTimeStamp");
 	
 	//
 	//	HTML select box 
@@ -365,6 +398,29 @@ table {
         
 		return $result;
     }
+	
+	//	===========================================
+	//	Form...
+	//	===========================================
+	//
+	echo form_open_multipart('customer/save_customer');
+
+	echo form_label('First Name');
+	echo form_input(array('class' => 'form-control', 'name' => 'first_name'));
+	echo "<br/>";
+
+	echo form_label('Last Name');
+	echo form_input(array('class' => 'form-control', 'name' => 'last_name'));
+	echo "<br/>";
+
+	echo form_input(array('type' => 'file', 'name' => 'userfile', 'class' => 'custom-file-input'));
+	echo "<br/>";
+
+	echo form_submit(array('id' => 'submit', 'value' => 'Add', 'class' => 'btn btn-success'));
+
+	echo anchor(base_url() . 'index.php/customer', 'Back', array('class' => 'btn btn-default'));
+
+	echo form_close();
 	
 	//	===========================================
 	//	String...
@@ -533,6 +589,53 @@ table {
 -->
 <script type="text/javascript" src="<?php echo base_url('asset/plugin/datatablebutton').'/datatables.min.js?token='.date('YmdH');?>"></script>
 <script>
+	//	normal javascript
+	this.parentElement.setAttribute('class','d-none');
+    this.parentElement.getElementsByTagName("img")[0].setAttribute('data-del','1');
+	
+	
+	/*	---	HTML TABLE example javascript only
+	<table class="tabledetail w-100">
+		<thead>
+			<tr>
+				<th> </th>
+				<th>ลำดับ</th>
+				<th>สินค้า</th>
+				<th>ราคา</th>
+				<th width="60">จำนวน</th>
+				<th class="text-right">ยอดรวม</th>
+			</tr>
+		</thead>
+		<tbody><tr data-row="1"><td class=""><button type="button" class="btn btn-sm btn-danger btn-del"><i class="fa fa-close"></i></button></td><td class="index">1</td><td class="name"> กุนเชียงหมู 1 กิโลกรัม </td><td class="price">260.00</td><td class="qty"><input type="text" value="3" class="w-100 input-qty" data-promain="4" data-prolist="18" data-list="" data-price="260.00" onkeypress="return checkNumber(this)"></td><td class="totalprice text-right">780.00</td></tr><tr data-row="2"><td class=""><button type="button" class="btn btn-sm btn-danger btn-del"><i class="fa fa-close"></i></button></td><td class="index">2</td><td class="name"> กุนเชียงเนื้อ500กรัม </td><td class="price">200.00</td><td class="qty"><input type="text" value="1" class="w-100 input-qty" data-promain="4" data-prolist="68" data-list="" data-price="200.00" onkeypress="return checkNumber(this)"></td><td class="totalprice text-right">200.00</td></tr><tr data-row="3"><td class=""><button type="button" class="btn btn-sm btn-danger btn-del"><i class="fa fa-close"></i></button></td><td class="index">3</td><td class="name"> หมูทุบ 200 กรัม </td><td class="price">280.00</td><td class="qty"><input type="text" value="2" class="w-100 input-qty" data-promain="3" data-prolist="15" data-list="" data-price="280.00" onkeypress="return checkNumber(this)"></td><td class="totalprice text-right">560.00</td></tr></tbody>
+	</table>
+	*/
+	
+	//	query selector javascript
+	let loop = document.querySelectorAll('[data-loop]');
+	var data = new FormData();
+	//	loop
+	loop.forEach(function(key, index) {
+		data.append(key.getAttribute('data-name'), key.value);
+	})
+	
+	//	product
+	product.forEach(function(key, index) {
+		console.log(key.getElementsByClassName('qty')[0].getElementsByTagName('input')[0].value);
+		pd_id = key.getAttribute('data-row');
+		pd_name = key.getElementsByClassName('name')[0].innerHTML;
+		pd_qty = key.getElementsByClassName('qty')[0].getElementsByTagName('input').value;
+		pd_price = key.getElementsByClassName('price')[0].innerHTML;
+		pd_totalprice = key.getElementsByClassName('totalprice')[0].innerHTML;
+
+		// data['item'].push(key.value);
+		data.append('item['+index+'][id]', pd_id);
+		data.append('item['+index+'][name]', pd_name);
+		data.append('item['+index+'][qty]', pd_qty);
+		data.append('item['+index+'][price]', pd_price);
+		data.append('item['+index+'][totalprice]', pd_totalprice);
+	})
+	
+	
 	// the only bit of jQuery
 	$(window).bind('load', function() {
 
@@ -546,7 +649,50 @@ table {
 		window.history.replaceState( null, null, window.location.href );
 	}
 	
+	//	array 1 d
+	let arraydetail = [45,46,47,48];
+	let search = arraydetail.find(res => res == vchar);
+	if(!search){
+		return false;
+	}
+	
+	//	check price (key 0-9 . and - only)
+	function checkPrice(ele) {
+		var vchar = event.keyCode;
+		// console.log(vchar);
+
+		let arraydetail = [45,46,48,49,50,51,52,53,54,55,56,57,58];
+
+		let search = arraydetail.find(res => res == vchar);
+		if(!search){
+			return false;
+		}
+	}
+			
+	//	array 2d ค้นหาข้อมูลจาก อาร์เรย์
+	detail.filter(function (res) { return res.code == searchval })
+	
 	//	===========================================
+	
+	//	form ajax serializeArray
+	$(document).on('submit', '#form', function(event) {
+		event.stopPropagation();
+
+		let invalid = $('input.is-invalid').parents('form');
+		if (invalid.length > 0) {
+			return false;
+		} else {
+
+			let frm = $("form").serializeArray()
+			if (frm.length > 0) {
+				checkSubmit();
+				return false;
+			} else {
+				return false;
+			}
+
+		}
+	});
 	//
 	//	ajax request cache error แบบส่งไฟล์ รูป เอกสาร
 	//
@@ -612,7 +758,147 @@ table {
 	})
 	
 	//
+	//	ajax , fetch , then , catch
+	fetch('get_sumTotalAmount',{method: $('#sel_dataupdate').val()})
+	.then(res => res.json())
+	.then((data) => {
+		console.log(data);
+	})
+	.catch(function(err){
+		console.log('err : '+err);
+	})
+	
+	// data to be sent to the POST request
+	const form = new FormData(document.getElementById('frm'));	//	ค้นหาทั้งฟอร์ม
+	//	วิธี fetch แบบ error handling
+	fetch('get_orderBill', {
+			method: "POST",
+			body: form
+		})
+		.then(response => response.json())
+		.then(json => console.log(json))
+		.catch(err => console.log(err));
+		
+	//	data no header	
+	var data = new FormData();
+	data.append("json", ordername);
+	//	แบบ แปลงเป็น json
+	var payload = {a:'1',b:'2'};
+	data.append("json", JSON.stringify(ordername));	
+	//	วิธี fetch แบบ error handling
+	fetch('get_orderBill', {
+			method: 'POST',
+			body: data
+		})
+		.then(res => res.json())
+		.then((response) => {
+			console.log(response);
+		})
+		.catch(function(err) {
+			console.log('err : ' + err);
+		})
+	
+	// If you only want to send credentials if the request URL is on the same origin as the calling script, 
+	// add credentials: 'same-origin'.
+	fetch('https://example.com', {
+	  credentials: 'same-origin'
+	});
+	
+	// To instead ensure browsers don’t include credentials in the request, use credentials: 'omit'.
+	fetch('https://example.com', {
+	  credentials: 'omit'
+	})
+	
+	// Uploading JSON data
+	const data = { username: 'example' };
+	fetch('https://example.com/profile', {
+	  method: 'POST', // or 'PUT'
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify(data),
+	})
+	.then(response => response.json())
+	.then(data => {
+	  console.log('Success:', data);
+	})
+	.catch((error) => {
+	  console.error('Error:', error);
+	});
+	
+	// Uploading a file
+	const formData = new FormData();
+	const fileField = document.querySelector('input[type="file"]');
+	formData.append('username', 'abc123');
+	formData.append('avatar', fileField.files[0]);
+
+	fetch('https://example.com/profile/avatar', {
+	  method: 'PUT',
+	  body: formData
+	})
+	.then(response => response.json())
+	.then(result => {
+	  console.log('Success:', result);
+	})
+	.catch(error => {
+	  console.error('Error:', error);
+	});
+	
+	// Uploading multiple files
+	const formData = new FormData();
+	const photos = document.querySelector('input[type="file"][multiple]');
+	formData.append('title', 'My Vegas Vacation');
+	for (let i = 0; i < photos.files.length; i++) {
+	  formData.append(`photos_${i}`, photos.files[i]);
+	}
+
+	fetch('https://example.com/posts', {
+	  method: 'POST',
+	  body: formData,
+	})
+	.then(response => response.json())
+	.then(result => {
+	  console.log('Success:', result);
+	})
+	.catch(error => {
+	  console.error('Error:', error);
+	});
+	
+	//	fetch set header
+	const content = 'Hello World';
+	const myHeaders = new Headers();
+	myHeaders.append('Content-Type', 'text/plain');
+	myHeaders.append('Content-Length', content.length.toString());
+	myHeaders.append('X-Custom-Header', 'ProcessThisImmediately');
+	
+	// check respon json
+	fetch(myRequest)
+	  .then(response => {
+		 const contentType = response.headers.get('content-type');
+		 if (!contentType || !contentType.includes('application/json')) {
+		   throw new TypeError("Oops, we haven't got JSON!");
+		 }
+		 return response.json();
+	  })
+	  .then(data => {
+		  /* process your data further */
+	  })
+	  .catch(error => console.error(error));
+
+	//
 	//	async await
+	async function runcheck() {
+		let result1 = await checkValidateProductList(result);
+		console.log(result1);
+		if (result1.error_code == 0) {
+			createListProduct();
+		} else {
+			$('.modal-footer .htmlvalidate').html('<span class="text-validate text-danger float-left"> โปรดระบุ ' + result1.txt + '</span>');
+		}
+	}
+	runcheck();
+	
+	//	result async await with jquery
 	function ajax_addStock(){
 		//
 		//  submit form stock
@@ -776,7 +1062,7 @@ table {
 	
 	//
 	//	===========================================
-	//	Modal
+	//	URL
 	//	===========================================
 	const queryString = decodeURIComponent(window.location.search);
 	const params = new URLSearchParams(queryString);
@@ -851,6 +1137,53 @@ table {
 	menucheck = $('#side-menu li.d-none a[href$="'+value+'"]');
 	//
 	//	===========================================
+	//
+	//	datatable easy
+	//
+	function createDataTable() {
+		let url = 'getDataCreditNote';
+
+		var datatable = $('#ex1').DataTable({
+			"processing": true,
+			"serverSide": true,
+			'order':[1,'desc'],
+			'ajax': {
+				url: url,
+				type: 'get',
+				data: function(d){
+					d.valdate = $('#valdate').val();
+					d.valdateTo = $('#valdateTo').val();
+				},
+				error: function(xhr, error, code) {
+					//  xhr return array status async
+					if (xhr.status != 200) {
+						alert('พบข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่');
+					}
+				}
+			},
+			"columns": [{
+					"data": "id"
+				},
+				{
+					"data": "code"
+				},
+				{
+					"data": "net"
+				},
+				{
+					"data": "creditnote_id"
+				},
+				{
+					"data": "loss"
+				},
+				{
+					"data": "complete"
+				}
+			],
+
+		});
+
+	}
 	//
 	//	datatable theme
 	//
@@ -1093,7 +1426,18 @@ table {
 						// { "type": "numeric-comma", targets: [3,4,5,6,7,8,9] },
 						// { orderable: false, targets: 0 }
 						// {className: "td-text-center", targets: "_all"},
-					}
+					},
+					{ "targets": 7, "render": function ( data, type, row ) {
+							// console.log(data);
+							if (data === 0 || data === "0") {
+								return '<span style="display:none">999</span>' + data;
+								// return data;
+							} else {
+								return data;
+							}
+						},
+						"orderSequence": ["asc"]
+					},
 				]
 				/* "columns": [
 					{ "orderable": false },
@@ -1135,6 +1479,14 @@ table {
 			//
 			table.order( [ 3, 'asc' ] ).draw();
 			
+			//
+			//	ดักข้อมูลการเปลี่ยนหน้าของ datatable
+			//
+			$(document).on('draw.dt', '#table', function() {
+                $('#table').DataTable().draw();
+
+            });
+			
 			/*
 			//	click table
 			$('#ex1 tbody').on('click', 'tr', function () {
@@ -1163,6 +1515,60 @@ table {
 	
 	if(jQuery.inArray( "stock_add", arraypermit ) >= 0 || inputpermit == 'all'){
 		$("div.toolbar").html('<button id="btn-inputStore" class="btn btn-outline-secondary width-sm" > <i class="fas fa-plus"> รับเข้า</i> </button>');
+	}
+	
+	//	table edit
+	function tableEdit() {
+		let str = $('#permisspage').val();
+		let findPermit = str.includes("manage_stock")
+		if (findPermit || str == 'all') {
+			$("#btn-editable").Tabledit({
+				url: 'ajax_updatestock_setting',
+				buttons: {
+					edit: {
+						class: "btn btn-info px-2 mr-1",
+						html: '<i class="nav-icon fa fa-pencil" aria-hidden="true"></i>',
+						action: "edit"
+					}
+				},
+				inputClass: "form-control form-control-sm",
+				deleteButton: !1,
+				saveButton: 1,
+				autoFocus: !1,
+				hideIdentifier: true,
+				columns: {
+					identifier: [1, 'id'],
+					editable: [
+						[3, "min"],
+						// [4, "max"]
+					]
+				},
+				// Executed after draw the structure
+				onDraw: function() {
+					console.log('Draw');
+					return;
+				},
+				// Executed when the ajax request is completed
+				onSuccess: function(data, textStatus, jqXHR) {
+					// deal with success there
+					console.log("success : "+ data['text'] + " " + textStatus + " = " + jqXHR);
+				},
+				// Executed when occurred an error on ajax request
+				onFail: function() {
+					console.log('Fail');
+					return;
+				},
+				// Executed whenever there is an ajax request
+				onAlways: function() {
+					console.log('Always');
+					return;
+				},
+				onAjax: function(actions, serialize) {
+					console.log(actions + " " + serialize);
+				},
+				
+			})
+		}
 	}
 	
 	//
@@ -1217,6 +1623,7 @@ table {
 	//	@param	typereturn	@text = [date , datetime]
 	//	return datetime TH
 	//
+	//let date = new Date(bill.appr_date); Exam
 	function toThaiDateTimeString(date,typereturn) {
 		let monthNames = [
 			"มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",

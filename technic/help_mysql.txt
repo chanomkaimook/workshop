@@ -17,3 +17,14 @@ and retail_bill.STATUS_COMPLETE = 2
 ORDER BY `retail_bill`.`CODE`,`retail_bill`.`status` ASC
 
 https://zoom.us/j/99854153551?pwd=UHRFbGZmWkJJQkNIQy9QNEYzZDdndz09
+
+
+SELECT retail_bill.id,retail_bill.code,retail_bill.DELIVERY_FORMID,retail_bill.DELIVERY_FEE,retail_bill.NET_TOTAL,retail_bill.REMARK,retail_bill.REMARK_ORDER,retail_bill.date_starts,retail_bill.STATUS_COMPLETE,retail_bill.status ,
+retail_billdetail.PROMAIN_ID,retail_billdetail.PROLIST_ID,retail_billdetail.LIST_ID,retail_billdetail.QUANTITY,retail_billdetail.TOTAL_PRICE
+FROM `retail_bill` 
+left join retail_billdetail on retail_bill.id = retail_billdetail.BILL_ID 
+where 
+retail_bill.STATUS = 1
+and retail_bill.STATUS_COMPLETE = 2
+and date(retail_bill.DATE_STARTS) = '2021-11-01'  
+ORDER BY `id` ASC

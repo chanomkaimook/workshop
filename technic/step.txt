@@ -515,6 +515,9 @@ $query = $this->db->from('tbl_order a')
 ->order_by('b.pro_price','desc')
 ->limit(5,10)
 ->get();
+
+ปิด error notice
+error_reporting(E_ALL ^ E_NOTICE);
 ===========================================
 sql OR
 $this->db->or_where('pro_price >=',300);

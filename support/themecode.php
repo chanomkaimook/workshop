@@ -318,7 +318,7 @@ table {
 		$search_array[] = $keygroup;
 	}
 	
-	//	check null (no 0 or '')
+	//	check null (no 0 or '') ค้นหา search
 	if (strpos($val['code'],'FC') !== false) {
 		$typepay = "ใบลดหนี้";
 	}

@@ -28,3 +28,26 @@ retail_bill.STATUS = 1
 and retail_bill.STATUS_COMPLETE = 2
 and date(retail_bill.DATE_STARTS) = '2021-11-01'  
 ORDER BY `id` ASC
+
+//	แก้ไข sku
+SELECT * FROM `retail_bill` left join retail_billdetail on retail_bill.id = retail_billdetail.BILL_ID where retail_bill.STATUS = 1 and retail_bill.STATUS_COMPLETE = 2 and retail_billdetail.status = 1 and retail_billdetail.prolist_id = 266 and date(retail_bill.DATE_STARTS) >= '2021-12-01' and date(retail_bill.DATE_STARTS) <= '2021-12-31'
+
+$sqltext = "SELECT retail_billdetail.id as rtd_id FROM `retail_bill` left join retail_billdetail on retail_bill.id = retail_billdetail.bill_id where retail_billdetail.PROLIST_ID = 254 and retail_billdetail.status = 1 and retail_bill.STATUS_COMPLETE = 2 and retail_bill.status = 1 and date(retail_bill.DATE_STARTS) >= '2021-12-01' and date(retail_bill.DATE_STARTS) <= '2021-12-31'";
+	$sql = $this->db->query($sqltext);
+
+	$number = $sql->num_rows();
+	// echo "number = ".$number;
+	$no = 1;
+	foreach($sql->result() as $row){
+	
+		$dataupdate = array(
+			'prolist_id'		=> 262,
+			'list_id'		=> ""
+		);
+		
+		$this->db->where('retail_billdetail.id',$row->rtd_id);
+		$this->db->update('retail_billdetail',$dataupdate);
+		
+		echo $no.". ".$row->rtd_id."-----<br>";
+		$no++;
+	}

@@ -58,7 +58,7 @@ websites -> set certificate -> add SSL Certificate
 กรอกข้อมูลให้ครบอิงตาม whois แล้วกด request จะได้ชุดโค้ด CSR (สร้างชื่อ *.domain.com)
 
 Reissue ssl
-เข้าระบบหลังบ้านที่ซื้อ ssl กด certificate และโหลด intermidate(ICA) และ cert(PEM) 
+เข้าระบบหลังบ้านที่ซื้อ ssl นำ CSR ที่ได้ไป reissue จากนั้นกด certificate และโหลด intermidate(ICA) และ cert(PEM) 
 
 กลับไปที่ server และ upload 1.certificate (PEM) 2.CA-certificate (ICA)
 
@@ -101,6 +101,13 @@ result
 - เลือกเวอร์ชั่น php 7.3 กด install หรือจะเลือกลงตัวอื่นอีกก็ได้
 - กด continue
 
+=========================================================================
+อัพโหลดงานเสร็จ แต่พบ runtime error 
+ลองอ่านจากข้อมูล error 
+- ถ้าเกี่ยวกับ web.config  อาจจะแก้ด้วยการเพิ่มการปิดข้อมูล error ด้วยการแทนที่คำสั่ง
+<system.web>
+	<customErrors mode="Off"/>
+  </system.web>
 =========================================================================
 ตั้งเวลา session บน server plesk
 -> Tool & Setting

@@ -489,7 +489,15 @@ ELSE date(cart_sport.pay_datetime) = '2018-11-26'
 END) order by cart_sport.id asc
 
 แบบต้องการเรียงลำดับค่า โดยมีเงื่อนไข
+ซึ่ง ABS() นี้ก็คือ absolute value หรือค่าจริงนี่เอง (อ้างอิงจาก https://dev.mysql.com/doc/refman/8.0/en/mathematical-functions.html). 
+วิธีนี้มีข้อจำกัดคือ ค่าของตัวเลขในตารางต้องไม่มีค่าผสมกันระหว่าง + กับ - เช่น -1, 0, 1, 2 แบบนี้จะเรียงไม่ถูก.
 ORDER BY CASE WHEN stock.qty >= 0 THEN 2 ELSE 1 END,ABS(stock.qty) desc
+
+CAST() คือแปลงค่าให้เป็นประเภทที่ระบุ (อ้างอิงจาก https://dev.mysql.com/doc/refman/8.0/en/cast-functions.html#function_cast).
+SELECT * FROM `products` ORDER BY CAST(`id` AS SIGNED) ASC
+
+ใช้ +0 เข้าไป เช่น
+SELECT * FROM `products` ORDER BY `id`+0 ASC
 
 **********************************************************************
 *********************		คำสั่ง mysql	**********************

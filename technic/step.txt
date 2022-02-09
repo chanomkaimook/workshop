@@ -107,6 +107,16 @@ OR ! preg_match('/^[0-9a-f]{40}$/', $_COOKIE[$this->_config['cookie_name']])
 to:
 OR ! preg_match('/^[0-9a-f]/', $_COOKIE[$this->_config['cookie_name']])
 
+หรือ 
+system/libraries/Session/session.php at line 281 and replace :
+from
+ini_set('session.name', $params['cookie_name']); 
+
+to
+ini_set('session.id', $params['cookie_name']);
+
+https://stackoverflow.com/questions/37458436/why-call-session-not-working-codeigniter-3
+
 /**************************************************/
 การสร้าง subdomain
 ไปที่หลังบ้านของเว็บ  add submain ให้เรียบร้อย จากนั้นให้ชี้ nameserver บน domain นั้นๆด้วย

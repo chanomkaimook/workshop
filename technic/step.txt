@@ -406,6 +406,24 @@ $('#acceptcookie').on('click', function () {
 <?php
 	if(!isset($_COOKIE['accept_cookie']) || $_COOKIE['accept_cookie']=""){
 ?>
+
+//	ลบคุกกี้ delete cookie
+var name_ck_sidebar = 'cc_sidebar_collapse';
+document.cookie = name_ck_sidebar +'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+function getCookie(username) {
+		let name = username + "=";
+		let spli = document.cookie.split(';');
+		for(var j = 0; j < spli.length; j++) {
+			let char = spli[j];
+			while (char.charAt(0) == ' ') {
+			char = char.substring(1);
+			}
+			if (char.indexOf(name) == 0) {
+			return char.substring(name.length, char.length);
+			}
+		}
+		return "";
+	}
 <!--   BEGIN MODAL	-->
 <style>
 	#intropage {
@@ -836,6 +854,66 @@ Your name is: <?= $this->name ?>
 <?php else: ?>
 You don't have a name.
 <?php endif; ?>
+
+
+**********************************************************************
+หาจำนวนระหว่างวัน แสดงวันที่ เรียงตามวันเวลาที่เลือก date หาจำนวนวันของเดือนนั้น
+if($date_cut < $date_full_begin){
+$begin = "2013-02-09";
+$end = "2013-03-28";
+echo time($begin)."-".time($end);
+
+$date1=date_create($begin);
+$date2=date_create($end);
+$diff=date_diff($date1,$date2);
+echo $diff->format("%a")."<br>";
+
+if($diff->format("%a")){
+
+$year_begin = date('Y',strtotime($begin));
+$year_end = date('Y',strtotime($end));
+
+$month_begin = date('n',strtotime($begin));
+$month_end = date('n',strtotime($end));
+
+$day_begin = date('j',strtotime($begin));
+$day_end = date('j',strtotime($end));
+echo "year".$day_begin." : ".$day_end;
+
+  for($yeari=$year_begin;$yeari<=$year_end;$yeari++){
+  	echo "<br>year===============".$yeari;
+    
+    if($yeari==$year_end){
+    
+    	
+    
+    	for($monthi=1;$monthi<=$month_end;$monthi++){
+          echo "<br>month====".$monthi;
+          $totaldays = cal_days_in_month(CAL_GREGORIAN,$monthi,$yeari);
+          for($dayi=$day_begin;$dayi<=$totaldays;$dayi++){
+              echo "<br>days -".$dayi;
+          }
+        }
+        
+	}else{
+    
+    	for($monthi=$month_begin;$monthi<=12;$monthi++){
+          echo "<br>in month==".$monthi;
+
+          $totaldays = cal_days_in_month(CAL_GREGORIAN,$monthi,$yeari);
+          for($dayi=$day_begin;$dayi<=$totaldays;$dayi++){
+            echo "<br>in days -".$dayi;
+          }
+        }
+    	
+        
+    }
+    
+    
+  }
+  
+}
+			}
 
 **********************************************************************
 ฟังก์ชั่น แสดงรุปทันที ajax
@@ -1513,6 +1591,15 @@ $('body').on('hidden.bs.modal', function () {
 		$('body').addClass('modal-open');
 	}
 });
+
+หรือ
+$('body').on('hidden.bs.modal', function () {
+				if($('.modal[aria-hidden=true]').length > 0)
+				{
+					$('body').addClass('modal-open');
+				}
+			});
+
 ตรวจสอบหน้าต่าง modal 
 $('#modal-manageblock').on('shown.bs.modal', function () {
 		alert('s');

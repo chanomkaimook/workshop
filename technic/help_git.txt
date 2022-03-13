@@ -104,3 +104,16 @@ collaborate (see also: git help workflows)
    fetch             Download objects and refs from another repository
    pull              Fetch from and integrate with another repository or a local branch
    push              Update remote refs along with associated objects
+
+   เชื่อมกับโปรเจค
+   1.เปิดโฟลเดอร์โปรเจคด้วย Command Line
+   2.ใช้คำสั่ง git status เพื่อเช็คสถานะของโปรเจค
+   3.ใช้คำสั่ง git init ถ้ายังไม่มี git คุมโปรเจคของเรา
+   4.ใช้คำสั่ง git add --all เพื่อเพิ่มไฟล์ที่เข้าสถานะ Change ทั้งหมดเป็น Staged
+   5.ใช้คำสั่ง git commit -m "First commit" เพื่อสั่ง commit ไฟล์ทั้งหมดใน Staged
+
+   กำหนด remote ให้ โปรเจคที่ต้องการเชื่อม
+   
+   1.ใช้คำสั่ง git remote add origin [remote repository URL]  โดยให้แทนที่ remote repository URL เป็น URL ของ Repository บน Github ที่เราสร้างไว้
+   2.ใช้คำสั่ง git remote -v เพื่อเช็คสถานะ
+   3.ให้คำสั่ง git push -u origin master เพื่อส่งไฟล์ที่ Commit แล้วในโปรเจคขึ้น Github

@@ -1,6 +1,57 @@
 การตั้งโปรเจคไว้นอก root ของ xampp
+
+--root/xampp/apache/conf/httpd.conf เอา # ออก
+LoadModule vhost_alias_module modules/mod_vhost_alias.so
+
+--root/xampp/apache/conf/httpd.conf เพิ่มที่บรรทัด 281
+DocumentRoot "D:/myproject"
+<Directory "D:/myproject">
+	Options Indexes FollowSymLinks Includes ExecCGI
+	AllowOverride All
+    Require all granted
+</Directory>
+
+--root/xampp/apache/conf/extra/httpd-vhosts.conf
+<VirtualHost *:80>
+	DocumentRoot "D:/xampp/htdocs"
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/golftga"
+    ServerName externalapp.local
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/tpa"
+    ServerName appscal.tpacal.or.th
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/TpaAppsCal"
+    ServerName TpaAppsCal
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/workshop"
+    ServerName workshop
+</VirtualHost>
+
+--C:/Windows/System32/drivers/etc/hosts เพิ่ม
+127.0.0.1 externalapp.local
+127.0.0.1 appscal.tpacal.or.th
+127.0.0.1 TpaAppsCal
+127.0.0.1 workshop
+
+--ทดสอบรันด้วย
+http://externalapp.local/
+
 url อ้างอิง
 https://tonyfrenzy.medium.com/xampp-serving-from-any-directory-outside-of-htdocs-22a93f1b8815
 
+====================================================
 เปลี่ยน path database ไว้นอก root ของ xampp
+--root/xampp/mysql/bin/my.ini เปลี่ยน datadir
+datadir="D:/database"
+
+ีurl อ้างอิง
 https://medium.com/@sawai_kung/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A2%E0%B9%89%E0%B8%B2%E0%B8%A2%E0%B9%82%E0%B8%9F%E0%B8%A5%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%9A%E0%B9%84%E0%B8%9F%E0%B8%A5%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87-xampp-%E0%B9%84%E0%B8%9B%E0%B9%84%E0%B8%A7%E0%B9%89%E0%B8%99%E0%B8%AD%E0%B8%81-htdocs-b4de26436508

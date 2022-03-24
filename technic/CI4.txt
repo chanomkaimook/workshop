@@ -1,0 +1,7 @@
+Codeigniter 4 วิธีลบ Public ออกจาก URL
+ 1. ในโฟลเด้อ public ให้ย้าย ไฟล์ index.php, .htaccess และ robot.txt ออกมาไว้ที่ root ของโปรเจค จากนั้นลบโฟลเด้อ public ทิ้งได้เลย
+ 2. เปิดไฟล์ index.php จากนั้นให้แก้ไขตัวแปร pathsPath ให้พาธถูกต้อง
+	จาก
+	$pathsPath = realpath(FCPATH . '../app/Config/Paths.php');
+	เป็น
+	$pathsPath = realpath(FCPATH . 'app/Config/Paths.php');

@@ -1,0 +1,43 @@
+
+===============================
+=======	 set api method =======
+===============================
+โหลด rest api codeigniter3 จาก github
+
+-1 language/english/rest_controller_lang.php นำไปไว้ที่ application/language/english
+
+-2 src/Format.php ,src/RestController.php,Authorization_Token นำไปไว้ที่ application/libraries/
+
+-3 src/rest.php นำไปไว้ที่ application/config
+
+-4 src/jwt.php นำไปไว้ที่ application/config
+
+-5 php-jwt นำไปไว้ที่ application/third_party/
+
+-6 set rest.php
+//	หากต้องการให้ login ทุกครั้งที่ขอ token
+$config['rest_auth'] = 'basic';
+$config['auth_source'] = '';
+
+$config['rest_keys_table'] = ตั้งชื่อ table
+$config['rest_enable_keys'] = true
+$config['rest_key_column'] = 'my_key'; // เปลี่ยนเป็น my_key เพราะ key ตัวเดิม เป็นชื่อที่ห้ามใช้ใน phpmyadmin
+
+ตั้งค่า key ไว้เพื่อไว้แนบกับ header เวลา verify ต้องตรงกับที่มีใน table
+
+===============================
+=======	  set api jwt	=======
+แบบเดิม ไม่ตั้งค่าผ่าน header
+===============================
+#step1: 
+get JWT helper class file from this URL. copy helper มาสร้างใน application/helper/jwt_helper.php
+https://github.com/rpiambulance/website/blob/master/jwt_helper.php
+
+#step2:
+Autoload the jwt_helper in config. ตั้งค่าโหลด jwt_helper.php
+
+#step3:
+Generate the token.
+
+#Step4:
+Extract information from token with Decode token function.

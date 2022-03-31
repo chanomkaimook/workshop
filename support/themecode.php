@@ -581,6 +581,74 @@ table {
 		}
 	}
 	
+	
+	//	API
+	//	Curl
+	public function testCurl()
+	{
+		$url = site_url('api/staff/edit/64');
+
+		$curl = curl_init();
+
+		// CURLOPT_URL => 'https://warehouse1.chokchaisteakhouse.com/api/staff/edit/64',
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => 'https://warehouse1.chokchaisteakhouse.com/api/staff/edit/64',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'PUT',
+			CURLOPT_POSTFIELDS => '[
+			{
+				"name":"userid",
+				"value":"64"
+			},
+			{
+				"name":"name",
+				"value":"Tops เซ็นทรัล บางนา"
+			},
+			{
+				"name":"lastname",
+				"value":""
+			},
+			{
+				"name":"name_th",
+				"value":"Tops เซ็นทรัล บางนา"
+			},
+			{
+				"name":"lastname_th",
+				"value":""
+			},
+			{
+				"name":"username",
+				"value":"CTBN"
+			},
+			{
+				"name":"password",
+				"value":"0161"
+			},
+			{
+				"name":"franshine_text",
+				"value":"CTBN Tops เซ็นทรัล บางนา(505)"
+			},
+			{
+				"name":"franshine_id",
+				"value":"16"
+			}
+			]',
+			CURLOPT_HTTPHEADER => array(
+				'API-KEY: XOGgx6vzY2yIj7li4tS1PMrqckh8dmE5FVQRZGeL',
+				'Content-Type: application/json'
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		echo $response;
+	}
 ?>
 <!--
 	//
@@ -897,7 +965,66 @@ table {
 		}
 	}
 	runcheck();
+
+	//	async
+	fetch('http://test.com/getData')
+      .then( async (response) => {
+
+        // get json response here
+        let data = await response.json();
+        
+        if(response.status === 200){
+         // Process data here
+        }else{
+         // Rest of status codes (400,500,303), can be handled here appropriately
+        }
+
+      })
+      .catch((err) => {
+          console.log(err);
+      })
+	  
+	  //	async new generation
+	  fetch(
+			'../../api/staff/' + userid, {
+
+				headers: {
+					'API-KEY': 'XOGgx6vzY2yIj7li4tS1PMrqckh8dmE5FVQRZGeL',
+				},
+				method: 'PUT',
+				body: JSON.stringify(form)
+			})
+		.then( async (response) => {
+			// console.log(response); // Will show you the status
+			// get json response here
+			let result = await response.json();
+
+			if (!response.ok) {
+				throw new Error("HTTP status " + response.status);
+			} else {
+				console.log(result);
+
+			}
+		})
+		.catch(function(error) {
+			alert(`${error}`);
+		})
 	
+
+	//  async new return data
+	async function async_reloadAfterSubmit(userid) {
+		let doing1 = await new Promise((resolve, reject) => {
+			resolve(console.log('reset'))
+		});
+
+		let doing2 = await new Promise((resolve, reject) => {
+			setTimeout(() =>
+				resolve(console.log('reset2'))
+				, 5000)
+		});
+		console.log('xxx');
+	}
+
 	//	result async await with jquery
 	function ajax_addStock(){
 		//
@@ -1032,6 +1159,23 @@ table {
 			}
 		})
 	}
+
+	//	confirm sweetalert
+	Swal.fire({
+		type: 'warning',
+		title: 'ลบข้อมูล',
+		// timer: 2000,
+		showConfirmButton: true,
+		confirmButtonText: "ยืนยัน", 
+		showCancelButton: true,
+		cancelButtonText: "ยกเลิก", 
+		text: 'ต้องการลบข้อมูลนี้',
+	}).then((result) => { 
+		//
+		// 
+		
+	})
+
 	//
 	//	close alert
 	swal.close();

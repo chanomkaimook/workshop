@@ -129,6 +129,9 @@ table {
 	$t=time();
 	echo($t . "<br>");
 	echo(date("Y-m-d",$t));
+
+	//	แปลงวันที่ให้อยู่่ในรูปแบบ Y-m-d เช่น 27/3/2022 เป็น 2022-3-27 
+	$newDate = preg_replace("/(\d+)\D+(\d+)\D+(\d+)/","$3-$2-$1",$datainsert[$spreadSheetAry[$i][$key]]);
 	
 	//	===========================================
 	//	Form serializeArray
@@ -312,6 +315,24 @@ table {
 	//
 	//	เรียงลำดับ น้อยไปหามาก
 	asort($array);
+
+	//
+	//	นับจำนวนของ array 2 dimension
+	$write_array[] = array(
+		"ลำดับ",
+		"วันทำรายการ",
+		"เลขที่",
+	
+		"ชื่อสินค้า",
+		"จำนวน",
+		"เขต",
+		"สาขา",
+		"ผู้สั่ง",
+		"ผู้ตรวจ",
+	
+		"คืนสินค้า",
+	);
+	$totalarray = array_sum(array_map("count", $write_array));
 	
 	//	check null (no 0 or '')
 	if($search === false){
@@ -1211,6 +1232,34 @@ table {
 	const queryString = decodeURIComponent(window.location.search);
 	const params = new URLSearchParams(queryString);
 	const lineid = params.get("uid");
+	
+	//	get paramiter
+	var url = new URL('https://sse.se')
+
+                var params = {
+                    lat: 35.696233,
+                    long: 139.570431
+                } // or:
+                var params = [
+                    ['lat', '35.696233'],
+                    ['long', '139.570431']
+                ]
+
+                url.search = new URLSearchParams(params).toString();
+                console.log('url = ' + url);
+	
+	//	get paramiter
+	let url = '../ctl_retailproduct/getdata';
+                fetch(url+'?' + new URLSearchParams({
+                        ptype: type
+                    }))
+                    .then(res => res.json())
+                    .then((resp) => {
+                        console.log(resp);
+                    })
+                    .catch(function(error) {
+                        alert(error);
+                    })
 	//
 	//	===========================================
 	//	Modal

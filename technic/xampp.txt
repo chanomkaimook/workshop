@@ -15,32 +15,63 @@ DocumentRoot "D:/myproject"
 <VirtualHost *:80>
 	DocumentRoot "D:/xampp/htdocs"
 </VirtualHost>
-
 <VirtualHost *:80>
     DocumentRoot "D:/myproject/golftga"
-    ServerName externalapp.local
+    ServerName local.golftga.com
 </VirtualHost>
-
 <VirtualHost *:80>
     DocumentRoot "D:/myproject/tpa"
-    ServerName appscal.tpacal.or.th
+    ServerName local.appscal.tpacal.or.th
 </VirtualHost>
-
 <VirtualHost *:80>
-    DocumentRoot "D:/myproject/TpaAppsCal"
-    ServerName TpaAppsCal
+    DocumentRoot "D:/myproject/tpaservice"
+    ServerName local.tpaservice.tpacal.or.th
 </VirtualHost>
-
 <VirtualHost *:80>
-    DocumentRoot "D:/myproject/workshop"
-    ServerName workshop
+    DocumentRoot "D:/myproject/farmchokchaisport"
+    ServerName local.farmchokchaisport.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/reservation"
+    ServerName local.reservation.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/steakhouse"
+    ServerName local.chokchaisteakhouse.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/sale_v_1"
+    ServerName local.ecommerce.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/warehouse_um"
+    ServerName local.warehouse.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/chokchairance"
+    ServerName local.chokchairance.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/basic-laravel"
+    ServerName local.basic-laravel.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/edocument.chokchaiinternational.com"
+    ServerName local.edocument.com
 </VirtualHost>
 
 --C:/Windows/System32/drivers/etc/hosts เพิ่ม
-127.0.0.1 externalapp.local
-127.0.0.1 appscal.tpacal.or.th
-127.0.0.1 TpaAppsCal
-127.0.0.1 workshop
+127.0.0.1 local.golftga.com
+127.0.0.1 local.appscal.tpacal.or.th
+127.0.0.1 local.tpaservice.tpacal.or.th
+127.0.0.1 local.farmchokchaisport.com
+127.0.0.1 local.reservation.com
+127.0.0.1 local.chokchaisteakhouse.com
+127.0.0.1 local.ecommerce.com
+127.0.0.1 local.warehouse.com
+127.0.0.1 local.chokchairance.com
+127.0.0.1 local.basic-laravel.com
+127.0.0.1 local.edocument.com
 
 --ทดสอบรันด้วย
 http://externalapp.local/

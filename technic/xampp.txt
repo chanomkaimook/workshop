@@ -12,6 +12,8 @@ DocumentRoot "D:/myproject"
 </Directory>
 
 --root/xampp/apache/conf/extra/httpd-vhosts.conf
+Listen 8007
+
 <VirtualHost *:80>
 	DocumentRoot "D:/xampp/htdocs"
 </VirtualHost>
@@ -35,9 +37,12 @@ DocumentRoot "D:/myproject"
     DocumentRoot "D:/myproject/reservation"
     ServerName local.reservation.com
 </VirtualHost>
-<VirtualHost *:80>
+<VirtualHost *:8007>
     DocumentRoot "D:/myproject/steakhouse"
     ServerName local.chokchaisteakhouse.com
+	<FilesMatch "\.php$">
+        SetHandler application/x-httpd-php7-cgi
+    </FilesMatch>
 </VirtualHost>
 <VirtualHost *:80>
     DocumentRoot "D:/myproject/sale_v_1"
@@ -47,9 +52,13 @@ DocumentRoot "D:/myproject"
     DocumentRoot "D:/myproject/warehouse_um"
     ServerName local.warehouse.com
 </VirtualHost>
-<VirtualHost *:80>
+
+<VirtualHost *:8007>
     DocumentRoot "D:/myproject/chokchairance"
     ServerName local.chokchairance.com
+	<FilesMatch "\.php$">
+        SetHandler application/x-httpd-php7-cgi
+    </FilesMatch>
 </VirtualHost>
 <VirtualHost *:80>
     DocumentRoot "D:/myproject/basic-laravel"
@@ -61,17 +70,17 @@ DocumentRoot "D:/myproject"
 </VirtualHost>
 
 --C:/Windows/System32/drivers/etc/hosts เพิ่ม
-127.0.0.1 local.golftga.com
-127.0.0.1 local.appscal.tpacal.or.th
-127.0.0.1 local.tpaservice.tpacal.or.th
-127.0.0.1 local.farmchokchaisport.com
-127.0.0.1 local.reservation.com
-127.0.0.1 local.chokchaisteakhouse.com
-127.0.0.1 local.ecommerce.com
-127.0.0.1 local.warehouse.com
-127.0.0.1 local.chokchairance.com
-127.0.0.1 local.basic-laravel.com
-127.0.0.1 local.edocument.com
+127.0.0.1 		local.golftga.com
+127.0.0.1 		local.appscal.tpacal.or.th
+127.0.0.1 		local.tpaservice.tpacal.or.th
+127.0.0.1 		local.farmchokchaisport.com
+127.0.0.1 		local.reservation.com
+127.0.0.1 		local.chokchaisteakhouse.com
+127.0.0.1 		local.ecommerce.com
+127.0.0.1 		local.warehouse.com
+127.0.0.1 		local.chokchairance.com
+127.0.0.1 		local.basic-laravel.com
+127.0.0.1 		local.edocument.com
 
 --ทดสอบรันด้วย
 http://externalapp.local/
@@ -86,3 +95,31 @@ datadir="D:/database"
 
 ีurl อ้างอิง
 https://medium.com/@sawai_kung/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A2%E0%B9%89%E0%B8%B2%E0%B8%A2%E0%B9%82%E0%B8%9F%E0%B8%A5%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%9A%E0%B9%84%E0%B8%9F%E0%B8%A5%E0%B9%8C%E0%B8%82%E0%B8%AD%E0%B8%87-xampp-%E0%B9%84%E0%B8%9B%E0%B9%84%E0%B8%A7%E0%B9%89%E0%B8%99%E0%B8%AD%E0%B8%81-htdocs-b4de26436508
+
+เพิ่ม php mutiversion
+โหลด version php มาติดตั้งที่โฟลเดอร์ xampp ตัวหลัก หรือ ติดตั้ง xampp ที่support php version ที่ต้องการ แล้ว copy folder root\xampp\php ตัวใหม่มาติดตั้งไว้ที่ xampp ตัวหลัก
+จะทำให้ xampp ตัวหลักมี folder php 2 ตัว (ตั้งชื่อ folder ตัวใหม่ให้แตกต่างด้วย เช่น php7)
+
+ปรับ php.ini
+extension_dir = "ext"
+#SetEnv PHPRC "\\path\\to\\xampp\\php"    (comment #)
+
+เพิ่มข้อความต่อด้านล่างที่ root\xampp\apache\conf\extra\httpd-xampp.conf
+ScriptAlias /php7 "D:/xampp/php7"
+Action application/x-httpd-php7-cgi /php7/php-cgi.exe
+<Directory "D:/xampp/php7">
+    AllowOverride None
+    Options None
+    Require all denied
+    <Files "php-cgi.exe">
+        Require all granted
+    </Files>
+</Directory>
+
+กำหนด port ให้ตัว web ที่ต้องการใช้ version เดิมที่ root\xampp\apache\conf\extra\httpd-vhost.conf (ทำแยก htdoc แล้ว)
+Listen 8007
+<VirtualHost *:8007>
+    <FilesMatch "\.php$">
+        SetHandler application/x-httpd-php7-cgi
+    </FilesMatch>
+</VirtualHost>

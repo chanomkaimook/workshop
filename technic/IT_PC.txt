@@ -4,7 +4,7 @@ private host P1 50GB OS
 ns-a1.cloud.z.com
 ns-a3.cloud.z.com
 ns-a4.cloud.z.com 
-Name server มี 3 ตัวครับ
+Name server ็ณ 3 ็ฌๆฆ้๏ฟฝ
 
 ftp farmchokchaisport.com
 ** only secure
@@ -101,13 +101,21 @@ farmci
 Farm2018@
 
 =====================================================================================
-User ID สำหรับใช้งานบบระบบ Merchant Admin Backoffice
+chokchai.com
+
+Plesk
+https://147.50.142.194:8443
+login : cpadmin
+pass : 8tg1%Sf#4Dwj93
+
+=====================================================================================
+User ID ่งๅ—ฃๆผๆๆคๅคๆฑ็ฏๆฑ Merchant Admin Backoffice
 https://paygate.ktc.co.th/ktc/eng/merchant/index.jsp
-Acquiring รับชำระเต็มจำนวน
+Acquiring ้้ฏ็”จๆฝ็”ตๅ“ฉๅบธๆช
 MID  991301792
 UID   E0003999
 
-Forever แลกคะแนนสะสม
+Forever ๅดคยทๅ—…ๆๅธๆฟ
 MID  991301793
 UID   E4003999
 

@@ -51,3 +51,6 @@ $sqltext = "SELECT retail_billdetail.id as rtd_id FROM `retail_bill` left join r
 		echo $no.". ".$row->rtd_id."-----<br>";
 		$no++;
 	}
+	
+fix sql
+ถ้า export table แล้ว fail ให้ติดตั้ง php snapshot

@@ -109,6 +109,30 @@ login : cpadmin
 pass : 8tg1%Sf#4Dwj93
 
 =====================================================================================
+Control Panel URL : http://147.50.231.65:8880
+User : admin
+Password: Farm2018@
+
+For the first time, you can find out more at:
+https://docs.plesk.com/
+
+SSH Access
+=============================
+Server Name: sv1.farmchokchai.com
+Server IP: 147.50.231.65
+SSH Port : 22
+User : root
+Password: Farm2018@
+
+IP address allocation
+=============================
+147.50.231.65 (Main Server IP)
+
+FTP
+farmci
+Farm2018@
+
+=====================================================================================
 User ID 视嗣押悛椐夜汉眯汉 Merchant Admin Backoffice
 https://paygate.ktc.co.th/ktc/eng/merchant/index.jsp
 Acquiring 醚邯用朽电哩庸枪

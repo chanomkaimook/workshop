@@ -1,0 +1,13 @@
+ไม่สามารถเข้าถึง server (ได้ รหัสผ่านถูกต้อง แต่ server block) (file zilla)
+
+1. คลิก เมนู  Edit => Setting
+2. คลิกที่ FTP แล้วดูขวามือ ในหัวข้อ Transfer Mode เลือก Active (เปลี่ยนจาก Passive) แล้ว กดปุ่ม OK ด้านล่าง 
+3. คลิก เมนู File => Site Manager 
+4. ที่หน้าต่าง Site Manager กด New Site และเซตค่าดังนี้
+- Host = 147.50.142.194
+- Protocol = FTP File Transfer Protocol 
+- Encryption = only use Plain FTP (insucure)  ****
+- Login Type = Ask for Password
+- Username = ftpuer
+
+5. กดปุ่ม Connect ใส่ค่า Password จะสามารถ FTP ได้ปกติ

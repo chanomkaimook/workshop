@@ -144,6 +144,12 @@ MID  991301793
 UID   E4003999
 
 =====================================================================================
+https://farmchokchai.com/home/wp-admin
+
+fccprogrammer
+e8VlRuQwbQk$Vuf!%5K%SnqZ
+
+=====================================================================================
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `id` varchar(128) NOT NULL,
         `ip_address` varchar(45) NOT NULL,

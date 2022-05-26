@@ -11,6 +11,11 @@
 	better commands	- เพิ่มสีให้คอมเม้นทำให้แยกแยะได้
 	relative path	- ช่วยให้ใส่ path ได้ถูกต้องมากขึ้น
 	prettier	- จัดระเบียบ code
+
+	file size	- บอกขนาดไฟล์
+	color highlight	- บอกสี
+	highlight matching tag	- บอกจุด tag
+	path intellisense	- บอกที่อยู่ path file
 	
 	theme
 	night owl, dracula

@@ -57,6 +57,10 @@ Codeigniter 4 วิธีลบ Public ออกจาก URL
 	อ้างอิง
 	https://www.youtube.com/watch?v=jUtQ5-6l4is&ab_channel=CTechHindi
 	
+	
+	เรียก views บน module แยก
+	return view('Modules\Linelogin\Views\liff_login', $data);
+	
 /**
  * -------------------------------------------------------------------
  * JWT setup

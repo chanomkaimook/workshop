@@ -1,0 +1,13 @@
+font ไม่ทำงาน
+
+- หาไฟล์ .htaccess ที่ root ของ folder
+
+- ใส่ข้อมูล
+# Apache config
+<FilesMatch ".(eot|ttf|otf|woff)">
+ Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+- AVADA option->global option->typography->custom fonts
+
+- อัพโหลดไฟล์ font ต่างๆ

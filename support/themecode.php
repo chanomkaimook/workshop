@@ -84,6 +84,41 @@ table {
 <span class="d-none d-sm-block">ข้อมูลทั่วไป</span>
 
 <input id="" name="" step="0.0001">
+
+	//	===========================================
+	//	Session
+	//	===========================================
+	//
+	//	session_status(): int
+	// PHP_SESSION_DISABLED if sessions are disabled.
+	// PHP_SESSION_NONE if sessions are enabled, but none exists.
+	// PHP_SESSION_ACTIVE if sessions are enabled, and one exists.
+	//
+	
+	//	หากเปิดใช้งาน session แต่ไม่มี session อยู่
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+	
+	//	ตรวจสอบว่ามีตัวแปรนี้จริงหรือไม่ ซึ่งตรวจสอบได้ทั้ง class ด้วย
+	// class myClass {
+	//	public $mine;
+	//	private $xpto;
+	//	static protected $test;
+	//
+	//	static function test() {
+	//		var_dump(property_exists('myClass', 'xpto')); //true
+	//	}
+	// }
+
+	// var_dump(property_exists('myClass', 'mine'));   //true
+	// var_dump(property_exists(new myClass, 'mine')); //true
+	// var_dump(property_exists('myClass', 'xpto'));   //true
+	// var_dump(property_exists('myClass', 'bar'));    //false
+	// var_dump(property_exists('myClass', 'test'));   //true
+	// myClass::test();
+	if (property_exists($token, 'error'))
+	
 	<?php
 	//
 	//	Active Record
@@ -259,6 +294,14 @@ table {
 	//	ตรวจสอบไฟล์ หรือ folder
 	//
 	if(file_exists("thaicreate.txt")){
+	}
+	
+	//
+	//	ตรวจสอบไฟล์ หรือ folder
+	//
+	if (! is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
+		// Whoops, we don't have a page for that!
+		throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
 	}
 
 	//
@@ -499,6 +542,9 @@ table {
 		var_dump($cstrong);
 		echo PHP_EOL;
 	}
+	
+	// สร้างรหัสผ่านแบบ hash
+	password_hash($this->request->getVar('password'), PASSWORD_DEFAULT)
 	
 	//	===========================================
 	//	Phpspreadsheet...

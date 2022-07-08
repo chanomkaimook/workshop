@@ -1,0 +1,5 @@
+mailhog
+https://github.com/mailhog/MailHog/releases
+
+run
+http://localhost:8025/

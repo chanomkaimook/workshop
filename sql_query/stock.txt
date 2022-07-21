@@ -1,0 +1,25 @@
+// หาจำนวนขาย
+SELECT * FROM `retail_bill`
+left join retail_billdetail on retail_bill.id=retail_billdetail.bill_id
+where date(retail_bill.DATE_STARTS) < '2022-05-01'
+and (retail_billdetail.prolist_id=637 or retail_billdetail.list_id=637)
+and retail_bill.STATUS_COMPLETE in(2)
+and retail_bill.status = 1
+and retail_billdetail.status = 1
+
+// หาจำนวนรับเข้า
+SELECT sum(retail_receivedetail.QUANTITY) as qty 
+FROM `retail_receive` left join retail_receivedetail on retail_receive.id=retail_receivedetail.receive_id 
+where date(retail_receive.DATE_STARTS) < '2022-05-01' 
+and (retail_receivedetail.prolist_id=637 or retail_receivedetail.list_id=637) and retail_receive.COMPLETE in(2) 
+and retail_receive.status = 1 and retail_receivedetail.status = 1;
+
+// หาจำนวนเบิก
+SELECT sum(retail_issue.QUANTITY) as qty 
+FROM `retail_issue`
+where date(retail_issue.DATE_STARTS) < '2022-05-01' 
+and (retail_issue.prolist_id=637 or retail_issue.list_id=637) and retail_issue.COMPLETE in(2) 
+and retail_issue.status = 1
+
+TRUNCATE `cfr`.`retail_bill`;
+TRUNCATE `cfr`.`retail_billdetail`

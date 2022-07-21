@@ -1,0 +1,51 @@
+//    โค้ด migrate ข้อมูลเดิมให้รองรับตัวสินค้าแบบ array
+// [{"id":"11","value":"2"},{"id":"15","value":"2"}]
+$arraytable = array(
+			'retail_productlist', 
+			'retail_billdetail', 
+			'retail_creditnotedetail', 
+			'retail_issue',
+			'retail_notedetail',
+			'retail_receivedetail',
+			'retail_supplierdetail'
+		);
+
+        foreach ($arraytable as $key) {
+            echo "table :: " . $key . "<br>";
+
+            $sqlbill = $this->db->from($key);
+            $qbill = $sqlbill->get();
+            foreach ($qbill->result() as $rbill) {
+                $newlist = null;
+                $promotion = null;
+                $productset = null;
+
+                if ($rbill->LIST_ID) {
+                    $newlist = '[{"id":"' . $rbill->LIST_ID . '","value":"1"}]';
+                    $promotion = 1;
+                }
+                echo "<br>id :" . $rbill->CODE . " ===== " . $rbill->LIST_ID . " promotion[" . $rbill->PROMOTION . "]" . " productset[" . $rbill->PRODUCTSET . "]______" . $newlist;
+
+                $dataupdate = array(
+                    'list_id' => $newlist,
+                    'promotion' => $promotion,
+                    'productset' => $productset,
+                );
+                $this->db->where('id', $rbill->ID);
+                $this->db->update($key, $dataupdate);
+            }
+            echo "<br>";
+            echo "======================================================";
+            echo "======================================================";
+            echo "<br>";
+        }
+
+/
+//	เพิ่ม column promotion และ productset
+ALTER TABLE `retail_issue` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;
+ALTER TABLE `retail_notedetail` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;
+ALTER TABLE `retail_receivedetail` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;
+ALTER TABLE `retail_supplierdetail` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;
+ALTER TABLE `retail_billdetail` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;
+ALTER TABLE `retail_creditnotedetail` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;
+ALTER TABLE `retail_productlist` ADD `PROMOTION` VARCHAR(1) NULL COMMENT '1=โปรโมชั่น ' AFTER `LIST_ID`, ADD `PRODUCTSET` VARCHAR(1) NULL COMMENT '1=สินค้าเซ็ต' AFTER `PROMOTION`;

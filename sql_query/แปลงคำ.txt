@@ -1,0 +1,24 @@
+connect
+$db = \Config\Database::connect();
+        $builder = $db->table('position');
+        $query = $builder->get();
+
+        foreach ($query->getResult() as $row) {
+            $name = trim($row->name);
+            // if (is_numeric(strpos($name, "ผ."))) {
+            //     $name = str_replace("ผ.", "", $name);
+            // }
+            // if (is_numeric(strpos($name, "แผนก"))) {
+            //     $name = str_replace("แผนก", "", $name);
+            // }
+
+            $data[] = [
+                'id'  => $row->id,
+                'name'  => $name
+            ];
+        }
+        // print_r($data);
+        // $builder->where('id',$row->id);
+        $update = $builder->updateBatch($data, 'id');
+        echo "update::" . $update;
+        exit;

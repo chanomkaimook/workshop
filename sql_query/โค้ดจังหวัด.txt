@@ -1,0 +1,39 @@
+670/1หมู่3ถนนหันคา-บ้านไร่ อำเภอหันคา จังหวัดชัยนาท 0858377066
+
+/* $this->load->library('Bill');
+		$sql = $this->db->select('ID,ZIPCODE')
+			->from('retail_bill')
+			->where('retail_bill.zipcode is not null', null, false)
+			->where('retail_bill.district is null', null, false);
+		$q = $sql->get();
+		$num = $q->num_rows();
+		if ($num) {
+			foreach($q->result() as $r){
+				$id = $r->ID;
+				$zipcode = $r->ZIPCODE;
+	
+				$split_address = $this->bill->region_Bill($zipcode);
+	
+				if (count($split_address)) {
+					$dataupdate_address = array(
+						'district'      => $split_address['district'],
+						'province'      => $split_address['province'],
+						'region'        => $split_address['region'],
+						'zipcode'        => $split_address['zipcode'],
+					);
+					$this->db->where('retail_bill.id', $id);
+					$this->db->update('retail_bill', $dataupdate_address);
+				}
+			}
+		} */
+
+=============================
+วิธี import ไฟล์ excel เข้า phpmyadmin
+
+phpmyadmin
+เลือกตาราง->import->เลือกไฟล์ csv->csv using load data-> ที่ column separated เปลี่ยนเป็น ,
+**
+ถ้าใน csv มีหัวข้อ ให้เลือก partial import เป็น 1 เพื่อเริ่มต้นนับ column ที่1 แทน0
+
+** 
+ถ้าไม่รับภาษาไทย ให้เปิดด้วย notepad แล้วเลือก encodeing -> convert to utf8

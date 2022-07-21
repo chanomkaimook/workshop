@@ -11,3 +11,41 @@ font ไม่ทำงาน
 - AVADA option->global option->typography->custom fonts
 
 - อัพโหลดไฟล์ font ต่างๆ
+
+========================================================================
+ติดตั้ง AVADA
+
+==>> ต้องโหลดตัว avada มาก่อน
+- ไปที่ https://themeforest.net/ หรือ envato market และ login
+- กดที่ชื่อ profile -> download จะแสดงรายการที่ซื้อ avada เอาไว้
+- เลือก download แบบ all files & documentation
+- จากนั้น แตกไฟล์ซิป รอไว้
+- ที่หน้า download เลือก download license certificate & purchase code (PDF) จะได้ไฟล์ PDF มา
+
+==>> regis theme-fusion
+- https://theme-fusion.com ไปที่ support -> my account
+- ถ้าหากสมัคร ให้นำ purchase code ที่ได้จากไฟล์ที่ download มากรอกด้วย
+- login และไปที่แถบ register purchase code
+- กรอก purchase code ลงในช่อง Register Your Envato Purchase Codes และรอการยืนยันจาก wordpress
+
+==>> ติดตั้ง wordpress (กรณีต้องติดตั้งแบบ manual)
+- https://wordpress.org/ กด get wordpress จะได้ไฟล์zip
+- แตกไฟล์แล้ว นำข้อมูลทั้งหมด transfer ขึ้นไปบน host
+- พิมพ์ url www.yourdomain.com/wp-admin ในครั้งแรกมันจะเข้าไปที่ wp-config
+- ใส่ข้อมูลให้ครบและถูกต้อง ***เหมือนที่สร้างไว้บน host*** (ที่ host ต้องมีการสร้างฐานข้อมูลรอไว้แล้ว)
+- * หากตัว install ไม่ทำงาน ให้ copy ตัวแจ้งเตือนนั้น ใส่ wp-config-sample.php และ เปลี่ยนชื่อเป็น wp-config.php ลองกด install ใหม่
+- * ให้ใส่ permission 777 ให้ครบทุกไฟล์ของ wordpress ที่อยู่บน host
+
+==>> เข้า wordpress เพื่อติดตั้ง avada
+- เข้าmenu plugins -> Add New -> Upload plugin
+- เลือกไฟล์ Avada.zip ( จาก Avada_Full_Package -> Avada Theme ) และกด upload รอจนเสร็จ
+- เลือกไฟล์ Avada-Child-Theme.zip ( จาก Avada_Full_Package -> Avada Theme ) และกด upload รอจนเสร็จ
+- เข้าmenu plugins จะมี plugin avada core,avada builder ให้กด active
+- จะมี menu avada กดเข้าไป ด้านล่าง จะมีช่อง Your Website is Registered ให้นำ purchase code ที่ติดตั้งไว้ตอนแรกมา register
+- * เมื่อ register สามารถไปที่ web themefusion ที่ my account ตรง purchase code จะเชื่อมกับ web ที่เราติดตั้งเรียบร้อย 
+- * หาก มีอะไรต้อง update ให้กด update (ปกติจะเป็นเมนู patcher ,plugins ที่มีคำว่า required)
+
+
+==>> เสริม
+- plugin slider revolution ทำให้ใน content สามารถมี slider แทรกได้
+- Really Simple SSL ช่วยให้ url ติด ssl

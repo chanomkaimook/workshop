@@ -151,6 +151,12 @@ tong
 e8VlRuQwbQk$Vuf!%5K%SnqZ
 
 =====================================================================================
+https://menu.chokchaisteakhouse.com/wp-admin
+
+fccprogrammer
+Farm2018@
+
+=====================================================================================
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `id` varchar(128) NOT NULL,
         `ip_address` varchar(45) NOT NULL,

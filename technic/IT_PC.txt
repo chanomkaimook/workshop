@@ -144,6 +144,7 @@ MID  991301793
 UID   E4003999
 
 =====================================================================================
+wordpress
 https://farmchokchai.com/home/wp-admin
 
 fccprogrammer     (เดิม)

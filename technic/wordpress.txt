@@ -49,3 +49,13 @@ font ไม่ทำงาน
 ==>> เสริม
 - plugin slider revolution ทำให้ใน content สามารถมี slider แทรกได้
 - Really Simple SSL ช่วยให้ url ติด ssl
+
+========================================================================
+เจอ error หน้าขาว  white screen
+
+- ทำการเข้า FTP
+- ไปที่ wp_content เปลี่ยนชื่อ folder plugins เป็น plugins_old
+- login เข้า wp อีกครั้ง และเลือกติดตั้ง plugin ใหม่ 
+
+อ้างอิง
+https://kinsta.com/knowledgebase/there-has-been-a-critical-error-on-your-website/

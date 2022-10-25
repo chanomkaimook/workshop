@@ -1,0 +1,47 @@
+# เปลี่ยนค่าการแสดงผล
+iconv('ISO-IR-166', "UTF-8", utf8_decode($spreadSheetAry[213][0]);
+
+#
+# กรณีหากไฟล์ excel มีการเซฟทับมาแล้ว การ iconv จะทำให้ charecter ผิด
+# เมื่อมีการ encode iconv แล้วเพี้ยน ตัว encode จะเป็น ASCII
+# ต้องแก้ใช้ตัวที่เป็น encode จากต้นฉบับ
+#
+if(mb_detect_encoding($text_set_end) == 'ASCII'){
+	$text_set_end = $spreadSheetAry[$i][0];
+}
+
+## กรณีพบปัญหาว่า excel ต้นฉบับไม่สมบูรณ์ตั้งแต่แรกและอ่านไทยไม่ได้
+# ต้องล้างค่า default charset
+# หากล้างแล้ว สามารถกำหนดค่าใหม่ได้ (เอา //)
+# แต่วิธีนี้จะเป็นเพียงเเค่เปลี่ยนการแสดงผล ไม่ได้เปลี่ยนจากตัวแปรตรงๆ ทำให้เมื่อมีการเปรียบเทียบค่า จะมีค่าไม่ตรงกัน
+# ถ้าจะเปรียบเทียบด้วยให้ใช้ iconv('ISO-IR-166', "UTF-8", utf8_decode($spreadSheetAry[213][0])
+#
+	ini_set('default_charset', '');
+	// mb_http_output('pass');
+	// mb_detect_order(["UTF-8"]);
+	// mb_detect_order(["TIS-620"]);
+	// mb_detect_order(["WINDOWS-874"]);
+
+
+# จากโค้ดด้านบน คำสั่งที่ทำให้อ่านไทยได้มี utf8_decode,mb_convert_encoding,iconv(ISO-8859-1,Windows-1252),
+$array_item['name'] = array(
+										$productname,
+										mb_detect_encoding($productname,'ASCII,UTF-8,ISO-8859-15'),
+										iconv('Windows-1252', 'UTF-8', $productname),
+
+										utf8_decode($productname),
+										mb_convert_encoding($productname, 'Windows-1252'),
+
+										iconv(mb_detect_encoding($productname), "CP-1252", $productname),
+										iconv(mb_detect_encoding($productname), "UTF-8", $productname),
+										mb_convert_encoding($productname, 'Windows-1252'),
+										mb_convert_encoding($productname, 'ISO-8859-1'),
+										mb_convert_encoding($productname, 'UTF-8'),
+										iconv('UTF-8', 'Windows-874', $productname),
+										iconv('UTF-8', 'UTF8', $productname),
+										iconv('UTF-8', 'UTF8-BOM', $productname),
+										iconv('UTF-8', 'TIS-620', $productname),
+										iconv('UTF-8', 'ISO-8859-1', $productname),
+										iconv('UTF-8', 'windows-1255', $productname),
+										iconv('UTF-8', 'Windows-1252', $productname)
+									);

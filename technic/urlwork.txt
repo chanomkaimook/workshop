@@ -1,0 +1,61 @@
+ทดสอบความเร็วเวบ
+https://developers.google.com/speed/pagespeed/insights/
+
+สร้างรูป logo online
+https://www.freelogodesign.org/
+
+เวลาเพิ่ม host
+--C:/Windows/System32/drivers/etc/hosts เพิ่ม
+
+9b8ee7ee927d8102dd0528e83698a6bd
+
+<VirtualHost *:80>
+	DocumentRoot "D:/xampp/htdocs"
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/golftga"
+    ServerName local.golftga.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/tpa"
+    ServerName local.appscal.tpacal.or.th
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/tpaservice"
+    ServerName local.tpaservice.tpacal.or.th
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/farmchokchaisport"
+    ServerName local.farmchokchaisport.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/reservation"
+    ServerName local.reservation.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/steakhouse"
+    ServerName local.chokchaisteakhouse.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/sale_v_1"
+    ServerName local.ecommerce.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/warehouse_um"
+    ServerName local.warehouse.com
+</VirtualHost>
+<VirtualHost *:8007>
+    DocumentRoot "D:/myproject/chokchairance"
+    ServerName local.chokchairance.com
+	<FilesMatch "\.php$">
+        SetHandler application/x-httpd-php56-cgi
+    </FilesMatch>
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/basic-laravel"
+    ServerName local.basic-laravel.com
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "D:/myproject/edocument.chokchaiinternational.com"
+    ServerName local.edocument.com
+</VirtualHost>

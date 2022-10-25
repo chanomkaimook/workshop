@@ -1,0 +1,62 @@
+อ้างอิง ใช้ตัว (CLI)
+https://devahoy.com/blog/2019/08/introduction-to-vuejs
+
+สอน
+https://www.youtube.com/watch?v=9j537584dI0&ab_channel=KongRuksiamOfficial
+
+========= CLI คำสั่งติดตั้ง ===========
+
+ติดตั้ง node v > 16 ขึ้นไป
+- vue create my-app
+- cd my-app
+- npm run serve
+
+========= Extention ===========
+
+Eslint
+vetur
+auto rename tag
+color hightlight
+
+extenion chrome
+vue js devtool
+
+========= CLI คำสั่งติดตั้ง ===========
+
+หลักๆในการออกแบบเวบผ่าน vue จะมี component ในการสร้างเหมือนการสร้างวัตถุเพื่อให้สามารถถึงไปใช้งานในหน้าต่างๆได้
+โครงสร้าง Component
+ template
+ script
+ style
+
+========= Learning ===========
+
+imperative programming
+การเขียนแบบเดิม ใช้ js บอก browser ว่าต้องการอะไร
+
+declarative programming นิยม สมัยใหม่
+กระชับ อ่านง่าย
+
+การทำงานของ vue รวดเร็ว เพราะการมี Virtual Dom
+ปกติ browser จะอ่าน DOM (Document Object Model) เป็นก้อนแบบ tree model
+ทำให้หากเกิดการเปลี่ยนเปลงของหน้าเว็บส่วนใดส่วนหนึ่ง จะต้องมีการโหลดหน้าเว็บใหม่ทั้งหมด
+
+แต่ vue จะมี virsual dom หรือ dom เสหมือน ทำงานควบคู่กับ dom ปกติ ซึ่งเมื่อมีการเปลี่ยนแปลงข้อมูล ตัว virtual จะรับการเปลี่ยนแลปงนั้นมาก่อนแล้วจึงส่งข้อมูลที่เปลี่ยนแปลงนั้น ออกไปที่ dom ปกติ และเปลี่ยนแปลงเพียงแค่จุดนั้น ไม่ใช่ทั้งหน้าเวบ
+
+{} interpolation
+method ใน script จะใช้ this อ้างอิง data
+
+event จะใช้สัญลักษณ์ @
+attribute0t จะใช้ :
+
+========= Fix Bug ===========
+หากพบว่า vs code มีการอ่านค่า error ที่ไฟล์ว่า
+"Parsing error: No babel config file detected" when IDE not open at Vue projects root directory
+
+ไปที่ file->preference->setting พิมคำว่า eslint หาคำว่า edit setting.json เพิ่มข้อความนี้
+"eslint.workingDirectories": [
+        {"mode": "auto"}
+ ],
+
+อ้างอิง
+https://stackoverflow.com/questions/71271760/parsing-error-no-babel-config-file-detected-when-ide-not-open-at-vue-projects

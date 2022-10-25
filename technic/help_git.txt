@@ -10,6 +10,9 @@ git add .
 // commit ขึ้น git
 git commit -m "first commit"
 
+// commit หัวข้อ และ เนื้อหา
+git commit -m "Title" -m "Description ..........";
+
 // กำหนดรูปแบบโปรเจคเป็น main
 git branch -M main
 

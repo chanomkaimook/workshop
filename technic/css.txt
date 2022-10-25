@@ -137,3 +137,17 @@
 
                     </div>
                 </div>
+
+**********************************************************************
+				ตัดข้อความใน element
+**********************************************************************
+section#item-list .item-detail .card-text:last-child {
+        /* font-size: calc(1rem - 0.3vh); */
+
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }

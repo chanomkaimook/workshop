@@ -128,6 +128,10 @@ collaborate (see also: git help workflows)
    git rm --cached system/application/config/config.php modules/recaptcha/config/recaptcha.php
    
    หยุดติดตามไฟล์เดี่ยว
-   git rm --cached boom.php
+   git update-index --assume-unchanged <file>
+   
+   กลับมาติดตามใหม่
+   git update-index --no-assume-unchanged <file>
+   
    อ้างอิง
    https://stackoverflow.com/questions/1139762/ignore-files-that-have-already-been-committed-to-a-git-repository

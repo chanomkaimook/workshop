@@ -1,0 +1,181 @@
+//==============================================================================
+	//==============================================================================
+	
+	public function imageUpload($result = null)
+	{
+		# code...
+		
+		if($this->input->server('REQUEST_METHOD') == 'POST'){
+			$arrayimage = $_FILES;
+
+			$result = json_encode($this->upload_img($arrayimage));
+			echo $result;
+		}
+	}
+
+	//	upload image
+	//	@param arraybill		@array 
+	//		bill_id		@int 	=> bill id reference
+	//	@param arrayimage		@array = $_FILES
+	//
+	function upload_img($arrayimage)
+	{
+		//=	 call database	=//
+		$ci = &get_instance();
+		$ci->load->database();
+		//===================//
+		$ci->load->library('image');
+		//	setting
+		$uploadsDir = BASE_PIC . "test/";
+		$allowedFileType = array('jpg', 'png', 'jpeg', 'JPG', 'gif', 'GIF');
+
+		$error = 1;
+		$txt = 'ไม่สามารถบันทึกไฟล์ได้';
+
+		//	run upload
+		$count = count($arrayimage);
+		if ($count) {
+			$array = array();
+			$file = $arrayimage['file'];
+			foreach ($file['name'] as $key => $val) {
+
+				//	check file for upload
+				if ($file['name'][$key]) {
+					$img_type = $file['type'][$key];
+					$img_name = $file['name'][$key];
+					$img_tmp = $file['tmp_name'][$key];
+
+					$img_err = $file['error'][$key];
+					$img_size = $file['size'][$key];
+
+					// create array FILE
+					$imagefile = array(
+						'type'		=> $img_type,
+						'name'		=> $img_name,
+						'tmp_name'	=> $img_tmp,
+						'error'		=> $img_err,
+						'size'		=> $img_size
+					);
+
+					//	new name image
+					// $new_image_name = 'new_' . time();
+
+					$new_image_name = "";
+					if($img_name){
+						$explode_name = explode('.',$img_name);
+						$new_image_name = $explode_name[0];
+					}
+
+					$targetPath = $uploadsDir . $new_image_name . '.' . explode("/", $img_type)[1];
+					$fileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+
+					if (in_array($fileType, $allowedFileType)) {
+						$check_upload = $ci->image->uploadimage($targetPath, $imagefile,array('width'=>150));
+						$txterror = "";
+						
+						$error = 0;
+						$txt = 'ทำรายการบันทึกไฟล์สำเร็จ ' . $txterror;
+					}else{
+						$error = 1;
+						$txt = 'ไม่รองรับไฟล์ประเภทนี้';
+					}
+					sleep(2);
+
+
+					/* //	code file upload original
+					if (in_array($fileType, $allowedFileType)) {
+						if (move_uploaded_file($img_tmp, $targetPath)) {
+							$datainsert = array(
+								'creditnote_id '    =>  $arraybill['bill_id'],
+								'path'      	 	=>  $targetPath,
+								'date_starts'   	=>  date('Y-m-d H:i:s')
+							);
+							$ci->db->insert('retail_creditnoteimg', $datainsert);
+							$new_id = $ci->db->insert_id();
+							if ($new_id) {
+								$error = 0;
+								$txt = 'ทำรายการบันทึกไฟล์สำเร็จ';
+							}
+						}
+					} else {	//	error
+
+						$txt = 'ไม่สามารถบันทึกไฟล์ชนิดนี้ได้';
+					} */
+				}
+			}
+
+			/* if(count($check_upload)){
+				
+			}else{
+				$txt = 'ไม่สามารถบันทึกไฟล์ได้ [checkupload]';
+			} */
+		}
+
+		$result = array(
+			'error_code'	=> $error,
+			'txt'			=> $txt
+		);
+
+		return $result;
+	}
+
+	//	check file upload
+	//	@param arrayimage		@array = $_FILES
+	//
+	public function check_img($arrayimage)
+	{
+		//=	 call database	=//
+		$ci = &get_instance();
+		$ci->load->database();
+		//===================//
+		//	setting
+		$uploadsDir =  FCPATH . BASE_PIC . "/test/";
+
+		$allowedFileType = array('jpg', 'png', 'jpeg', 'JPG', 'gif', 'GIF');
+
+		$error = 1;
+		$txt = 'ไม่สามารถบันทึกไฟล์ได้';
+
+		//	run upload
+		$count = count($arrayimage);
+
+		if ($count && $arrayimage) {
+			$array = array();
+			$file = $arrayimage['file'];
+			foreach ($file['name'] as $key => $val) {
+
+				//	check file for upload
+				if ($file['name'][$key]) {
+					$img_type = $file['type'][$key];
+					$img_name = $file['name'][$key];
+					$img_tmp = $file['tmp_name'][$key];
+
+					//	new name iamge
+					$new_image_name = 'new_' . time();
+
+					$targetPath = $uploadsDir . $new_image_name . '.' . explode("/", $img_type)[1];
+					$fileType = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+
+					if (in_array($fileType, $allowedFileType)) {
+						$error = 0;
+						$txt = 'success';
+					} else {	//	error
+						$error = 1;
+						$txt = 'ไม่รองรับไฟล์ประเภทนี้';
+					}
+				}
+			}
+		}
+
+		$result = array(
+			'error_code'	=> $error,
+			'txt'			=> $txt
+		);
+
+		return $result;
+	}
+
+
+	//==============================================================================
+	//==============================================================================
+	//==============================================================================

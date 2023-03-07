@@ -1,0 +1,74 @@
+กด F4 เพื่อใส่ $ กับสูตร
+
+ดูค่าของแถวสุดท้าย
+=INDEX( FILTER( A:A , NOT( ISBLANK( A:A ) ) ) , ROWS( FILTER( A:A , NOT( ISBLANK( A:A ) ) ) ) )
+
+แสดงรายการค่าของช่วงที่เลือก และกำหนดชื่อ column
+=ARRAYFORMULA(IF(ROW(A:A)=1, "id",
+  IF(NOT(ISBLANK(A:A)), ROW(A:A),)))
+
+แสดงเลขแถวสุดท้ายที่มีข้อมูล
+=ARRAYFORMULA(MAX(ROW(A1:A)*( --(A1:A<>"") )))
+
+หรือ
+=ARRAYFORMULA(MAX(ROW(product!A1:A)*( --(product!A1:A<>"") )))
+
+แปลงข้อมูล mutiply head rows & columns
+=ArrayFormula(SPLIT(TRANSPOSE(SPLIT(QUERY(TRANSPOSE(QUERY(TRANSPOSE(IF(D2:H3,A2:A3&CHAR(9)&B2:B3&CHAR(9)&C2:C3&CHAR(9)&D1:H1&CHAR(9)&D2:H3&CHAR(10),)),,9^9)),,9^9),CHAR(10))),CHAR(9)))
+
+อ้างอิง ข้อมูล การทำตาราง mutiply head rows & columns
+https://stackoverflow.com/questions/51370397/google-sheets-convert-columns-to-x-rows
+
+https://stackoverflow.com/questions/53685379/convert-columns-to-rows-in-google-sheets
+
+รวมตาราง
+=QUERY({bill_add!A8:14;bill_pickup!A8:14;bill_tranfer!A8:14})
+
+week ที่เท่าไหร่ของปี ,[1=นับที่วันอาทิตย์,2=นับที่วันจันทร์]
+=WEEKNUM(A49,2)
+
+week ที่เท่าไหร่ของเดือน
+=WEEKNUM(A49,2)-WEEKNUM(DATE(YEAR(A49),MONTH(A49),2))+1
+
+
+=========================================================
+เรียกข้อมูลในกรณีต้องการตัดเซลล์ที่ว่างออกไปจากในแถว
+=QUERY(
+ARRAYFORMULA(
+TRIM(SPLIT(
+TRANSPOSE(
+Query(
+
+IF(LEN('ชีต3'!A1:100),'ชีต3'!A1:100&"^",)
+
+,,5000)
+)
+,"^"))
+)
+)
+
+
+=========================================================
+
+=QUERY(IMPORTRANGE("https://docs.google.com/spreadsheets/d/1DFkaoZW7alMWbsvwihlPLpAzPieymsPoGfjPUhtwYFM", "billAdd"),"where Col4 = 'C001'")
+
+
+
+=SUM(QUERY(IMPORTRANGE("https://docs.google.com/spreadsheets/d/1DFkaoZW7alMWbsvwihlPLpAzPieymsPoGfjPUhtwYFM", "billAdd"),"select Col5 where Col4 = '"&A5&"'",0))
+
+
+=========================================================
+สูตรแปลงเป็น row data พร้อม จำนวน week ต่อเดือน 
+=ARRAYFORMULA(
+QUERY(TRIM(SPLIT(
+TRANSPOSE(SPLIT(QUERY(
+TRANSPOSE(QUERY(TRANSPOSE(
+IF(true,TEXT(bill_add!E2:2,"DD-MM-YYYY")&CHAR(9)&bill_add!A8:A&CHAR(9)&bill_add!B8:B&CHAR(9)&bill_add!E3:3&CHAR(9)&bill_add!E4:4&CHAR(9)&bill_add!E6:6&CHAR(9)&"รับเข้า"&CHAR(9)&bill_add!E8:50&CHAR(9)&WEEKNUM(bill_add!E2:2,2)-WEEKNUM(DATE(YEAR(bill_add!E2:2),MONTH(bill_add!E2:2),2))+1&CHAR(10))
+),,9^9)),,9^9),CHAR(10))) 
+,CHAR(9))),"Select * where Col8 is not null and Col9 is not null order by Col1 asc"
+))
+
+=========================================================
+สลับแนว ตั้ง-นอน เรียกค่าจาก kitchenUrl ออกมา จาก sheet bill_add ที่ E2 ถึง บรรทัดที่มีข้อมูลสุดท้าย
+=TRANSPOSE( IMPORTRANGE(kitchenUrl, "bill_add!E2:"&ARRAYFORMULA(MAX(ROW(product!A1:A)*( --(product!A1:A<>"") )) + 5)
+) )

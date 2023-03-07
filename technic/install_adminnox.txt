@@ -1,0 +1,13 @@
+# Adminox_v2.0.0/Documentation/setup.html
+
+# เตรียมเครื่องมือก่อนการติดตั้ง
+ื- node.js
+- gulp
+- git
+
+# หมายเหตุ
+*** node ต้อง version 8 เพราะไฟล์ package-lock.json ใช้ node-sass 4
+*** หากต้องปรับ version node ติดตั้ง nvm https://github.com/coreybutler/nvm-windows/releases  เลือก nvm-setup.exe
+*** nvm install v8
+*** nvm use v8
+*** check node -v

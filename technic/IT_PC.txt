@@ -175,3 +175,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `data` blob NOT NULL,
         KEY `ci_sessions_timestamp` (`timestamp`)
 );
+
+https://www.shorturl.asia/members/login
+farmchokchai.currypuff@gmail.com
+Farm2022@
+=====================================================================================

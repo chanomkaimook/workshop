@@ -11,6 +11,132 @@ https://www.youtube.com/watch?v=9j537584dI0&ab_channel=KongRuksiamOfficial
 - cd my-app
 - npm run serve
 
+========= ติดตั้ง vue router ===========
+
+- npm install vue-router@4
+
+- src/main.js เพิ่ม
+import { createApp } from 'vue'
+import router from './router'
+import App from './App.vue'
+
+- แก้ไข createApp เป็น 
+createApp(App).use(router).mount('#app')
+
+
+- src/App.vue เพิ่ม
+<router-link to="/">Go to Home</router-link>
+    <router-link to="/about">Go to About</router-link>
+<router-view></router-view>
+ข้อมูลจะแสดงที่ router-view
+
+ทำการสร้างโครงสร้าง router เพื่อให้ง่ายต่อการ dev
+- สร้างโฟลเดอร์ router และสร้างไฟล์ index.js ใน src
+- นำส่วนประกอบ rout ที่อยู่บน main.js ไปใส่ router/index.js
+- router/index.js 
+หน้าไฟล์ router จะเป็นเเบบนี้
+
+/* eslint-disable */
+/**
+ * * Router
+ * * 1.import: import { createRouter, createWebHistory } from 'vue-router'
+ * * 2.create paramiter router for recive value
+ * * 3.import path from paramiter routes to created path
+ */
+import { createRouter, createWebHistory } from "vue-router";
+
+import About from "@/views/About.vue";
+import Home from "@/views/Home.vue";
+
+const routes = [
+  { path: "/", name: "Home", component: Home },
+  { path: "/about", name: "About", component: About },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+เพิ่มบรรทัดสุดท้าย 
+export default router;
+
+- src/main.js เพิ่ม import router from './router'
+
+อ้างอิง
+https://router.vuejs.org/installation.html
+อ้างอิง พร้อมโครงสร้าง router file
+https://www.youtube.com/watch?v=QqZq6kPqs1I&ab_channel=CMDev
+
+========= ติดตั้ง bootstrap ===========
+npm install --save bootstrap
+npm install --save @popperjs/core
+
+-Next, add the Bootstrap CSS and JS components to the Vue project entrypoint (ie: src/main.js)...
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+
+TEST
+<button 
+  class="btn btn-primary" 
+  data-bs-target="#collapseTarget" 
+  data-bs-toggle="collapse">
+  Bootstrap collapse
+</button>
+<div class="collapse py-2" id="collapseTarget">
+  This is the toggle-able content!
+</div>
+
+
+อ้างอิง
+https://stackoverflow.com/questions/65547199/using-bootstrap-5-with-vue-3
+
+========= ติดตั้ง firebase ===========
+- สร้าง folder src/firebase/index.js
+
+ไปเวบ firebase
+- สร้าง domainname reaitime database ให้เรียบร้อย 
+- สร้าง firebase database ที่ console doc นำข้อมูลการ import มาใส่ที่ index.js
+
+เมื่อติดตั้งครบ โค้ดจะแบบนี้
+import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
+
+const firebaseConfig = {
+    apiKey: 'AIzaSyD2EgT5y3sSuzyMFU6kQxVueG1mESZx4jU',
+    authDomain: 'demoticket-971bf.firebaseapp.com',
+    databaseURL: 'https://demoticket-971bf-default-rtdb.firebaseio.com',
+    projectId: 'demoticket-971bf',
+    storageBucket: 'demoticket-971bf.appspot.com',
+    messagingSenderId: '612753303304',
+    appId: '1:612753303304:web:6c78564a539689f4af6ebd'
+  }
+  
+  const app = initializeApp(firebaseConfig)
+  const db = getFirestore(app)
+
+  export {
+    db
+  }
+
+*** ที่ firebase console เมื่อสร้าง firebase data แล้ว ให้ไปที่ rule เพื่อ allow สิทธิ์เข้าถึงข้อมูลเป็น true ด้วย
+
+อ้างอิง นาทีที่ 30+
+https://www.youtube.com/watch?v=84mhLKUM04E&t=1924s&ab_channel=MakeAppswithDanny
+
+========= ติดตั้ง fontawsome ===========
+npm i --save @fortawesome/fontawesome-svg-core
+
+# Free icons styles
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+
+npm i --save @fortawesome/vue-fontawesome@latest-3
+
+อ้างอิง
+https://fontawesome.com/docs/web/use-with/vue/
+
 ========= Extention ===========
 
 Eslint
@@ -21,13 +147,26 @@ color hightlight
 extenion chrome
 vue js devtool
 
-========= CLI คำสั่งติดตั้ง ===========
+========= Shortkey ===========
+
+vue,<>	= สร้างโครงสร้างเว็บ
+
+========= Remark ===========
 
 หลักๆในการออกแบบเวบผ่าน vue จะมี component ในการสร้างเหมือนการสร้างวัตถุเพื่อให้สามารถถึงไปใช้งานในหน้าต่างๆได้
 โครงสร้าง Component
  template
  script
  style
+
+หากต้องใช้ style เฉพาะหน้าที่เรากำหนด ใช้ scope เพิ่มมาช่วย
+<style scoped> ในหน้า component ที่ต้องการเฉพาะ
+
+props[type,required,default]
+
+slot,slot name
+
+v-model
 
 ========= Learning ===========
 
@@ -41,14 +180,49 @@ declarative programming นิยม สมัยใหม่
 ปกติ browser จะอ่าน DOM (Document Object Model) เป็นก้อนแบบ tree model
 ทำให้หากเกิดการเปลี่ยนเปลงของหน้าเว็บส่วนใดส่วนหนึ่ง จะต้องมีการโหลดหน้าเว็บใหม่ทั้งหมด
 
-แต่ vue จะมี virsual dom หรือ dom เสหมือน ทำงานควบคู่กับ dom ปกติ ซึ่งเมื่อมีการเปลี่ยนแปลงข้อมูล ตัว virtual จะรับการเปลี่ยนแลปงนั้นมาก่อนแล้วจึงส่งข้อมูลที่เปลี่ยนแปลงนั้น ออกไปที่ dom ปกติ และเปลี่ยนแปลงเพียงแค่จุดนั้น ไม่ใช่ทั้งหน้าเวบ
+แต่ vue จะมี virsual dom หรือ dom เสหมือน ทำงานควบคู่กับ dom ปกติ ซึ่งเมื่อมีการเปลี่ยนแปลงข้อมูล ตัว virtual จะรับการเปลี่ยนแปลงนั้นมาก่อนแล้วจึงส่งข้อมูลที่เปลี่ยนแปลงนั้น ออกไปที่ dom ปกติ และเปลี่ยนแปลงเพียงแค่จุดนั้น ไม่ใช่ทั้งหน้าเวบ
 
 {} interpolation
 method ใน script จะใช้ this อ้างอิง data
 
 event จะใช้สัญลักษณ์ @
-attribute0t จะใช้ :
+attribute จะใช้ :
 
+การอ้างอิง attribute ต่างๆใน DOM ใช้ directive (มีหลายตัว v-for,v-if,v-bind,...)
+
+
+computed properties
+method properties
+watchers
+
+computed จะ caching ค่าเอาไว้เพื่อดักการทำงานเมื่อข้อมูลที่เราสนใจมีการเปลี่ยนแปลงค่า
+method จะเรียกใช้ทุกครั้งที่ component re-render ใหม่
+watchers ทำงานเหมือน computed ต่างกันที่ watchers ทำงานกับ asynchronous ได้
+
+App (Root Component)
+|
+|__ListComponent (Parent Component)
+|  |
+|  |_Person (Child Component)
+|
+|__FormComponent (Child Component)
+
+การส่งข้อมูลภายใน Component
+Parent Component-->Props-->Child Component
+Parent Component<--Custom Event<--Child Component (ส่ง emit ผ่าน parent เพื่อติดต่อกับ child อื่น)
+
+data binding เชื่อมโยงระหว่าง script และ template
+oneway binding ข้อมูล interporation
+twoway binding ส่วนใหญ่ทำงานกับฟอร์ม เช่น กรอกข้อมูลที่ฟอร์ม และส่วนแสดงผลก็จะแสดงค่าที่กรอกเข้ามาด้วยทันที 
+
+========= Command ===========
+แสดงรายการ array ที่ไม่ใช่ id ที่ส่งค่ามา (ลบ)
+const deleteTodo = id => {
+  todos.value = todos.value.filter(todo =>todo.id !== id);
+};
+
+input ไม่มีข้อความให้ disabled
+:disabled="!newTodoContent"
 ========= Fix Bug ===========
 หากพบว่า vs code มีการอ่านค่า error ที่ไฟล์ว่า
 "Parsing error: No babel config file detected" when IDE not open at Vue projects root directory

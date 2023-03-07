@@ -297,6 +297,13 @@ table {
 	}
 	
 	//
+	//	สร้างโฟลเดอร์
+	//
+	if (file_exists($dir_path)) {
+		mkdir($dir_path, 0777, true);
+	}
+	
+	//
 	//	ตรวจสอบไฟล์ หรือ folder
 	//
 	if (! is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
@@ -307,16 +314,7 @@ table {
 	//
 	//  read file directory
 	//
-	$objOpen = opendir('asset/images/barcode');
-	while (($file = readdir($objOpen)) !== false)
-	{
-		$filename = "";
-		$type = strchr($file,".");      //  check type file
-		if($type == ".png"){
-			$filename = explode(".",$file);
-			array_push($arraypic,$filename[0]);
-		}
-	}
+	
 	
 	//
 	//  read text file
@@ -1154,6 +1152,36 @@ table {
 	}
 	
 	//
+	// async await
+	function modal_show_item(id = null) {
+		if (id) {
+			modal_name.modal('show')
+
+			fetch_dataItem(id)
+			.then(resp => {
+				console.log(resp)
+			console.log(resp.data.ITEM_NAME)
+			})
+			
+			// modal_input_data(data)
+		}
+	}
+	
+	async function fetch_dataItem(id = null) {
+		let url = new URL(path('get_dataItemPure'), domain);
+
+		var data = new FormData();
+		data.append('item_id', id);
+
+		const response = await fetch(url, {
+			method: 'POST',
+			body: data
+		});
+		const result = await response.json();
+		return result;
+	}
+	
+	//
 	//	===========================================
 	//
 	//	ajax request normal
@@ -1306,6 +1334,11 @@ table {
                     .catch(function(error) {
                         alert(error);
                     })
+					
+	// add paramiter
+	new URL(path('get_user'), domain);
+            url.searchParams.append('id', $(this).attr('data-id'));
+			
 	//
 	//	===========================================
 	//	Modal
@@ -1683,6 +1716,44 @@ table {
 					null
 				] */
 		}, 500);
+		
+		
+		
+		// เพิ่มค้นหาข้อมูล
+		"initComplete": function() {
+                this.api().columns().every(function(index) {
+                    var keyword;
+                    var column = this;
+                    var select = $("<select><option value=''></option></select>")
+                        .appendTo($(column.footer()).empty())
+
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                // .search( val ? '^'+val+'$' : '', true, false )
+                                .search(val)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        if (column.search() === '^' + d + '$') {
+                            select.append('<option value="' + d + '" selected="selected">' + d + '</option>')
+                        } else {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        }
+                    });
+
+                    //
+                    // *	set column footer for select to has class 'select' only	
+                    //
+                    $('tfoot th:not(.select) select').remove();
+
+                });
+            },
+			
+			
 			//
 			//	Creat button on table
 			//
@@ -1856,6 +1927,9 @@ table {
 			i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
 			(decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
 	}
+	
+	// วันที่ปัจจุบัน
+	let currentDate = new Date().toJSON().slice(0, 10)
 	
 	//	date
 	//	@param	date	@date = date yyyy-mm-dd (2021-07-08)

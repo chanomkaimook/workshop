@@ -1453,6 +1453,15 @@ $('ul#checkstatus[data-id='+id+'] input[type=checkbox]:eq(1)').attr('checked',fa
 ส่งค่า checkbox
 javascript:systemFinishTime(this.checked,this.id,btnfinish)
 
+ส่งค่า checkbox
+let data = {
+                    'name': $('#frmdata [name=item_name]').val(),
+                    'catagory': $('#frmdata [name=item_catagory]').val(),
+                    'branch': $('#frmdata .item_branch:checked').map(function () {
+                        return this.value
+                    }).get()
+                }
+
 นับจำนวน checkbox ที่ check แล้ว
 $('div#quest'+id+' ul li input:checkbox:checked').length;
 

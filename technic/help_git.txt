@@ -84,6 +84,9 @@ work on the current change (see also: git help everyday)
    mv                Move or rename a file, a directory, or a symlink
    restore           Restore working tree files
    rm                Remove files from the working tree and from the index
+      เข้า git bash ที่ root พิมพ์ git status เช็ค และ พิม rm -rf .git (ไม่ต้อง git) ลองเช็คอีกครั้ง repo จะไม่เชื่อมแล้ว
+      อ้างอิง
+      https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/delete-local-git-repository-repo-command-windows-linux-rm
    sparse-checkout   Initialize and modify the sparse-checkout
 
 examine the history and state (see also: git help revisions)

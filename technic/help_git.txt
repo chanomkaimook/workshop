@@ -103,6 +103,8 @@ grow, mark and tweak your common history
    merge             Join two or more development histories together
    rebase            Reapply commits on top of another base tip
    reset             Reset current HEAD to the specified state
+      git reset --hard <sha1-commit-id>
+      git reset --hard HEAD :: is great if you want to get rid of WORK IN PROGRESS. It will reset you back to the most recent commit, and erase all the changes in your working tree and index
    switch            Switch branches
    tag               Create, list, delete or verify a tag object signed with GPG
 

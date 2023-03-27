@@ -1089,6 +1089,28 @@ table {
 		});
 		console.log('xxx');
 	}
+	
+	// async
+	function get_bill_booking() {
+		let url = new URL("calendar/ctl_manage/fetch_bill_booking", window.origin);
+		return new Promise((resolve, reject) => {
+		  fetch(url)
+			.then((res) => res.json())
+			.then((resp) => {
+			  setTimeout(() => {
+				resolve(console.log(resp));
+			  }, 1000);
+			});
+		});
+	  }
+	 async function test() {
+		let doing2 = await get_bill_booking();
+		let doing1 = await new Promise((resolve, reject) => {
+		  resolve(console.log("reset"));
+		});
+
+		console.log("xxx");
+	  }
 
 	//	result async await with jquery
 	function ajax_addStock(){
@@ -2067,6 +2089,18 @@ table {
 			$('table tr#'+id+' td.total').text(total);
 		}
 	})
+	
+	// regular
+	// ตัวเลข เท่านั้น
+	const inputInt = d.querySelectorAll('input.int_only')
+    inputInt.forEach(function(item, index) {
+        item.addEventListener("keyup", function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        })
+    })
+	
+	เฉพาะตัวเลข / -
+	preg_replace('/[^0-9\/\-\. ]/i','',trim($value));
 </script>
 <?php
 //

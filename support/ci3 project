@@ -1,0 +1,19 @@
+- เลือก copy project tourfarm หรือ shopstock ดึงไปปรับ database ใช้งานได้เลย
+- helper library จะเป็น function หลัก
+  - helper ฟังก์ชั่นโดยรวมทั่วไปของระบบ เช่น วันที่ log สิทธิ์ html
+  - library รูปการทำงานที่ซับซ้อนกว่า helper เช่น ออกBarcode กำหนดStatus การเก็บImage
+ - model อยู่นอก modules เพื่อดึงไปใช้
+ - ใน modules ส่วนของ views จะแบ่งเป็นโฟลเดอร์ของแต่ละเมนูย่อยในระบบอีก 
+  - ในโฟลเดอร์ย่อยของ views จะแบ่งหลักๆเป็น index modal script
+    - ใน script จะแบ่งส่วน คือ เรียกข้อมูล CRUD resetform reload inputdata loading เป็นต้น
+ - ใน views นอก (นอก modules) จะเก็บ layouts และ partials  
+  - layout เป็นตีมที่แสดงผลหน้าเว็บ
+  - partials เก้บส่วนประกอบต่างๆของ layout เช่น link กับ script
+    - e_xxx เป็น element ในหน้าเวบสำหรับ filter ข้อมูล
+    - dom_xxx เป็นหน้าข้อมูล html สำหรับ filter เพื่อให้ e_xxx ดึงไปใช้งาน
+   - asset เก็บ depedencies ต่างๆของ adminox และอะไรที่เพิ่มเติมจะเก้บที่ images และ plugins
+  
+  
+  ====== ใช้งาน gulp
+  พิมพ์ gulp build จะได้รับโฟลเดอร์ dist และ asset
+  copy asset ไปวางทับโฟลเดอร์หลักได้เลย

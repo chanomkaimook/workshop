@@ -128,6 +128,16 @@ Control Panel\All Control Panel Items\Administrative Tools->window firewall with
 - ssl certificate : lets encrypt ******
 
 =========================================================================
+
+=========================================================================
+กรณีเจอ error 550 access denied เมื่อเข้า FTP
+** ต้องสร้าง user ที่มี permit ที่อนุญาตถูกต้อง
+- remote server ไปที่
+- C:\Inetpub\vhosts\domain.com
+- ไปที่โฟลเดอร์ที่ต้องการเข้าถึง properties->security->edit
+- สร้าง user ที่ต้องการ
+
+
 สมัคร subdomain ไม่ผ่านเจอ skelmng failed:
 เนื่องจาก ส่วนงานสร้างสมาชิกไม่สำเร็จ ต้องรีโมทเข้าไป run คำสั่งซ่อมแซม
 https://support.plesk.com/hc/en-us/articles/213945225-Unable-to-create-an-additional-domain-or-a-subdomain-inside-a-subscription-in-Plesk-for-Windows-Server-skelmng-failed-Access-is-denied-Error-code-5-

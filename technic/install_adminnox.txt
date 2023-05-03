@@ -11,3 +11,13 @@
 *** nvm install v8
 *** nvm use v8
 *** check node -v
+
+setup
+- npm install
+- gulp or gulp build สำหรับไฟล์ asset สำเร็จ
+
+** ถ้าเจอ error
+"Error: ENOENT: no such file or directory, scandir '/root/website/node_modules/node-sass/vendor'" 
+
+1. Run npm rebuild node-sass to re-install node-sass
+2. Delete node_modules folder and re run npm install

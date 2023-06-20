@@ -1,0 +1,13 @@
+# เชื่อมฐานข้อมูลกับ excel
+-> login onedrive.live.com
+-> เลือกไฟล์ กด ... เลือก embed แล้ว create
+-> copy iframe ที่ได้มาวางที่ text file เลือกเฉพาะ src จะได้แบบนี้
+https://onedrive.live.com/embed?cid=4CC952AD1A780351&resid=4CC952AD1A780351%214314&authkey=AEUGJ8M6tDMQE3w&em=2
+-> เปลี่ยน embed เป็น download เติมท้าย &app=Excel จะได้ตามแบบ
+https://onedrive.live.com/download?cid=4CC952AD1A780351&resid=4CC952AD1A780351%214314&authkey=AEUGJ8M6tDMQE3w&em=2&app=Excel
+-> ไปที่ power bi เลือก Get data -> from web
+-> ใส่ url แล้วเลือก table ที่จะ load 
+-> กด load รอจนกว่าระบบจะอัพโหลดเสร็จแล้วกด Apply changes
+
+# reload ข้อมูล
+ที่ power bi เลือก refresh

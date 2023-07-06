@@ -1953,6 +1953,13 @@ table {
 	// วันที่ปัจจุบัน
 	let currentDate = new Date().toJSON().slice(0, 10)
 	
+	// ดึงค่าวันที่
+	let date_ob = new Date();
+	let date = ("0" + date_ob.getDate()).slice(-2);
+	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+	let year = date_ob.getFullYear();
+	let datenow = year+"-"+month+"-"+date;
+	
 	//	date
 	//	@param	date	@date = date yyyy-mm-dd (2021-07-08)
 	//	@param	typereturn	@text = [date , datetime]

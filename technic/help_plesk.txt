@@ -1,0 +1,6 @@
+# restart mysql service
+login in Plesk
+select "Server management" => "Tools & Settings"
+select "Server management" => "Services management"
+select "mySQl Server"
+click on "Start"

@@ -4,3 +4,8 @@ select "Server management" => "Tools & Settings"
 select "Server management" => "Services management"
 select "mySQl Server"
 click on "Start"
+
+# allow remote database
+-> login in Plesk
+-> Tools & Settings -> Firewall
+-> Firewall Rules -> open Client MySQL server

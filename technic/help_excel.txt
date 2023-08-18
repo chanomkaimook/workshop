@@ -1,0 +1,12 @@
+// แปลง timestamp เป็น date
+// เลือก field เปล่ามา 1 ช่อง
+From a timestamp in milliseconds (ex: 1488380243994)
+สูตร
+=A1/1000/86400+25569
+เลือก format เป็น
+yyyy-mm-dd hh:mm:ss.000
+
+From a timestamp in seconds (ex: 1488380243)
+=A1/86400+25569+TIME(7,0,0) หรือ =(((G2/60)/60)/24)+DATE(1970,1,1)+TIME(7,0,0)
+เลือก format เป็น (short date)
+yyyy-mm-dd hh:mm:ss

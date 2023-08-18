@@ -85,6 +85,44 @@ table {
 
 <input id="" name="" step="0.0001">
 
+
+<!-- Filter 2section grid on sm and md (mb-0 mb-sm-2)-->
+		<input type="hidden" id="hidden_datestart" name="hidden_datestart">
+		<input type="hidden" id="hidden_dateend" name="hidden_dateend">
+		<div class="row mb-0 mb-sm-2">
+			<div class="col-md-6 d-flex d-md-block">
+				<div class="flex-fill d-md-inline text-center">
+					<button class="btn_today btn btn-primary font-weight-bold text-uppercase">today</button>
+				</div>
+				<div class="flex-fill d-md-inline text-center">
+					<button class="btn_today btn btn-primary font-weight-bold text-uppercase">today</button>
+				</div>
+				<div class="flex-fill d-md-inline text-center">
+					<button class="btn_today btn btn-primary font-weight-bold text-uppercase">today</button>
+				</div>
+				<div class="flex-fill d-md-inline text-center">
+					<button class="btn_today btn btn-primary font-weight-bold text-uppercase">today</button>
+				</div>
+			</div>
+
+			<div class="col-md-6 d-flex justify-content-center justify-content-md-end mt-2 mt-sm-0 ml-auto">
+				<div class="form-inline">
+					<div class="form-group">
+						<input type="text" class="form-control form-control-sm" placeholder="วันเริ่ม" data-date-format='yy-mm-dd' id="datestart-autoclose" name="datestart-autoclose">
+					</div>
+				</div>
+
+				<div class="form-inline">
+					<div class="form-group">
+						<input type="text" class="form-control form-control-sm" placeholder="วันสิ้นสุด" id="dateend-autoclose" name="dateend-autoclose">
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!-- End Filter -->
+
 	//	===========================================
 	//	Session
 	//	===========================================
@@ -375,6 +413,9 @@ table {
 	);
 	$totalarray = array_sum(array_map("count", $write_array));
 	
+	// กรองค่าที่ไม่ซ้ำกัน และ เอาค่าว่างออก
+	$data_ticket_catagory = array_unique(array_filter(array_column($data_ticketFilter, 'CATAGORY_NAME')));
+
 	//	check null (no 0 or '')
 	if($search === false){
 		$search_array[] = $keygroup;
@@ -603,10 +644,24 @@ table {
         return $result;
     }
 	
+	// คอลัมภ์ fulltext ใช้  MATCH AGAINT ค้นหาได้เร็วกว่า
 	//	ex. mysql match for fulltext column
 	SELECT AlbumId, AlbumName
 	FROM Albums
 	WHERE MATCH(AlbumName) AGAINST('cool');
+	
+	// รวมชื่อ concat แล้วค้นหาได้
+	SELECT * from member where CONCAT(NAME," ",LASTNAME) like '%สมนึก ชิ%';
+	
+	// นับจำนวน
+	SELECT
+	count(id) as id,
+	count(case when CATAGORY_ID = '1' then 1 else null end) as type1, 
+	count(case when CATAGORY_ID = '2' then 1 else null end) as type2, 
+	count(case when CATAGORY_ID = '3' then 1 else null end) as type3, 
+	count(case when CATAGORY_ID = '5' then 1 else null end) as type5, 
+	count(case when CATAGORY_ID = '6' then 1 else null end) as type6
+	FROM `ticket`;
 	
 	//	นับจำนวนตัวอักษร
 	SELECT * FROM `lotto_billdetail` where CHAR_LENGTH(lottonumber) = 3
@@ -1917,6 +1972,22 @@ table {
 		}
 		return color;
 	}
+	
+	// delay search
+	var delayTimer;
+	$(document).on('keyup', section_doc_name + ' #item_search', function() {
+		clearTimeout(delayTimer);
+		let textsearch = $(this).val()
+		delayTimer = setTimeout(function() {
+			// Do the ajax stuff
+			if (textsearch.trim() && textsearch.length >= 5) {
+
+				modal_show_itemFromBarcode(textsearch.trim())
+
+			}
+		}, 500);
+	})
+
 	
 	//
 	//	===========================================

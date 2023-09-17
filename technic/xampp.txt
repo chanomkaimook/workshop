@@ -99,6 +99,7 @@ https://medium.com/@sawai_kung/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A2%E0%B9%89%E0%
 เพิ่ม php mutiversion
 โหลด version php มาติดตั้งที่โฟลเดอร์ xampp ตัวหลัก หรือ ติดตั้ง xampp ที่support php version ที่ต้องการ แล้ว copy folder root\xampp\php ตัวใหม่มาติดตั้งไว้ที่ xampp ตัวหลัก
 จะทำให้ xampp ตัวหลักมี folder php 2 ตัว (ตั้งชื่อ folder ตัวใหม่ให้แตกต่างด้วย เช่น php7)
+ที่ไฟล์ใหม่ให้ copy php.ini-development มาสร้างเป็น php.ini
 
 ปรับ php.ini
 extension_dir = "ext"

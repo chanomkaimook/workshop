@@ -102,7 +102,19 @@ https://medium.com/@sawai_kung/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A2%E0%B9%89%E0%
 ที่ไฟล์ใหม่ให้ copy php.ini-development มาสร้างเป็น php.ini
 
 ปรับ php.ini
-extension_dir = "ext"
+extension_dir = "ext" to extension_dir = "D:\xampp\php74\ext"
+upload_tmp_dir = "D:\xampp\tmp"
+upload_max_filesize = 10000M
+
+extension=curl
+extension=fileinfo
+extension=gd2
+extension=mbstring
+extension=pdo_mysql
+extension=pdo_sqlite
+extension=sockets
+date.timezone = "Asia/Bangkok"
+
 #SetEnv PHPRC "\\path\\to\\xampp\\php"    (comment #)
 
 เพิ่มข้อความต่อด้านล่างที่ root\xampp\apache\conf\extra\httpd-xampp.conf

@@ -1,0 +1,10 @@
+# ติดตั้ง computer ใหม่
+- chorme
+- nodepad++
+- vscode
+- xampp -> ทำ mutiversion แยก database และ project
+- fileZilla
+- git bash
+- git desktop
+- node
+- composer

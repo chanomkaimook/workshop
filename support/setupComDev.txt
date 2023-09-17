@@ -1,5 +1,5 @@
 # ติดตั้ง computer ใหม่
-- chorme
+- chorme,brave
 - nodepad++
 - vscode
 - xampp -> ทำ mutiversion แยก database และ project
@@ -10,3 +10,5 @@
 - nvm (node version)
 - composer
 - map google drive
+- zoom
+- anydesk

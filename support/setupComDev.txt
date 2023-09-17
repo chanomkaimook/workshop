@@ -7,5 +7,6 @@
 - git bash
 - git desktop
 - node
+- nvm (node version)
 - composer
 - map google drive

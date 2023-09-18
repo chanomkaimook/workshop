@@ -144,3 +144,10 @@ https://stackoverflow.com/questions/45790160/is-there-way-to-use-two-php-version
 
 youtube thai muti phpversion on xampp
 https://www.youtube.com/watch?v=H2PSz263rsI&ab_channel=ITData
+
+//
+// ย้าย database เกิดปัญหาเรื่อง ฐานข้อมูลไม่ครบ
+-> copy ทุกอย่างใน mysql except bin script share
+-> นำไปวางแทนที่ mysql ใหม่
+อ้างอิง
+https://stackoverflow.com/questions/9860118/how-to-transfer-my-mysql-database-to-another-computer

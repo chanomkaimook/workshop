@@ -151,3 +151,7 @@ https://www.youtube.com/watch?v=H2PSz263rsI&ab_channel=ITData
 -> นำไปวางแทนที่ mysql ใหม่
 อ้างอิง
 https://stackoverflow.com/questions/9860118/how-to-transfer-my-mysql-database-to-another-computer
+==============================================
+# php error global_priv
+พิมพ์คำสั่งนี้ลงไปใน sql
+repair table mysql.global_priv;

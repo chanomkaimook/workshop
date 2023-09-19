@@ -168,6 +168,7 @@ farmchokchai.mkt@hotmail.com
 Farm2018@
 
 =====================================================================================
+gmail
 edocument.chokchaiinternational.com
 edocumentfcc@gmail.com
 @Farm1957
@@ -191,4 +192,12 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 https://www.shorturl.asia/members/login
 farmchokchai.currypuff@gmail.com
 Farm2022@
+=====================================================================================
+Line Dev
+file.fcc@gmail.com
+Farm2018@#
+
+pass gmail
+file1957@a
+
 =====================================================================================

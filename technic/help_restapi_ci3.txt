@@ -1,0 +1,27 @@
+=======================================
+README.
+folder restapi_ci3
+=======================================
+structure in folder JWT
+
+config/
+api.php
+jwt.php
+
+libraries/
+Authorization.php	Jeevan Lal@version         1.1.5
+Format.php
+
+third_party/
+php-jwt
+
+=======================================
+instruction
+
+config/jwt.php
+->change "jwt_key" and "token_expire_time"
+
+=======================================
+use JWT
+$array = array('index','this is value')
+$this->authorization_token->generateToken($array)

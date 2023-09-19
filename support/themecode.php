@@ -1556,6 +1556,8 @@ table {
 				// "serverSide": true,
 				// "processing": true,  
 				
+				// "oSearch": {"sSearch": "2308322"}, default search
+				
 				//"pageLength": 50
 				"paging": pagevalue,
 				"lengthChange": true,
@@ -2216,5 +2218,21 @@ require 'vendor/autoload.php';
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+
+// detech การยิง fetch
+const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+            if (entry.initiatorType === "fetch") {
+
+                console.log(entry)
+                console.log('Fetch request detected to', entry.name);
+            }
+        }
+    });
+
+    observer.observe({
+        entryTypes: ["resource"]
+    });
 
 ?>

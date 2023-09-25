@@ -1,0 +1,100 @@
+<html>
+<body>
+<div class="img-previews">
+            <h1>Select An Image to Resize 👇</h1>
+            <p>
+                Once submitted, the image will be resized and displayed using only a
+                few lines of JavaScript!
+            </p>
+
+            <form id="my-form" action="" method="post" r>
+                <input type="file" name="photo" accept="image/*" required />
+                <button type="submit">Resize Image</button>
+            </form>
+
+            <img id="img-preview" style="width:150px;">
+        </div>
+</body>
+</html>
+
+<script>
+    const form = document.querySelector('#my-form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Get data URI of the selected image
+        const formData = new FormData(e.currentTarget);
+        const photoField = formData.get('photo');
+        const dataUri = await dataUriFromFormField(photoField);
+
+        const imgEl = document.createElement('img');
+        imgEl.addEventListener('load', () => {
+            const resizedDataUri = resizeImage(imgEl, 90);
+            document.querySelector('#img-preview').src = resizedDataUri;
+        });
+        imgEl.src = dataUri;
+    });
+
+    function dataUriFromFormField(field) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+
+            reader.addEventListener('load', () => {
+                resolve(reader.result);
+            });
+
+            reader.readAsDataURL(field);
+        });
+    }
+
+    function resizeImage(imgEl, wantedWidth) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const aspect = imgEl.width / imgEl.height;
+
+        canvas.width = wantedWidth;
+        canvas.height = wantedWidth / aspect;
+
+        ctx.drawImage(imgEl, 0, 0, canvas.width, canvas.height);
+        return canvas.toDataURL();
+    }
+</script>
+
+
+# ทำงานกับ javascript image
+
+if ($_POST) 
+{
+    define('UPLOAD_DIR', 'uploads/');
+    $img = $_POST['image'];
+    $img = str_replace('data:image/jpeg;base64,', '', $img);
+    $img = str_replace(' ', '+', $img);
+    $data = base64_decode($img);
+    $file = UPLOAD_DIR . uniqid() . '.jpg';
+    $success = file_put_contents($file, $data);
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "test";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    } 
+
+    $sql = "INSERT INTO images (image_name)
+    VALUES ('{$file}')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();        
+}

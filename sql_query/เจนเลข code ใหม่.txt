@@ -1,0 +1,38 @@
+$begin = 'CIC226992023';
+        $sql = $this->db->select('retail_bill.ID,retail_bill.CODE')
+            ->from('retail_bill');
+        // ->join('retail_billdetail','retail_bill.id=retail_billdetail.bill_id','left');
+        $qry = $sql->get();
+        $number = 0;
+        foreach ($qry->result() as $row) {
+            $code_begin = $begin;
+            $id = $row->ID;
+
+
+            $precode = "CIC";
+            $dateY = date('Y');
+
+            $strlen = strlen($precode);
+            $get_codenumber = substr($code_begin, $strlen, 5);
+            if ($get_codenumber) {
+                $nextnumber = intval($get_codenumber) + 1;
+                $codenumber = str_pad($nextnumber, 5, '0', STR_PAD_LEFT);
+                $codeDB = $precode . $codenumber . $dateY;
+
+                $begin = $codeDB;
+
+                $update = array(
+                    'code'  => $codeDB
+                );
+                $this->db->update('retail_bill', $update, 'id=' . $id);
+
+                $update = array(
+                    'code'  => $codeDB
+                );
+                $this->db->update('retail_billdetail', $update, 'bill_id=' . $id);
+            }
+
+            $number++;
+            echo $number . ":" . $row->CODE . " - " . $codeDB;
+            echo "<br>";
+        }

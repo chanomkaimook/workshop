@@ -75,6 +75,9 @@ git branch --delete som_branch_to_delete
 หากว่าrepo มีการเปลี่ยนแปลง จาก local (ต้อง fetch เพื่อยืนยันว่าจะอัพเดตการเปลี่ยนแปลงหรือไม่) แล้วเกิดปัญหา merge ไม่ผ่าน ให้เคลีย
 git merge --abort # The unresolved conflict will be cleared off
 ================================================
+// ลบ commit ก่อนที่ จะ push (ระวัง!! ไม่ใช่การแก้ไข คือการลบ เมื่อลบ งานที่อัพเดตมาทั้งหมดจะเหมือนไม่เคยเกิดขึ้น)
+git reset --hard HEAD~1
+================================================
 start a working area (see also: git help tutorial)
    clone             Clone a repository into a new directory
    init              Create an empty Git repository or reinitialize an existing one

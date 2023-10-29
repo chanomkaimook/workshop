@@ -1,0 +1,20 @@
+// ติดตั้ง swagger
+- https://github.com/swagger-api/swagger-ui
+
+// นำไฟล์ที่ได้มาไว้ที่ root ของ project
+- domain.com/swagger-editor/
+
+// เปิด cmd ติดตั้งตามคำสั่งด้านล่าง
+- npm --save swagger-ui
+- npm install --save swagger-ui-dist
+
+- เข้าไปที่ node_modules ค้นหาโฟลเดอร์ swagger-ui-dist
+- copy folder นำมาไว้นอก swagger-editor ตั้งชื่อตามต้องการ
+- เข้าไปที่ folder ดังกล่าว ไปที่ไฟล์ swagger-initializer
+ที่ function SwaggerUIBundle() เปลี่ยน url ให้ตรงกับไฟล์ 
+swagger.json ใน folder swagger-editor ใส่ cach ด้วยก็ดี
+exsample :
+url: "http://local.appscal.tpacal.or.th/swagger-editor/swagger.json?cache="+Math.floor(Math.random() * 10001),
+
+// run ไฟล์
+- domain.com/swagger-ui/

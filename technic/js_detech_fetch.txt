@@ -1,0 +1,15 @@
+const observer = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    if (entry.initiatorType === "fetch") {
+      console.log('Fetch request detected to', entry.name);
+    }
+  }
+});
+
+observer.observe({
+  entryTypes: ["resource"]
+});
+
+fetch('https://cors-anywhere.herokuapp.com/')
+  .then(res => res.text())
+  .then(text => console.log(text.split('\n')[0]));

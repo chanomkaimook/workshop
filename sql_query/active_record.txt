@@ -1,0 +1,18 @@
+เหมาะกับข้อมูลขนาดใหญ่ จะ return แถวเดียวโดยไม่ไปดึงจาก ram
+$query->unbuffered_row();               // object
+$query->unbuffered_row('object');       // object
+$query->unbuffered_row('array');        // associative array
+
+นับfiledที่ส่งกลับมาทั้งหมด
+$query->num_fields();
+
+เพิ่ม ram หลังจาก query โดย query นั้นจะใช้ไม่ได้อีก
+$query->free_result(); 
+
+ชี้ผลลัพธ์เเสดงผลไปที่แถว 5 ใช้ได้กับ unbuffered_row เท่านั้น
+$query = $this->db->query('SELECT `field_name` FROM `table_name`');
+$query->data_seek(5); // Skip the first 5 rows
+$row = $query->unbuffered_row();
+
+affected
+$this->db->affected_rows()

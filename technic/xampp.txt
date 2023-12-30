@@ -155,3 +155,7 @@ https://stackoverflow.com/questions/9860118/how-to-transfer-my-mysql-database-to
 # php error global_priv
 พิมพ์คำสั่งนี้ลงไปใน sql
 repair table mysql.global_priv;
+
+# กรณีทำ database แยก หาก เกิดปัญหา start mysql ไม่ได้ ให้ทำที่ฝั่ง xampp ให้เป็นตัว backup ใหม่ทั้งหมด ไม่ต้องอัพ ibdata1
+
+# หากใช้คำสั่ง import ไม่ผ่าน ให้ไปลบจากฐานตรงๆทั้งหมด เเล้ว import ใหม่

@@ -1,0 +1,12 @@
+ติดตั้ง appserve
+
+ใช้ php5 เพราะยัง support odbc อยู่
+
+ตั้งค่า odbc แค่ tab system DSN (ไม่ต้องตั้งค่าที่อื่นอีก)
+ชื่อ pwms 
+path C:\PWMS\REPORT\CIBC.accdb
+
+restart appserve
+
+ถ้ายังไม่ได้ลอง restart computer
+

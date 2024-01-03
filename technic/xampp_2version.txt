@@ -1,0 +1,64 @@
+PHP Multi Version On Xampp
+=================================
+การติดตั้ง PHP Multi Version บน XAMPP
+
+1.ดาวน์โหลด  XAMPP ล่าสุด
+https://sourceforge.net/projects/xampp/files/
+
+2.ดาวน์โหลด  PHP 5.6, 7.4
+https://windows.php.net/downloads/releases/archives/
+
+2.1เมื่อดาวน์โหลดมาแล้วให้แตกไฟล์ นำไปไว้ที่ D:\xampp แล้วตั้งชื่อโฟลเดอร์ ดังนี้ php56 และ php74
+
+2.2 สร้างไฟล์ php.ini ในโฟลเดอร์ D:\xampp\php56 โดยการคัดลอกไฟล์ php.ini-development แล้วเปลี่ยนชื่อเป็น php.ini
+จากนั้นลบ comment หน้าข้อความดังนี้
+extension_dir = "ext" 
+extension=php_curl.dll
+extension=php_fileinfo.dll
+extension=php_mysql.dll
+extension=php_mysqli.dll
+extension=php_openssl.dll
+
+3. เพิ่ม PHP5.6 ในไฟล์ D:\xampp\apache\conf\extra\httpd-xampp.conf
+#PHP5.6
+ScriptAlias /php56 "/xampp/php56"
+Action application/x-httpd-php56-cgi /php56/php-cgi.exe
+<Directory "/xampp/php56">
+    AllowOverride None
+    Options None
+    Require all denied
+    <Files "php-cgi.exe">
+        Require all granted
+    </Files>
+    SetEnv PHPRC "/xampp/php56"
+</Directory>
+
+4.แก้ไขไฟล์ D:\xampp\apache\conf\extra\httpd-vhosts.conf
+ลบเครื่อหมาย # หน้า NameVirtualHost *:80 
+เพิ่มข้อความ
+## Default PHP Version##
+<VirtualHost *:80>
+     ServerName localhost
+     DocumentRoot "\xampp\htdocs"
+     <Directory "\xampp\htdocs">
+         DirectoryIndex index.php
+     </Directory>
+</VirtualHost>
+
+## PHP5.6 Version##
+<VirtualHost *:80>
+     ServerName php56.localhost
+     DocumentRoot "\xampp\htdocs56"
+     SetEnv APPLICATION_ENV "development"
+     <Directory "\xampp\htdocs56">
+        DirectoryIndex index.html index.php
+        Require all granted        
+     </Directory>
+    <FilesMatch "\.php$">
+        SetHandler application/x-httpd-php56-cgi
+    </FilesMatch>     
+ </VirtualHost>
+
+5. สร้างโฟลเดอร์ htdocs56 ไว้ใน D:\xampp\  เพื่อเก็บcode ที่รันด้วย PHP5.6  
+รัน xampp แล้วเรียกใช้ได้ที่ http://php56.localhost/   ส่วน php เวอร์ชั่นค่าเริ่มต้นรันได้ที่  http://localhost/
+

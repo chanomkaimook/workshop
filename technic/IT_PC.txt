@@ -128,7 +128,9 @@ Server Name: sv1.farmchokchai.com
 Server IP: 147.50.231.65
 SSH Port : 22
 User : root
-Password: Farm2018@
+n4y#$yM5FJgjJQP
+Farm2018@
+
 
 IP address allocation
 =============================
@@ -137,6 +139,10 @@ IP address allocation
 FTP
 farmci
 Farm2018@
+
+hostatom
+bkk.it.999@gmail.com
+Farm2024@
 
 =====================================================================================
 User ID 视嗣押悛椐夜汉眯汉 Merchant Admin Backoffice

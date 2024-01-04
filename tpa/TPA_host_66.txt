@@ -1,0 +1,52 @@
+27.254.145.152 (Main Server IP)
+27.254.145.210
+
+remote
+27.254.145.152
+=============================
+Control Panel URL : http://27.254.145.152:8880
+User : admin
+Password: 89Z3oBtwKX29AF
+
+plesk
+http://27.254.145.152:8880
+admin_psk
+@TPAcal2021
+
+Administrator
+@TPAcal2021
+92HU%hBjfA^EM2Wy
+
+FTP
+#tpac
+tpacal
+Tpac1220!
+
+Control Panel Access
+=============================
+Control Panel URL : http://27.254.145.152:8880
+
+Remote Desktop Access
+=============================
+Server Name: sv1.tpacal.or.th
+Server IP: 27.254.145.152
+RDP Port : 3389 (ใช้ Port มาตรฐานไม่จำเป็นต้องระบุในการเชื่อมต่อ)
+
+IP address allocation
+=============================
+27.254.145.152 (Main Server IP)
+27.254.145.210
+
+hostatom.com
+diaya.diary@gmail.com
+@TPAcal2020
+
+tracking account
+FTP,PLESK
+track
+@Password2022
+
+#Hosting Access
+tpacal.or.th
+tpacal.o_8glnx012trt
+UA2Raue61!

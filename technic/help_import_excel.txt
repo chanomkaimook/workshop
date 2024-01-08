@@ -1,0 +1,7 @@
+- เมื่อได้ไฟล์ csv จาก server แล้ว (หากข้อมูลเป็นภาษาต่างด้าว ให้ไปที่ DATA->From Textแปลงเป็นไทยก่อน)
+- copy ข้อมูลจาก csv เดิม ไปไว้ที่ csv (comma delimited)
+- mysql เลือก import เลือกไฟล์
+	- skip "1" ข้ามแถวแรก (ชื่อ column)
+	- format csv using load data
+	- column separated with ","
+	- column names ใส่ให้ตรงกับ column ในไฟล์ (ควรเรียงกันให้ตรงกับฐานข้อมูล)

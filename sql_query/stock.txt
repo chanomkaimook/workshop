@@ -23,3 +23,10 @@ and retail_issue.status = 1
 
 TRUNCATE `cfr`.`retail_bill`;
 TRUNCATE `cfr`.`retail_billdetail`
+
+
+SELECT sum(retail_receivedetail.QUANTITY) as qty 
+FROM `retail_receive` left join retail_receivedetail on retail_receive.id=retail_receivedetail.receive_id 
+where date(retail_receive.DATE_STARTS) < '2023-12-01' 
+and (retail_receivedetail.prolist_id=40 or retail_receivedetail.list_id=40) and retail_receive.COMPLETE in(2) 
+and retail_receive.status = 1 and retail_receivedetail.status = 1

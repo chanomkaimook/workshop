@@ -17,6 +17,9 @@ Administrator
 @TPAcal2021
 92HU%hBjfA^EM2Wy
 
+noom
+@TPAcal2024
+
 FTP
 #tpac
 tpacal
@@ -50,3 +53,14 @@ track
 tpacal.or.th
 tpacal.o_8glnx012trt
 UA2Raue61!
+
+
+Database
+=============================
+db_tpanew
+tpanew
+@TPAcal2021
+
+db_tpanewtest
+tpanewtest
+@TPAcal2021

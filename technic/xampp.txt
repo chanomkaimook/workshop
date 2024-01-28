@@ -159,3 +159,9 @@ repair table mysql.global_priv;
 # กรณีทำ database แยก หาก เกิดปัญหา start mysql ไม่ได้ ให้ทำที่ฝั่ง xampp ให้เป็นตัว backup ใหม่ทั้งหมด ไม่ต้องอัพ ibdata1
 
 # หากใช้คำสั่ง import ไม่ผ่าน ให้ไปลบจากฐานตรงๆทั้งหมด เเล้ว import ใหม่
+
+==============================================
+# xampp Missing MLOG_CHECKPOINT (mysql_log)
+delete ib_logfile0 ถ้าทำ mutidata ไป delete ที่ฝั่ง run database
+อ้างอิง
+https://community.apachefriends.org/viewtopic.php?t=81671&p=275456

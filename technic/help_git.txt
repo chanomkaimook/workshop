@@ -129,6 +129,22 @@ collaborate (see also: git help workflows)
    2.ใช้คำสั่ง git remote -v เพื่อเช็คสถานะ
    3.ให้คำสั่ง git push -u origin master เพื่อส่งไฟล์ที่ Commit แล้วในโปรเจคขึ้น Github
    
+
+#
+# อัพเดต gitignore เคลียไฟล์ กับ project ที่อัพไปแล้ว
+First:
+
+->git rm -r --cached .
+->git add .
+->git commit -am "Remove ignored files"
+
+Or as a one-liner:
+
+->git rm -r --cached . && git add . && git commit -am "Remove ignored files"
+
+อ้างอิง
+https://stackoverflow.com/questions/1274057/how-do-i-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitignore
+
    ลบไฟล์ที่ต้องการ กรณี gitignore ทำงานไม่ถูกต้อง
    - การที่ gitignore ยังทำงานในบางไฟล์ที่เราแอดเอาไว้ เพราะ ใน repo ของเรายังมีไฟล์พวกนนั้นเก็บไว้อยู่ จึงต้องทำการลบก่อนเพื่อให้ repo จดจำใหม่
    อ้างอิง

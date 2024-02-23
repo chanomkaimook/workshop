@@ -1228,6 +1228,15 @@ function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function formatMoney(number,decPlaces = 2) {
+	// const r = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+	const convertNumber = Number(number)
+	const convertFloat = Math.abs(Number(convertNumber)).toFixed(decPlaces)
+	const convertComma = convertFloat.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+	
+	return convertComma
+}
+
 เรียกค่า paramiter บน url
 const queryString = decodeURIComponent(window.location.search);
     const params = new URLSearchParams(queryString);

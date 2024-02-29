@@ -1,0 +1,44 @@
+เรียนคุณ Technology Promotion Association (Thailand-Japan) (Branch 00001) (Technology Promotion Association (Thailand-Japan) (Branch 00001)),
+
+
+โปรดอ่านข้อความทั้งหมดในอีเมลฉบับนี้อย่างละเอียด และทำสำเนาลงบนเอกสารเพื่อเก็บรักษาไว้
+
+ขอขอบคุณที่วางใจเลือกใช้บริการจากเรา เราขอแจ้งให้ท่านทราบว่า Server ของท่านถูกติดตั้งเรียบร้อย และพร้อมใช้งานแล้ว โดยมีรายละเอียดดังนี้
+
+
+Service Details
+=============================
+Service Package: Cloud VPS SSD3
+
+
+Control Panel Access
+=============================
+Control Panel URL : http://27.254.145.216:8880
+User : admin
+Password: Ls952yg2C9NYrG
+
+สำหรับการเข้าใช้งานครั้งแรกสามารถศึกษาข้อมูลเพิ่มเติมได้ที่
+https://docs.plesk.com/
+
+
+SSH Access
+=============================
+Server Name: sv2.tpacal.or.th
+Server IP: 27.254.145.216
+SSH Port : 22
+User : root
+Password: Ls952yg2C9NYrG
+
+
+IP address allocation
+=============================
+27.254.145.216 (Main Server IP)
+27.254.145.217
+
+
+การช่วยเหลือ
+=============================
+Ticket System : https://support.hostatom.com/
+E-Mail : support@hostatom.com
+
+เพื่อความรวดเร็วในการรับบริการจากเรา กรุณาแนบข้อมูลที่จำเป็นสำหรับการบริการที่ท่านต้องการ เช่น รายละเอียดคำถาม ข้อสงสัย หรือบริการที่ท่านต้องการ พร้อมทั้ง Server IP, Root Password และ ชื่อโดเมน เพื่อให้เราสามารถบริการท่านได้ทันที

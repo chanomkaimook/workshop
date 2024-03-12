@@ -55,6 +55,9 @@ git remote remove ชื่อที่รีโมท(origin)
 // ตั้งค่า remote ใหม่
 git remote add origin https://github.com/chanomkaimook/workshop.git
 
+// ตั้งค่า remote ใหม่ โดย git bash
+rm -rf .git*
+
 // ลอง push
 git push -f origin main
 ================================================

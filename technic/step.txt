@@ -1766,77 +1766,9 @@ image.src = e.target.result;
 			}
 
 **********************************************************************
-datepicker ตั้งค่า
-ให้ใส่ libralry ลงให้ครบ boostrap-datepicker.css jquery boostrap-datepicker.js
-โหลดตัวอย่างไว้แล้ว farmchokchai.net/mkt/question ใส่ <link rel> ในแท๊ก head ใส่ <script> ที่ด้านล่าง 
-***เน้น ให้ตัวสคริป jquery อยู่บนเหนือกว่า
-**** ในหน้านั้นได้ติดตั้ง datepicker ไว้สองชุด ชุดนึงแสดงเฉพาะวันเดือนปี แต่มีการชี้วันปัจจุบันให้ กับอีกตัวนึง 
-มีวันเดือนปี และ เวลาด้วย 
-**** ถ้าต้องการเรียกปฏิทินได้หลายๆ ให้เรียกอิงจากชื่อ class หรือ name
 
-ลิงก์ตัว set
-https://uxsolutions.github.io/bootstrap-datepicker/?markup=input&format=&weekStart=&startDate=&endDate=&startView=1&minViewMode=1&maxViewMode=4&todayBtn=false&clearBtn=false&language=en&orientation=auto&multidate=&multidateSeparator=&autoclose=on&keyboardNavigation=on&forceParse=on#sandbox
 
-เรียกปฏิทินแบบชี้วันปัจจุบัน
-<div class='date'>
-	<input type='text' id=""  class="form-control datepicker" />
-</div>
 
-เรียกปฏิทินแบบชี้วันปัจจุบัน และมีไอคอนตามหลัง
-<div class='input-group date' id="">
-	<input type='text'  class="form-control datepicker" />
-	<span class="input-group-addon">
-		<span class="glyphicon glyphicon-time"></span>
-	</span>
-</div>
-
-เรียกปฏิทินปกติ และมีไอคอนตามหลัง (dateonly) 
-<div class='input-group' id="">
-	<input type='text'  class="form-control dateonly" />
-	<span class="input-group-addon">
-		<span class="glyphicon glyphicon-time"></span>
-	</span>
-</div>
-
-เรียกตารางเวลา และมีไอคอนตามหลัง (timeonly)
-<div class='input-group' id="">
-	<input type='text'  class="form-control timeonly" />
-	<span class="input-group-addon">
-		<span class="glyphicon glyphicon-time"></span>
-	</span>
-</div>
-
-ส่วนเนื้อหาสคริป
-<script>
-	$(document).ready(function(){
-		//datepicker type1 show datenow (date only)
-		var date_input=$('.datepicker'); //our date input has the name "date"
-	//	var container=$('div #datepicker').length>0 ? $('div #datepicker').parent() : "body";
-		//alert($('div #datepicker').length);
-		date_input.datepicker({
-			format: 'dd/mm/yyyy',
-			//format: 'HH:mm:ss',
-			//container: container,
-			todayHighlight: true,
-			autoclose: true,
-			pickDate:false
-		})
-		
-		//datepicker type2 date and time
-		$('.timeonly').timepicker({
-			'showDuration': true,
-			//'timeFormat': 'g:ia'
-			'timeFormat': 'H:i:s'
-		});
-		$('.dateonly').datepicker({
-			//'format': 'm/d/yyyy',
-			'format': 'dd/mm/yyyy',
-			'autoclose': true
-		});
-
-		//$('#datepair').datepair();
-	});
-	</script>
 **********************************************************************
 				sweet alert
 **********************************************************************	

@@ -26,7 +26,9 @@ CI_ENVIRONMENT = development
 database.default.hostname
 database.tests.hostname
 
-
+# ปิด index ที่ url
+app->Config->App.php
+ - indexPage = '';
 
 
 #
@@ -34,7 +36,7 @@ database.tests.hostname
 #
 	- สร้างโฟลเดอร์ modules ไว้ที่ root
 	- app/Config/Autoload.php
-		- เพิ่ม Modules	=> ROOTPATH.'modules',
+		- เพิ่ม 'Modules'	=> ROOTPATH.'modules',
 	- สร้างโฟลเดอร์ users ใน modules
 		- ใน users สร้าง Config,Controllers,Models,Views,index.html
 	- ใน Config สร้างไฟล์ Routes.php

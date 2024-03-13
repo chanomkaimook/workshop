@@ -1,19 +1,44 @@
 # สร้างชื่อ folder ตาม project-root
 -> composer create-project codeigniter4/appstarter project-root
 
-# สำหรับจบงาน dev
-php builds development
+# run project
+php spark serve --port 8081
+
+## run project config hostname
+php spark serve --host example.dev
+
+## run project config php version
+php spark serve --php /usr/bin/php7.6.5.4
+
+# สำหรับย้อนกลับก่อน builds
+php builds release
+
 
 
 # ตั้งค่า URL ฐานของคุณเป็น $baseURL หากคุณต้องการความยืดหยุ่นมากขึ้น baseURL อาจตั้งค่าไว้ภายในไฟล์ .env เป็น app.baseURL = 'http://example.com/' ใช้เครื่องหมายทับต่อท้าย URL ฐานของคุณเสมอ!
 app/Config/App.php
 
-# ตั้งค่า router
+/*
+ * --------------------------------------------------------------------
+ * Server Production
+ * --------------------------------------------------------------------
+ */
+
+# สำหรับจบงาน dev
+php builds development
+
+# เมื่อใช้งานกับ server จริง ต้องใช้คำสั่งนี้ติดตั้ง composer
+composer install --no-dev
+
+# ข้อมูล system อยู่ใน  app/Config/Paths.php
+$systemDirectory 
+
 /*
  * --------------------------------------------------------------------
  * Router Setup
  * --------------------------------------------------------------------
  */
+# ตั้งค่า router
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
@@ -30,10 +55,27 @@ database.tests.hostname
 app->Config->App.php
  - indexPage = '';
 
+/*
+ * --------------------------------------------------------------------
+ * Log message
+ * --------------------------------------------------------------------
+ */
 
-#
-# ทำ HMVC
-#
+# log exception or error
+<?php
+
+try {
+    // Something throws error here
+} catch (\Exception $e) {
+    log_message('error', '[ERROR] {exception}', ['exception' => $e]);
+}
+
+
+/*
+ * --------------------------------------------------------------------
+ * HMVC Setup
+ * --------------------------------------------------------------------
+ */
 	- สร้างโฟลเดอร์ modules ไว้ที่ root
 	- app/Config/Autoload.php
 		- เพิ่ม 'Modules'	=> ROOTPATH.'modules',

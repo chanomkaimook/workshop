@@ -82,27 +82,37 @@ Farm2018@
 chokchaisteakhouse
 https://150.95.80.202:8443/
 administrator
-Farm2018@
+ยกเลิก-Farm2018@
+Farm18@#
 
 ftp chokchaisteakhouse
 150.95.80.202
+
+# ยกเลิก
 chokchai
 Farm2018@
+
+usersCI
+8s4#p8u9A
 =====================================================================================
 
 http://chokchaiinternational.com/
 https://150.95.89.44:8443/
 administrator
-Farm2018@
+ยกเลิก-Farm2018@
+Farm18@#
 
 ftp chokchaiinternational
 150.95.89.44
 farmci
-Farm2018@
+ยกเลิก-Farm2018@
+8y&l27dA5
 
+# ยกเลิก
 users_ci
 Farm2021@
 
+# ยกเลิก
 admin_dev
 dev2023@
 
